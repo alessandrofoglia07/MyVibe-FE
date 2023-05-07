@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, TextField, Button, IconButton, Paper, Stack } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import '../styles/authPages.css';
+import '../styles/AuthPages.css';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
@@ -93,7 +93,7 @@ const SignUpPage = () => {
     };
 
     return (
-        <div id='SignUpPage' className='page signupPage'>
+        <div id='SignUpPage' className='page signupPage authpage'>
             <div id='bg'>
                 <div className='ball ball-blue' />
                 <div className='ball ball-red' />

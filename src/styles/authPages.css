@@ -3,7 +3,6 @@
     background-color: #080710;
 }
 
-
 .ball {
     width: 200px;
     height: 200px;
@@ -118,7 +117,7 @@
     }
 }
 
-.form {
+.authpage .form {
     position: fixed;
     width: 500px;
     height: 70%;
@@ -134,7 +133,7 @@
     }
 }
 
-.title {
+.authpage .title {
     font-family: HelveticaNeue, sans-serif;
     font-weight: 700;
     font-size: 3rem;
@@ -147,7 +146,7 @@
     -ms-user-select: none;
 }
 
-.input {
+.authpage .input {
     width: 100%;
     background-color: rgba(255, 255, 255, 0.07);
     border-radius: 3px;
@@ -156,30 +155,30 @@
     align-self: center;
 }
 
-.input .MuiOutlinedInput-root fieldset {
+.authpage .input .MuiOutlinedInput-root fieldset {
     border-color: rgba(255, 255, 255, 0.07);
 }
 
-.input:hover .MuiOutlinedInput-root fieldset {
+.authpage .input:hover .MuiOutlinedInput-root fieldset {
     border-color: rgba(255, 255, 255, 0.07);
 }
 
-.input .MuiOutlinedInput-root.Mui-focused fieldset {
+.authpage .input .MuiOutlinedInput-root.Mui-focused fieldset {
     border-color: rgba(255, 255, 255, 0.07);
 }
 
-.input:nth-child(1) {
+.authpage .input:nth-child(1) {
     margin-top: 40px;
 }
 
-.input * {
+.authpage .input * {
     font-family: HelveticaNeue, sans-serif;
     font-weight: 600;
     font-size: 1.2rem;
     color: #fff;
 }
 
-.subtitle {
+.authpage .subtitle {
     color: #fff;
     font-family: HelveticaNeue, sans-serif;
     font-weight: 600;
@@ -188,18 +187,18 @@
     margin-top: 5px;
 }
 
-.inputContainer {
+.authpage .inputContainer {
     width: 70%;
     display: flex;
     flex-direction: column;
     margin-top: 10px;
 }
 
-.inputContainer:nth-child(1) {
+.authpage .inputContainer:nth-child(1) {
     margin-top: 40px;
 }
 
-.submitBtn {
+.authpage .submitBtn {
     background-color: #fff;
     color: #000;
     font-family: HelveticaNeue, sans-serif;
@@ -211,7 +210,7 @@
     margin-top: 40px;
 }
 
-.submitBtn:hover {
+.authpage .submitBtn:hover {
     background-color: #fff;
     color: #000;
 }

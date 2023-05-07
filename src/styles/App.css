@@ -35,6 +35,7 @@ Light red --> #f64f59
   align-items: center;
 }
 
+
 ::selection {
   background: #f64f59;
   color: #fff;

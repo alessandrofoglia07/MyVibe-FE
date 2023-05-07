@@ -1,0 +1,29 @@
+.notFoundPage {
+    background-color: #080710;
+}
+
+#NotFoundPage .title {
+    color: #fff;
+    font-size: 3rem;
+    font-family: HelveticaNeue, sans-serif;
+    font-weight: 700;
+    background: linear-gradient(to left, #12c2e9, #c471ed, #f64f59);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+#NotFoundPage .title::selection {
+    -webkit-text-fill-color: #fff;
+}
+
+#NotFoundPage .title span {
+    text-decoration: underline;
+    text-decoration-color: #12c2e9;
+}
+
+#NotFoundPage .title span::selection {
+    -webkit-text-fill-color: #fff;
+}

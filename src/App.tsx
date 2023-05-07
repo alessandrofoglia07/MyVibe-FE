@@ -5,6 +5,7 @@ import { StyledEngineProvider } from '@mui/material/styles';
 import MainPage from './pages/MainPage';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
+import NotFoundPage from './pages/404Page';
 
 function App() {
     return (
@@ -15,7 +16,7 @@ function App() {
                         <Route path='/' element={<MainPage />} />
                         <Route path='/login' element={<LoginPage />} />
                         <Route path='/sign-up' element={<SignUpPage />} />
-                        <Route path='*' element={<h1>404</h1>} />
+                        <Route path='*' element={<NotFoundPage />} />
                     </Routes>
                 </Router>
             </StyledEngineProvider>
