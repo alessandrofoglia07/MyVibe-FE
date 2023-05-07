@@ -34,3 +34,8 @@ Light red --> #f64f59
   justify-content: center;
   align-items: center;
 }
+
+::selection {
+  background: #f64f59;
+  color: #fff;
+}
