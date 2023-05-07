@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField, Button, IconButton, Paper, Stack } from '@mui/material';
+import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../styles/AuthPages.css';
@@ -17,26 +17,28 @@ const LoginPage = () => {
     const [passwordFocus, setPasswordFocus] = useState(false);
 
     useEffect(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    }, []);
+
+    useEffect(() => {
         if (emailFocus) {
             const redBall = document.getElementsByClassName('ball-red1')[0];
-            const blueBall = document.getElementsByClassName('ball-blue1')[0];
+
             redBall.classList.add('ball-red-focus');
-            setTimeout(() => {
-                blueBall.classList.add('ball-blue-focus');
-            }, 200);
 
             const emailInput = document.getElementById('email') as HTMLInputElement;
 
             emailInput.addEventListener('focusout', () => {
                 redBall.classList.remove('ball-red-focus');
                 redBall.classList.add('ball-red-outFocus');
-                setTimeout(() => {
-                    blueBall.classList.remove('ball-blue-focus');
-                    blueBall.classList.add('ball-blue-outFocus');
-                }, 500);
+
                 setTimeout(() => {
                     redBall.classList.remove('ball-red-outFocus');
-                    blueBall.classList.remove('ball-blue-outFocus');
                 }, 1000);
                 setEmailFocus(false);
             });
@@ -46,7 +48,11 @@ const LoginPage = () => {
     useEffect(() => {
         if (passwordFocus) {
             const purpleBall = document.getElementsByClassName('ball-purple1')[0];
+            const blueBall = document.getElementsByClassName('ball-blue1')[0];
             purpleBall.classList.add('ball-purple-focus');
+            setTimeout(() => {
+                blueBall.classList.add('ball-blue-focus');
+            }, 200);
 
             const passwordInput = document.getElementById('password') as HTMLInputElement;
 
@@ -54,7 +60,12 @@ const LoginPage = () => {
                 purpleBall.classList.remove('ball-purple-focus');
                 purpleBall.classList.add('ball-purple-outFocus');
                 setTimeout(() => {
+                    blueBall.classList.remove('ball-blue-focus');
+                    blueBall.classList.add('ball-blue-outFocus');
+                }, 500);
+                setTimeout(() => {
                     purpleBall.classList.remove('ball-purple-outFocus');
+                    blueBall.classList.remove('ball-blue-outFocus');
                 }, 1000);
                 setPasswordFocus(false);
             });
@@ -97,6 +108,7 @@ const LoginPage = () => {
                                 Email
                             </Typography>
                             <TextField
+                                autoFocus
                                 id='email'
                                 type='email'
                                 value={input.email}
@@ -143,6 +155,9 @@ const LoginPage = () => {
                         <Button disableRipple variant='contained' className='submitBtn' type='submit'>
                             Log in
                         </Button>
+                        <Typography variant='h6' className='link'>
+                            Don't have an account yet? <Link href='/sign-up'>Sign up.</Link>
+                        </Typography>
                     </Stack>
                 </form>
             </Paper>

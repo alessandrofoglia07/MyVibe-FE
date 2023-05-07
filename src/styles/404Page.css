@@ -5,9 +5,9 @@
 #NotFoundPage .title {
     color: #fff;
     font-size: 3rem;
-    font-family: HelveticaNeue, sans-serif;
+    font-family: var(--font);
     font-weight: 700;
-    background: linear-gradient(to left, #12c2e9, #c471ed, #f64f59);
+    background: var(--gradient);
     -webkit-background-clip: text;
     background-clip: text;
     -webkit-text-fill-color: transparent;

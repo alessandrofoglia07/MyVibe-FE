@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField, Button, IconButton, Paper, Stack } from '@mui/material';
+import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../styles/AuthPages.css';
@@ -17,6 +17,15 @@ const SignUpPage = () => {
     const [usernameFocus, setUsernameFocus] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
+
+    useEffect(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    }, []);
 
     useEffect(() => {
         if (usernameFocus) {
@@ -177,6 +186,9 @@ const SignUpPage = () => {
                         <Button disableRipple variant='contained' className='submitBtn' type='submit'>
                             Sign Up
                         </Button>
+                        <Typography variant='h6' className='link'>
+                            Got an account? <Link href='/login'>Log in.</Link>
+                        </Typography>
                     </Stack>
                 </form>
             </Paper>

@@ -40,3 +40,20 @@ Light red --> #f64f59
   background: #f64f59;
   color: #fff;
 }
+
+:root {
+  --lightBlue: #12c2e9;
+  --lightPurple: #c471ed;
+  --lightRed: #f64f59;
+  --gradient: linear-gradient(to left, #12c2e9, #c471ed, #f64f59);
+  --font: 'HelveticaNeue', sans-serif;
+  --primaryColor: #fff;
+  --secondaryColor: #000;
+  --bgColor: #080710;
+}
+
+[data-theme='light'] {
+  --primaryColor: #000;
+  --secondaryColor: #fff;
+  --bgColor: #fff;
+}

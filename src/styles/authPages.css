@@ -1,6 +1,6 @@
 .signupPage,
 .loginPage {
-    background-color: #080710;
+    background-color: var(--bgColor);
 }
 
 .ball {
@@ -15,7 +15,7 @@
 
 .ball-blue,
 .ball-blue1 {
-    background: linear-gradient(50deg, #12c2e9 0%, #044250 100%);
+    background: linear-gradient(50deg, var(--lightBlue) 0%, #044250 100%);
     position: fixed;
     top: 10%;
     left: 50%;
@@ -23,7 +23,7 @@
 
 .ball-red,
 .ball-red1 {
-    background: linear-gradient(195deg, #f64f59 0%, #4b1216 100%);
+    background: linear-gradient(195deg, var(--lightRed) 0%, #4b1216 100%);
     position: fixed;
     top: 40%;
 
@@ -38,7 +38,7 @@
 
 .ball-purple,
 .ball-purple1 {
-    background: linear-gradient(250deg, #c471ed 0%, #332d50 100%);
+    background: linear-gradient(250deg, var(--lightPurple) 0%, #332d50 100%);
     position: fixed;
     top: 65%;
     left: 55%;
@@ -134,10 +134,10 @@
 }
 
 .authpage .title {
-    font-family: HelveticaNeue, sans-serif;
+    font-family: var(--font);
     font-weight: 700;
     font-size: 3rem;
-    color: #fff;
+    color: var(--primaryColor);
     text-align: center;
     margin-top: 20px;
     user-select: none;
@@ -148,10 +148,12 @@
 
 .authpage .input {
     width: 100%;
+    /* background-color: rgba(255, 255, 255, 0.07); */
     background-color: rgba(255, 255, 255, 0.07);
+    border: 2px solid black;
     border-radius: 3px;
     margin-bottom: 10px;
-    color: #fff;
+    color: var(--primaryColor);
     align-self: center;
 }
 
@@ -172,15 +174,15 @@
 }
 
 .authpage .input * {
-    font-family: HelveticaNeue, sans-serif;
+    font-family: var(--font);
     font-weight: 600;
     font-size: 1.2rem;
-    color: #fff;
+    color: var(--primaryColor);
 }
 
 .authpage .subtitle {
-    color: #fff;
-    font-family: HelveticaNeue, sans-serif;
+    color: var(--primaryColor);
+    font-family: var(--font);
     font-weight: 600;
     font-size: 1.3rem;
     margin-bottom: 5px;
@@ -199,9 +201,9 @@
 }
 
 .authpage .submitBtn {
-    background-color: #fff;
-    color: #000;
-    font-family: HelveticaNeue, sans-serif;
+    background-color: var(--primaryColor);
+    color: var(--secondaryColor);
+    font-family: var(--font);
     font-weight: 600;
     font-size: 1.2rem;
     width: 70%;
@@ -211,6 +213,21 @@
 }
 
 .authpage .submitBtn:hover {
-    background-color: #fff;
-    color: #000;
+    background-color: var(--primaryColor);
+    color: var(--secondaryColor);
+}
+
+.authpage .link {
+    color: var(--primaryColor);
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 1.2rem;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    text-align: center;
+}
+
+.authpage .link a {
+    color: var(--primaryColor);
+    text-decoration: underline;
 }
