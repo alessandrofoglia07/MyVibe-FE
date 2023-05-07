@@ -1,0 +1,36 @@
+/* https: //uigradients.com/#JShine
+      COLOR PALETTE
+linear-gradient(to left, #12c2e9, #c471ed, #f64f59);
+Light blue --> #12c2e9
+Light purple --> #c471ed
+Light red --> #f64f59
+*/
+
+/* Helvetica Neue font */
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../assets/font/HelveticaNeue\ 600.ttf');
+  font-weight: 600;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../assets/font/HelveticaNeue\ 700.ttf');
+  font-weight: 700;
+}
+
+@font-face {
+  font-family: 'HelveticaNeue';
+  src: url('../assets/font/HelveticaNeue\ 800.ttf');
+  font-weight: 800;
+}
+
+.page {
+  width: 100svw;
+  width: 100vw;
+  height: 100svh;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

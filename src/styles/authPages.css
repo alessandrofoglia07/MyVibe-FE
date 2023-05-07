@@ -1,0 +1,139 @@
+.signupPage {
+    background-color: #080710;
+}
+
+.ball {
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.ball:nth-child(1) {
+    background: linear-gradient(50deg, #12c2e9 0%, #044250 100%);
+    position: fixed;
+    top: 10%;
+    left: 50%;
+}
+
+.ball:nth-child(2) {
+    background: linear-gradient(195deg, #f64f59 0%, #4b1216 100%);
+    position: fixed;
+    top: 40%;
+
+    @media screen and (max-width: 768px) {
+        left: -20%;
+    }
+
+    @media screen and (min-width: 768px) {
+        left: 30%;
+    }
+}
+
+.ball:nth-child(3) {
+    background: linear-gradient(250deg, #c471ed 0%, #332d50 100%);
+    position: fixed;
+    top: 65%;
+    left: 55%;
+}
+
+.form {
+    position: fixed;
+    width: 500px;
+    height: 70%;
+    background-color: rgba(255, 255, 255, 0.13);
+    border-radius: 10px;
+    backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+
+    @media screen and (max-width: 768px) {
+        width: 90%;
+        height: 90%;
+    }
+}
+
+.title {
+    font-family: HelveticaNeue, sans-serif;
+    font-weight: 700;
+    font-size: 3rem;
+    color: #fff;
+    text-align: center;
+    margin-top: 20px;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+}
+
+.input {
+    width: 100%;
+    background-color: rgba(255, 255, 255, 0.07);
+    border-radius: 3px;
+    margin-bottom: 10px;
+    color: #fff;
+    align-self: center;
+}
+
+.input .MuiOutlinedInput-root fieldset {
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+.input:hover .MuiOutlinedInput-root fieldset {
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+.input .MuiOutlinedInput-root.Mui-focused fieldset {
+    border-color: rgba(255, 255, 255, 0.07);
+}
+
+.input:nth-child(1) {
+    margin-top: 40px;
+}
+
+.input * {
+    font-family: HelveticaNeue, sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.subtitle {
+    color: #fff;
+    font-family: HelveticaNeue, sans-serif;
+    font-weight: 600;
+    font-size: 1.3rem;
+    margin-bottom: 5px;
+    margin-top: 5px;
+}
+
+.inputContainer {
+    width: 70%;
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+
+.inputContainer:nth-child(1) {
+    margin-top: 40px;
+}
+
+.submitBtn {
+    background-color: #fff;
+    color: #000;
+    font-family: HelveticaNeue, sans-serif;
+    font-weight: 600;
+    font-size: 1.2rem;
+    width: 70%;
+    height: 60px;
+    border-radius: 5px;
+    margin-top: 40px;
+}
+
+.submitBtn:hover {
+    background-color: #fff;
+    color: #000;
+}
