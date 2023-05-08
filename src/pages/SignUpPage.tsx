@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import '../scss/AuthPages.scss';
+import '../style/AuthPages.scss';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;

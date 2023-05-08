@@ -3,12 +3,3 @@ $color-purple: #c471ed;
 $color-red: #f64f59;
 $gradient: linear-gradient(to left, #12c2e9, #c471ed, #f64f59);
 $font: 'HelveticaNeue', sans-serif;
-$color-primary: #fff;
-$color-secondary: #000;
-$color-bg: #080710;
-
-[data-theme='light'] {
-    $color-primary: #000;
-    $color-secondary: #fff;
-    $color-bg: #fff;
-}

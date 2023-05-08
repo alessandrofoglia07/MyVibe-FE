@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import '../scss/404Page.scss';
+import '../style/404Page.scss';
 import { Typography, Link, Stack } from '@mui/material';
 
 const NotFoundPage = () => {

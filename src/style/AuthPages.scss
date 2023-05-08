@@ -2,7 +2,7 @@
 
 .signupPage,
 .loginPage {
-    background-color: v.$color-bg;
+    background-color: var(--color-bg);
 }
 
 .authpage {
@@ -140,7 +140,7 @@
         font-family: v.$font;
         font-weight: 700;
         font-size: 3rem;
-        color: v.$color-primary;
+        color: var(--color-primary);
         text-align: center;
         margin-top: 20px;
         user-select: none;
@@ -155,7 +155,7 @@
         border: 2px solid black;
         border-radius: 3px;
         margin-bottom: 10px;
-        color: v.$color-primary;
+        color: var(--color-primary);
         align-self: center;
 
         .MuiOutlinedInput-root {
@@ -180,12 +180,12 @@
             font-family: v.$font;
             font-weight: 600;
             font-size: 1.2rem;
-            color: v.$color-primary;
+            color: var(--color-primary);
         }
     }
 
     .subtitle {
-        color: v.$color-primary;
+        color: var(--color-primary);
         font-family: v.$font;
         font-weight: 600;
         font-size: 1.3rem;
@@ -205,8 +205,8 @@
     }
 
     .submitBtn {
-        background-color: v.$color-primary;
-        color: v.$color-secondary;
+        background-color: var(--color-primary);
+        color: var(--color-secondary);
         font-family: v.$font;
         font-weight: 600;
         font-size: 1.2rem;
@@ -217,13 +217,13 @@
         text-transform: none;
 
         &:hover {
-            background-color: v.$color-primary;
-            color: v.$color-secondary;
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
         }
     }
 
     .link {
-        color: v.$color-primary;
+        color: var(--color-primary);
         font-family: v.$font;
         font-weight: 600;
         font-size: 1.2rem;
@@ -232,7 +232,7 @@
         text-align: center;
 
         a {
-            color: v.$color-primary;
+            color: var(--color-primary);
             text-decoration: underline;
         }
     }

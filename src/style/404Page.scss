@@ -1,7 +1,7 @@
 @use 'variables' as v;
 
 .notFoundPage {
-    background-color: v.$color-bg;
+    background-color: var(--color-bg);
 }
 
 #NotFoundPage {
