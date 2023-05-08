@@ -1,5 +1,5 @@
 import React from 'react';
-import './styles/App.css';
+import './scss/App.scss';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { StyledEngineProvider } from '@mui/material/styles';
 import MainPage from './pages/MainPage';

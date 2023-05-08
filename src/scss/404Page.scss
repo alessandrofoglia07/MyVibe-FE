@@ -1,0 +1,28 @@
+@use 'variables' as v;
+
+.notFoundPage {
+    background-color: v.$color-bg;
+}
+
+#NotFoundPage {
+    .title {
+        font-size: 3rem;
+        font-family: v.$font;
+        font-weight: 700;
+        background: v.$gradient;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-bottom: 20px;
+
+        span {
+            text-decoration: underline;
+            text-decoration-color: #12c2e9;
+        }
+
+        span::selection {
+            -webkit-text-fill-color: #fff;
+        }
+    }
+}

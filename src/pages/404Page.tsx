@@ -1,8 +1,17 @@
-import React from 'react';
-import '../styles/404Page.css';
+import React, { useEffect } from 'react';
+import '../scss/404Page.scss';
 import { Typography, Link, Stack } from '@mui/material';
 
 const NotFoundPage = () => {
+    useEffect(() => {
+        const theme = localStorage.getItem('theme');
+        if (theme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        } else if (theme === 'light') {
+            document.documentElement.setAttribute('data-theme', 'light');
+        }
+    });
+
     return (
         <div id='NotFoundPage' className='page notFoundPage'>
             <Stack>

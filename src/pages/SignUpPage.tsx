@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
-import '../styles/AuthPages.css';
+import '../scss/AuthPages.scss';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
@@ -111,7 +111,7 @@ const SignUpPage = () => {
 
             <Paper className='form'>
                 <Typography variant='h4' className='title'>
-                    Sign Up
+                    Sign Up.
                 </Typography>
                 <form autoComplete='off' onSubmit={handleSubmit}>
                     <Stack display='flex' alignItems='center'>

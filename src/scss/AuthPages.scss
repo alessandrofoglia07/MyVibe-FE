@@ -1,0 +1,239 @@
+@use 'variables' as v;
+
+.signupPage,
+.loginPage {
+    background-color: v.$color-bg;
+}
+
+.authpage {
+    .ball {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .ball-blue,
+    .ball-blue1 {
+        background: linear-gradient(50deg, v.$color-lightblue 0%, #044250 100%);
+        position: fixed;
+        top: 10%;
+        left: 50%;
+    }
+
+    .ball-red,
+    .ball-red1 {
+        background: linear-gradient(195deg, v.$color-red 0%, #4b1216 100%);
+        position: fixed;
+        top: 40%;
+
+        @media screen and (max-width: 768px) {
+            left: -20%;
+        }
+
+        @media screen and (min-width: 768px) {
+            left: 30%;
+        }
+    }
+
+    .ball-purple,
+    .ball-purple1 {
+        background: linear-gradient(250deg, v.$color-purple 0%, #332d50 100%);
+        position: fixed;
+        top: 65%;
+        left: 55%;
+    }
+
+    .ball-blue1 {
+        top: 30%;
+
+        @media screen and (max-width: 768px) {
+            left: -20%;
+        }
+
+        @media screen and (min-width: 768px) {
+            left: 30%;
+        }
+    }
+
+    .ball-red1 {
+        top: 10%;
+        left: 60%;
+    }
+
+    .ball-purple1 {
+        top: 70%;
+        left: 55%;
+    }
+
+    /* animations */
+    .ball-blue-focus {
+        animation: scale 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .ball-blue-outFocus {
+        animation: scaleRev 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .ball-purple-focus {
+        animation: scale 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .ball-purple-outFocus {
+        animation: scaleRev 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .ball-red-focus {
+        animation: scale 1s;
+        animation-fill-mode: forwards;
+    }
+
+    .ball-red-outFocus {
+        animation: scaleRev 1s;
+        animation-fill-mode: forwards;
+    }
+
+    @keyframes scale {
+        0% {
+            transform: scale(1);
+        }
+
+        100% {
+            transform: scale(1.2);
+        }
+    }
+
+    @keyframes scaleRev {
+        0% {
+            transform: scale(1.2);
+        }
+
+        100% {
+            transform: scale(1);
+        }
+    }
+
+    .form {
+        position: fixed;
+        width: 500px;
+        height: 70%;
+        background-color: rgba(255, 255, 255, 0.13);
+        border-radius: 10px;
+        backdrop-filter: blur(10px);
+        border: 2px solid rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
+
+        @media screen and (max-width: 768px) {
+            width: 90%;
+            height: 90%;
+        }
+    }
+
+    .title {
+        font-family: v.$font;
+        font-weight: 700;
+        font-size: 3rem;
+        color: v.$color-primary;
+        text-align: center;
+        margin-top: 20px;
+        user-select: none;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+    }
+
+    .input {
+        width: 100%;
+        background-color: rgba(255, 255, 255, 0.07);
+        border: 2px solid black;
+        border-radius: 3px;
+        margin-bottom: 10px;
+        color: v.$color-primary;
+        align-self: center;
+
+        .MuiOutlinedInput-root {
+            fieldset {
+                border-color: rgba(255, 255, 255, 0.07);
+            }
+        }
+
+        &:hover {
+            .MuiOutlinedInput-root {
+                fieldset {
+                    border-color: rgba(255, 255, 255, 0.07);
+                }
+            }
+        }
+
+        &:nth-child(1) {
+            margin-top: 40px;
+        }
+
+        * {
+            font-family: v.$font;
+            font-weight: 600;
+            font-size: 1.2rem;
+            color: v.$color-primary;
+        }
+    }
+
+    .subtitle {
+        color: v.$color-primary;
+        font-family: v.$font;
+        font-weight: 600;
+        font-size: 1.3rem;
+        margin-bottom: 5px;
+        margin-top: 5px;
+    }
+
+    .inputContainer {
+        width: 70%;
+        display: flex;
+        flex-direction: column;
+        margin-top: 10px;
+
+        &:nth-child(1) {
+            margin-top: 40px;
+        }
+    }
+
+    .submitBtn {
+        background-color: v.$color-primary;
+        color: v.$color-secondary;
+        font-family: v.$font;
+        font-weight: 600;
+        font-size: 1.2rem;
+        width: 70%;
+        height: 60px;
+        border-radius: 5px;
+        margin-top: 40px;
+        text-transform: none;
+
+        &:hover {
+            background-color: v.$color-primary;
+            color: v.$color-secondary;
+        }
+    }
+
+    .link {
+        color: v.$color-primary;
+        font-family: v.$font;
+        font-weight: 600;
+        font-size: 1.2rem;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+
+        a {
+            color: v.$color-primary;
+            text-decoration: underline;
+        }
+    }
+}
