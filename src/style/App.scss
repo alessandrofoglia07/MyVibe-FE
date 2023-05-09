@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 /* Helvetica Neue font */
 @font-face {
     font-family: 'HelveticaNeue';
@@ -17,6 +19,9 @@
     font-weight: 800;
 }
 
+/* Pacifico font */
+@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+
 .page {
     width: 100svw;
     width: 100vw;
@@ -25,6 +30,26 @@
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.myVibe {
+    height: 70px;
+    line-height: normal;
+    font-family: Pacifico, sans-serif;
+    font-size: 3rem;
+
+    pointer-events: none;
+    user-select: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+
+    background: v.$gradient;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    text-shadow: none;
+    filter: drop-shadow(2px 2px 4px var(--color-primary));
 }
 
 ::selection {
