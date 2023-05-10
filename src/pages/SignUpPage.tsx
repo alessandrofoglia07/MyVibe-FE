@@ -20,12 +20,8 @@ const SignUpPage = () => {
     const [emailFocus, setEmailFocus] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
     const [verifying, setVerifying] = useState(false);
-    const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
-    const [usernameAlreadyTaken, setUsernameAlreadyTaken] = useState(false);
-    const [internalServerError, setInternalServerError] = useState(false);
-    const [unknownError, setUnknownError] = useState(false);
-    const [invalidVerificationCode, setInvalidVerificationCode] = useState(false);
     const [signedUp, setSignedUp] = useState(false);
+    const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
 
     useEffect(() => {
         const theme = localStorage.getItem('theme');
@@ -146,21 +142,18 @@ const SignUpPage = () => {
 
         const res = await axios.post('http://localhost:5000/auth/send-code', input);
 
-        switch (res.data?.message) {
+        switch (res.data.message) {
             case 'Email already registered':
-                setEmailAlreadyRegistered(true);
-                break;
             case 'Username already taken':
-                setUsernameAlreadyTaken(true);
+            case 'Internal server error':
+            case 'All fields required':
+                setOpen({ bool: true, message: res.data.message });
                 break;
             case 'Verification code sent':
                 setVerifying(true);
                 break;
-            case 'Internal server error':
-                setInternalServerError(true);
-                break;
             default:
-                setUnknownError(true);
+                setOpen({ bool: true, message: 'Something went wrong...' });
                 break;
         }
     };
@@ -168,23 +161,20 @@ const SignUpPage = () => {
     const handleVerificationCodeSubmit = async () => {
         if (!verificationCode.every((digit) => digit !== '')) return;
         const code = verificationCode.join('');
-        console.log(input);
         const res = await axios.post('http://localhost:5000/auth/verify-code', { ...input, code });
 
         switch (res.data?.message) {
+            case 'Internal server error':
             case 'Invalid verification code':
-                setInvalidVerificationCode(true);
+                setOpen({ bool: true, message: res.data.message });
                 break;
             case 'User created':
                 setVerifying(false);
                 setSignedUp(true);
                 setInput({ username: '', email: '', password: '' });
                 break;
-            case 'Internal server error':
-                setInternalServerError(true);
-                break;
             default:
-                setUnknownError(true);
+                setOpen({ bool: true, message: 'Something went wrong...' });
                 break;
         }
     };
@@ -324,37 +314,14 @@ const SignUpPage = () => {
                     </div>
                 )}
             </Paper>
-            <Snackbar open={emailAlreadyRegistered} autoHideDuration={6000} onClose={() => setEmailAlreadyRegistered(false)}>
-                <Alert onClose={() => setEmailAlreadyRegistered(false)} severity='error' sx={{ width: '400px' }}>
-                    Email already registered
+            <Snackbar open={open.bool} autoHideDuration={5000} onClose={() => setOpen({ bool: false, message: '' })}>
+                <Alert onClose={() => setOpen({ bool: false, message: '' })} severity='error' sx={{ width: '400px' }}>
+                    {open.message}
                 </Alert>
             </Snackbar>
-            <Snackbar open={usernameAlreadyTaken} autoHideDuration={6000} onClose={() => setUsernameAlreadyTaken(false)}>
-                <Alert onClose={() => setUsernameAlreadyTaken(false)} severity='error' sx={{ width: '400px' }}>
-                    Username already taken
-                </Alert>
-            </Snackbar>
-            <Snackbar open={internalServerError} autoHideDuration={6000} onClose={() => setInternalServerError(false)}>
-                <Alert onClose={() => setInternalServerError(false)} severity='error' sx={{ width: '400px' }}>
-                    Internal server error
-                </Alert>
-            </Snackbar>
-            <Snackbar open={unknownError} autoHideDuration={6000} onClose={() => setUnknownError(false)}>
-                <Alert onClose={() => setUnknownError(false)} severity='error' sx={{ width: '400px' }}>
-                    Unknown error
-                </Alert>
-            </Snackbar>
-            <Snackbar open={invalidVerificationCode} autoHideDuration={6000} onClose={() => setInvalidVerificationCode(false)}>
-                <Alert onClose={() => setInvalidVerificationCode(false)} severity='error' sx={{ width: '400px' }}>
-                    Invalid verification code
-                </Alert>
-            </Snackbar>
-            <Snackbar open={signedUp} autoHideDuration={6000} onClose={() => setSignedUp(false)}>
+            <Snackbar open={signedUp} autoHideDuration={5000} onClose={() => setSignedUp(false)}>
                 <Alert onClose={() => setSignedUp(false)} severity='success' sx={{ width: '400px' }}>
-                    Signed up successfully. Go to{' '}
-                    <Link href='/login' sx={{ textDecoration: 'underline' }}>
-                        log in.
-                    </Link>
+                    Signed up successfully. <Link href='/login'>Log in.</Link>
                 </Alert>
             </Snackbar>
         </div>
