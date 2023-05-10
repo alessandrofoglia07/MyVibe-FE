@@ -3,6 +3,7 @@ import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
+import axios from 'axios';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
@@ -83,10 +84,30 @@ const LoginPage = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         console.log(input);
-        // TODO: send input to backend
+
+        const res = await axios.post('http://localhost:5000/auth/login', input);
+
+        // TODO: HANDLE RESPONSE
+        switch (res.data.message) {
+            case 'Email and password required':
+                alert('Email and password required');
+                break;
+            case 'Invalid email or password':
+                alert('Invalid email or password');
+                break;
+            case 'Login successful':
+                alert('Login successful');
+                break;
+            case 'Internal server error':
+                alert('Internal server error');
+                break;
+            default:
+                alert('Something went wrong');
+                break;
+        }
     };
 
     return (

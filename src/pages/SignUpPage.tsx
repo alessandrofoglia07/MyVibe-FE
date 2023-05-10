@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@mui/material';
+import { Typography, TextField, Button, IconButton, Paper, Stack, Link, Snackbar, Alert } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
+import axios from 'axios';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
@@ -18,8 +19,13 @@ const SignUpPage = () => {
     const [usernameFocus, setUsernameFocus] = useState(false);
     const [emailFocus, setEmailFocus] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
     const [verifying, setVerifying] = useState(false);
+    const [emailAlreadyRegistered, setEmailAlreadyRegistered] = useState(false);
+    const [usernameAlreadyTaken, setUsernameAlreadyTaken] = useState(false);
+    const [internalServerError, setInternalServerError] = useState(false);
+    const [unknownError, setUnknownError] = useState(false);
+    const [invalidVerificationCode, setInvalidVerificationCode] = useState(false);
+    const [signedUp, setSignedUp] = useState(false);
 
     useEffect(() => {
         const theme = localStorage.getItem('theme');
@@ -135,17 +141,63 @@ const SignUpPage = () => {
         }
     };
 
-    const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(input);
-        // TODO: send input to backend
+
+        const res = await axios.post('http://localhost:5000/auth/send-code', input);
+
+        switch (res.data?.message) {
+            case 'Email already registered':
+                setEmailAlreadyRegistered(true);
+                break;
+            case 'Username already taken':
+                setUsernameAlreadyTaken(true);
+                break;
+            case 'Verification code sent':
+                setVerifying(true);
+                break;
+            case 'Internal server error':
+                setInternalServerError(true);
+                break;
+            default:
+                setUnknownError(true);
+                break;
+        }
     };
 
-    const handleVerificationCodeSubmit = () => {
+    const handleVerificationCodeSubmit = async () => {
         if (!verificationCode.every((digit) => digit !== '')) return;
         const code = verificationCode.join('');
-        console.log(code);
-        // TODO send code to backend
+        console.log(input);
+        const res = await axios.post('http://localhost:5000/auth/verify-code', { ...input, code });
+
+        switch (res.data?.message) {
+            case 'Invalid verification code':
+                setInvalidVerificationCode(true);
+                break;
+            case 'User created':
+                setVerifying(false);
+                setSignedUp(true);
+                setInput({ username: '', email: '', password: '' });
+                break;
+            case 'Internal server error':
+                setInternalServerError(true);
+                break;
+            default:
+                setUnknownError(true);
+                break;
+        }
+    };
+
+    const handlePaste = (e: React.ClipboardEvent<HTMLInputElement>) => {
+        if (verificationCode.every((digit) => digit !== '')) return;
+        const pastedData = e.clipboardData.getData('text');
+
+        if (pastedData.match(/^[0-9]{6}$/)) {
+            setVerificationCode(pastedData.split(''));
+            const input = document.getElementById('5') as HTMLInputElement;
+            input.focus();
+        }
     };
 
     return (
@@ -176,6 +228,7 @@ const SignUpPage = () => {
                                     value={digit}
                                     onKeyDown={handleKeyDown}
                                     onChange={handleVerificationCodeChange}
+                                    onPaste={handlePaste}
                                     type='number'
                                     className='verificationCodeDigit'
                                 />
@@ -271,6 +324,39 @@ const SignUpPage = () => {
                     </div>
                 )}
             </Paper>
+            <Snackbar open={emailAlreadyRegistered} autoHideDuration={6000} onClose={() => setEmailAlreadyRegistered(false)}>
+                <Alert onClose={() => setEmailAlreadyRegistered(false)} severity='error' sx={{ width: '400px' }}>
+                    Email already registered
+                </Alert>
+            </Snackbar>
+            <Snackbar open={usernameAlreadyTaken} autoHideDuration={6000} onClose={() => setUsernameAlreadyTaken(false)}>
+                <Alert onClose={() => setUsernameAlreadyTaken(false)} severity='error' sx={{ width: '400px' }}>
+                    Username already taken
+                </Alert>
+            </Snackbar>
+            <Snackbar open={internalServerError} autoHideDuration={6000} onClose={() => setInternalServerError(false)}>
+                <Alert onClose={() => setInternalServerError(false)} severity='error' sx={{ width: '400px' }}>
+                    Internal server error
+                </Alert>
+            </Snackbar>
+            <Snackbar open={unknownError} autoHideDuration={6000} onClose={() => setUnknownError(false)}>
+                <Alert onClose={() => setUnknownError(false)} severity='error' sx={{ width: '400px' }}>
+                    Unknown error
+                </Alert>
+            </Snackbar>
+            <Snackbar open={invalidVerificationCode} autoHideDuration={6000} onClose={() => setInvalidVerificationCode(false)}>
+                <Alert onClose={() => setInvalidVerificationCode(false)} severity='error' sx={{ width: '400px' }}>
+                    Invalid verification code
+                </Alert>
+            </Snackbar>
+            <Snackbar open={signedUp} autoHideDuration={6000} onClose={() => setSignedUp(false)}>
+                <Alert onClose={() => setSignedUp(false)} severity='success' sx={{ width: '400px' }}>
+                    Signed up successfully. Go to{' '}
+                    <Link href='/login' sx={{ textDecoration: 'underline' }}>
+                        log in.
+                    </Link>
+                </Alert>
+            </Snackbar>
         </div>
     );
 };
