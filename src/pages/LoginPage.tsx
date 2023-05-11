@@ -1,14 +1,19 @@
 import React, { useState, useEffect } from 'react';
-import { Typography, TextField, Button, IconButton, Paper, Stack, Link } from '@mui/material';
+import { Typography, TextField, Button, IconButton, Paper, Stack, Link, Snackbar, Alert } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
 import axios from 'axios';
+import { useSignIn } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const LoginPage = () => {
+    const signIn = useSignIn();
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
     const [input, setInput] = useState({
         email: '',
@@ -16,6 +21,8 @@ const LoginPage = () => {
     });
     const [emailFocus, setEmailFocus] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
+    const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
+    const [errorCount, setErrorCount] = useState(0);
 
     useEffect(() => {
         const theme = localStorage.getItem('theme');
@@ -92,20 +99,18 @@ const LoginPage = () => {
 
         // TODO: HANDLE RESPONSE
         switch (res.data.message) {
-            case 'Email and password required':
-                alert('Email and password required');
+            case 'Email and password required' || 'Invalid email or password' || 'Internal server error':
+                setOpen({ bool: true, message: res.data.message });
+                setErrorCount(errorCount + 1);
                 break;
-            case 'Invalid email or password':
-                alert('Invalid email or password');
+            case 'Login successful': {
+                const { accessToken, refreshToken } = res.data;
+                signIn({ token: accessToken, refreshToken: refreshToken, tokenType: 'Bearer', expiresIn: 15 });
+                navigate('/');
                 break;
-            case 'Login successful':
-                alert('Login successful');
-                break;
-            case 'Internal server error':
-                alert('Internal server error');
-                break;
+            }
             default:
-                alert('Something went wrong');
+                setOpen({ bool: true, message: 'Something went wrong...' });
                 break;
         }
     };
@@ -172,6 +177,11 @@ const LoginPage = () => {
                                     setPasswordFocus(true);
                                 }}
                             />
+                            {errorCount > 0 ? (
+                                <Link className='errorText' href='/password-forgotten'>
+                                    Did you forget your password?
+                                </Link>
+                            ) : null}
                         </div>
                         <Button disableRipple variant='contained' className='submitBtn' type='submit'>
                             Log in
@@ -182,6 +192,11 @@ const LoginPage = () => {
                     </Stack>
                 </form>
             </Paper>
+            <Snackbar open={open.bool} autoHideDuration={6000} onClose={() => setOpen({ bool: false, message: '' })}>
+                <Alert onClose={() => setOpen({ bool: false, message: '' })} severity='success' sx={{ width: '100%' }}>
+                    {open.message}
+                </Alert>
+            </Snackbar>
         </div>
     );
 };
