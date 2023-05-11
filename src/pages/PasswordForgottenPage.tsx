@@ -1,0 +1,68 @@
+import React, { useState } from 'react';
+import '../style/AuthPages.scss';
+import { Typography, TextField, Button, Paper, Stack } from '@mui/material';
+import axios from 'axios';
+
+const PasswordForgottenPage = () => {
+    const [email, setEmail] = useState('');
+    const [message, setMessage] = useState('');
+
+    const handleSendEmail = async (e: React.FormEvent<any>) => {
+        e.preventDefault();
+
+        const res = await axios.post('http://localhost:5000/auth/forgotPassword', { email });
+
+        switch (res.data.message) {
+            case 'Email sent':
+                setMessage("We've sent you an email with a link to reset your password.");
+                break;
+            case 'Email not found':
+                setMessage('No email was found. Try to sign up.');
+                break;
+            default:
+                setMessage('Something went wrong...');
+                break;
+        }
+    };
+
+    return (
+        <div id='PassForgottenPage' className='page authpage passForgottenPage'>
+            <Paper className='form' sx={{ display: 'flex', flexDirection: 'column' }}>
+                <Typography variant='h4' className='title'>
+                    Password Reset
+                </Typography>
+                <form autoComplete='off' onSubmit={handleSendEmail}>
+                    <Stack display='flex' alignItems='center' height='100%'>
+                        <div className='inputContainer' style={{ marginTop: '80px' }}>
+                            <Typography variant='h5' className='subtitle'>
+                                Email
+                            </Typography>
+                            <TextField
+                                autoFocus
+                                id='email'
+                                type='email'
+                                value={email}
+                                onChange={(e) => {
+                                    setEmail(e.target.value);
+                                }}
+                                placeholder='Email'
+                                variant='outlined'
+                                className='input'
+                            />
+                        </div>
+                        <Button variant='contained' className='submitBtn' type='submit'>
+                            Send Reset Email
+                        </Button>
+                    </Stack>
+                </form>
+                {message ? (
+                    <Typography variant='h6' className='message'>
+                        {message}
+                    </Typography>
+                ) : null}
+            </Paper>
+        </div>
+    );
+};
+
+export default PasswordForgottenPage;

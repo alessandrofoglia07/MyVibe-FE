@@ -1,7 +1,9 @@
 @use 'variables' as v;
 
 .signupPage,
-.loginPage {
+.loginPage,
+.passForgottenPage,
+.resetPage {
     background-color: var(--color-bg);
 }
 
@@ -286,5 +288,29 @@
         margin-bottom: 30px;
         font-size: 5rem;
         height: auto;
+    }
+
+    .errorText {
+        font-family: v.$font;
+        font-weight: 700;
+        font-size: 0.9rem;
+        color: v.$color-red;
+        margin-top: -10px;
+    }
+
+    .message {
+        font-family: v.$font;
+        font-weight: 700;
+        font-size: 1.2rem;
+        color: var(--color-primary);
+        margin-top: 10px;
+        margin-bottom: 10px;
+        text-align: center;
+        border: 2px solid var(--color-primary);
+        border-radius: 5px;
+        padding: 10px;
+        width: 70%;
+        align-self: center;
+        margin-top: 10%;
     }
 }
