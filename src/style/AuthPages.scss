@@ -117,7 +117,7 @@
 
     .form {
         position: absolute;
-        min-width: 500px;
+        width: 500px;
         min-height: 70%;
         background-color: rgba(255, 255, 255, 0.13);
         border-radius: 10px;
@@ -126,7 +126,7 @@
         box-shadow: 0 0 40px rgba(8, 7, 16, 0.6);
 
         @media screen and (max-width: 768px) {
-            min-width: 90%;
+            width: 90%;
             min-height: 90%;
         }
     }

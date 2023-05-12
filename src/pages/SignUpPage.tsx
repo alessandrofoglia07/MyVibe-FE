@@ -101,7 +101,7 @@ const SignUpPage = () => {
         const id = e.target.id;
         const value = e.target.value;
 
-        if (value.length === 1) {
+        if (value.length === 1 && /[0-9]/.test(value)) {
             setVerificationCode((init) => {
                 const newVerificationCode = [...init];
                 newVerificationCode[parseInt(id)] = value;
