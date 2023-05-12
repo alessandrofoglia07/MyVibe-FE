@@ -4,13 +4,14 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
 import axios from 'axios';
-import { useSignIn } from 'react-auth-kit';
+import { useSignIn, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const LoginPage = () => {
+    const auth = useAuthUser();
     const signIn = useSignIn();
     const navigate = useNavigate();
 
@@ -30,6 +31,12 @@ const LoginPage = () => {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (auth()) {
+            navigate('/');
         }
     }, []);
 
@@ -93,19 +100,17 @@ const LoginPage = () => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(input);
 
         const res = await axios.post('http://localhost:5000/auth/login', input);
 
-        // TODO: HANDLE RESPONSE
         switch (res.data.message) {
             case 'Email and password required' || 'Invalid email or password' || 'Internal server error':
                 setOpen({ bool: true, message: res.data.message });
                 setErrorCount(errorCount + 1);
                 break;
             case 'Login successful': {
-                const { accessToken, refreshToken } = res.data;
-                signIn({ token: accessToken, refreshToken: refreshToken, tokenType: 'Bearer', expiresIn: 15 });
+                const { accessToken, refreshToken, userId, email } = res.data;
+                signIn({ token: accessToken, refreshToken: refreshToken, tokenType: 'Bearer', expiresIn: 15, refreshTokenExpireIn: 129600, authState: { id: userId, email: email } });
                 navigate('/');
                 break;
             }
@@ -193,7 +198,7 @@ const LoginPage = () => {
                 </form>
             </Paper>
             <Snackbar open={open.bool} autoHideDuration={6000} onClose={() => setOpen({ bool: false, message: '' })}>
-                <Alert onClose={() => setOpen({ bool: false, message: '' })} severity='success' sx={{ width: '100%' }}>
+                <Alert onClose={() => setOpen({ bool: false, message: '' })} severity='error' sx={{ width: '100%' }}>
                     {open.message}
                 </Alert>
             </Snackbar>

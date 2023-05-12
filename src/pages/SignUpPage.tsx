@@ -4,11 +4,16 @@ import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
 import axios from 'axios';
+import { useAuthUser } from 'react-auth-kit';
+import { useNavigate } from 'react-router-dom';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const SignUpPage = () => {
+    const auth = useAuthUser();
+    const navigate = useNavigate();
+
     const [showPassword, setShowPassword] = useState(false);
     const [input, setInput] = useState({
         username: '',
@@ -29,6 +34,12 @@ const SignUpPage = () => {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
+        }
+    }, []);
+
+    useEffect(() => {
+        if (auth()) {
+            navigate('/');
         }
     }, []);
 
@@ -147,6 +158,7 @@ const SignUpPage = () => {
             case 'Username already taken':
             case 'Internal server error':
             case 'All fields required':
+            case 'Password must be 6-16 characters long, and contain at least a letter and a number':
                 setOpen({ bool: true, message: res.data.message });
                 break;
             case 'Verification code sent':
@@ -202,7 +214,7 @@ const SignUpPage = () => {
                 {verifying ? (
                     <div className='verifying'>
                         <Typography variant='h3' className='myVibe'>
-                            My<span>Vibe</span>
+                            myvibe.
                         </Typography>
                         <Typography variant='h4' className='title'>
                             Verification Code
