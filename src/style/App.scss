@@ -47,21 +47,16 @@
 
     height: 70px;
     line-height: normal;
-    font-family: Pacifico, sans-serif;
+    font-family: v.$font;
+    font-weight: 700;
     font-size: 3rem;
+    color: var(--color-primary);
 
     pointer-events: none;
     user-select: none;
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
-
-    background: v.$gradient;
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-shadow: none;
-    filter: drop-shadow(2px 2px 4px var(--color-primary));
 }
 
 ::selection {

@@ -1,9 +1,5 @@
 @use 'variables' as v;
 
-.notFoundPage {
-    background-color: var(--color-bg);
-}
-
 #NotFoundPage {
     .title {
         font-size: 3rem;
