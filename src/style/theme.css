@@ -9,3 +9,9 @@
     --color-secondary: #fff;
     --color-bg: #fff;
 }
+
+[data-theme='dark'] {
+    --color-primary: #fff;
+    --color-secondary: #000;
+    --color-bg: #080710;
+}

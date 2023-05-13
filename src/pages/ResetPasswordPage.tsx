@@ -3,8 +3,11 @@ import { useParams, useNavigate } from 'react-router-dom';
 import '../style/AuthPages.scss';
 import { Typography, TextField, Paper, Button, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
+import useTheme from '../hooks/useTheme';
 
 const ResetPasswordPage = () => {
+    useTheme();
+
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
 

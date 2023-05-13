@@ -2,8 +2,11 @@ import React, { useState } from 'react';
 import '../style/AuthPages.scss';
 import { Typography, TextField, Button, Paper, Stack } from '@mui/material';
 import axios from 'axios';
+import useTheme from '../hooks/useTheme';
 
 const PasswordForgottenPage = () => {
+    useTheme();
+
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
 
