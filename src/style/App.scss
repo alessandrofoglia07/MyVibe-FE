@@ -19,8 +19,8 @@
     font-weight: 800;
 }
 
-/* Pacifico font */
-@import url('https://fonts.googleapis.com/css2?family=Pacifico&display=swap');
+/* Inter font */
+@import url('https://fonts.googleapis.com/css2?family=Inter&display=swap');
 
 .page {
     width: 100svw;
@@ -57,6 +57,10 @@
     -webkit-user-select: none;
     -moz-user-select: none;
     -ms-user-select: none;
+}
+
+.navbar .myVibe {
+    color: #fff;
 }
 
 ::selection {

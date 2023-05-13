@@ -1,0 +1,55 @@
+@use 'variables' as v;
+
+.navbar {
+    background: v.$gradient;
+}
+
+.toolbar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.searchBar {
+    width: 30%;
+    background-color: var(--color-bg);
+    border-radius: 20px;
+
+    fieldset {
+        outline: none;
+        border: none;
+    }
+
+    * {
+        font-family: Inter, sans-serif;
+        color: var(--color-primary);
+        user-select: none;
+        --webkit-user-select: none;
+        --moz-user-select: none;
+        --ms-user-select: none;
+    }
+}
+
+.searchBarFocused {
+    @keyframes big {
+        0% {
+            width: 30%;
+        }
+        100% {
+            width: 40%;
+        }
+    }
+    animation: big 0.5s ease-in-out forwards;
+}
+
+.searchBarUnfocused {
+    @keyframes small {
+        0% {
+            width: 40%;
+        }
+        100% {
+            width: 30%;
+        }
+    }
+    animation: small 0.5s ease-in-out forwards;
+}

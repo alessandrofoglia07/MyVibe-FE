@@ -6,11 +6,13 @@ import '../style/AuthPages.scss';
 import axios from 'axios';
 import { useSignIn, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
+import useTheme from '../hooks/useTheme';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const LoginPage = () => {
+    useTheme();
     const auth = useAuthUser();
     const signIn = useSignIn();
     const navigate = useNavigate();
@@ -24,15 +26,6 @@ const LoginPage = () => {
     const [passwordFocus, setPasswordFocus] = useState(false);
     const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
     const [errorCount, setErrorCount] = useState(0);
-
-    useEffect(() => {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
-    }, []);
 
     useEffect(() => {
         if (auth()) {
@@ -110,7 +103,7 @@ const LoginPage = () => {
                 break;
             case 'Login successful': {
                 const { accessToken, refreshToken, userId, email } = res.data;
-                signIn({ token: accessToken, refreshToken: refreshToken, tokenType: 'Bearer', expiresIn: 15, refreshTokenExpireIn: 129600, authState: { id: userId, email: email } });
+                signIn({ token: accessToken, refreshToken: refreshToken, tokenType: 'Bearer', expiresIn: 15, refreshTokenExpireIn: 43200, authState: { id: userId, email: email } });
                 navigate('/');
                 break;
             }

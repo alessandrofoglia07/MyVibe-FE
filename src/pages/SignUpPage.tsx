@@ -6,11 +6,13 @@ import '../style/AuthPages.scss';
 import axios from 'axios';
 import { useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
+import useTheme from '../hooks/useTheme';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const SignUpPage = () => {
+    useTheme();
     const auth = useAuthUser();
     const navigate = useNavigate();
 
@@ -27,15 +29,6 @@ const SignUpPage = () => {
     const [verifying, setVerifying] = useState(false);
     const [signedUp, setSignedUp] = useState(false);
     const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
-
-    useEffect(() => {
-        const theme = localStorage.getItem('theme');
-        if (theme === 'dark') {
-            document.documentElement.setAttribute('data-theme', 'dark');
-        } else if (theme === 'light') {
-            document.documentElement.setAttribute('data-theme', 'light');
-        }
-    }, []);
 
     useEffect(() => {
         if (auth()) {

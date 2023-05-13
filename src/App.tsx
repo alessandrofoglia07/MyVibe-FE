@@ -14,9 +14,9 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
     return (
-        <div className='App'>
-            <AuthProvider authType='cookie' authName='auth' cookieDomain={window.location.hostname} cookieSecure={false} refresh={refreshApi}>
-                <StyledEngineProvider injectFirst>
+        <AuthProvider authType='cookie' authName='auth' cookieDomain={window.location.hostname} cookieSecure={false} refresh={refreshApi}>
+            <StyledEngineProvider injectFirst>
+                <div className='App'>
                     <Router>
                         <Routes>
                             <Route
@@ -34,9 +34,9 @@ function App() {
                             <Route path='*' element={<NotFoundPage />} />
                         </Routes>
                     </Router>
-                </StyledEngineProvider>
-            </AuthProvider>
-        </div>
+                </div>
+            </StyledEngineProvider>
+        </AuthProvider>
     );
 }
 
