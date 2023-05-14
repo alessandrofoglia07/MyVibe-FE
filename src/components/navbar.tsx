@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import '../style/Navbar.scss';
 import { AppBar, Toolbar, Stack, Typography, TextField } from '@mui/material';

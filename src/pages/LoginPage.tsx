@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Typography, TextField, Button, IconButton, Paper, Stack, Link, Snackbar, Alert } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
-import axios from 'axios';
-import { useSignIn, useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
+import { AuthContext } from '../context/AuthContext';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const LoginPage = () => {
     useTheme();
-    const auth = useAuthUser();
-    const signIn = useSignIn();
     const navigate = useNavigate();
+    const { login, accessToken } = useContext(AuthContext);
 
     const [showPassword, setShowPassword] = useState(false);
     const [input, setInput] = useState({
@@ -28,10 +26,8 @@ const LoginPage = () => {
     const [errorCount, setErrorCount] = useState(0);
 
     useEffect(() => {
-        if (auth()) {
-            navigate('/');
-        }
-    }, []);
+        if (accessToken) navigate('/');
+    });
 
     useEffect(() => {
         if (emailFocus) {
@@ -94,22 +90,13 @@ const LoginPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:5000/auth/login', input);
-
-        switch (res.data.message) {
-            case 'Email and password required' || 'Invalid email or password' || 'Internal server error':
-                setOpen({ bool: true, message: res.data.message });
-                setErrorCount(errorCount + 1);
-                break;
-            case 'Login successful': {
-                const { accessToken, refreshToken, userId, email } = res.data;
-                signIn({ token: accessToken, refreshToken: refreshToken, tokenType: 'Bearer', expiresIn: 15, refreshTokenExpireIn: 43200, authState: { id: userId, email: email } });
-                navigate('/');
-                break;
-            }
-            default:
-                setOpen({ bool: true, message: 'Something went wrong...' });
-                break;
+        try {
+            await login(input.email, input.password);
+            navigate('/');
+        } catch (err) {
+            console.log(err);
+            setErrorCount(errorCount + 1);
+            setOpen({ bool: true, message: 'Invalid username or password' });
         }
     };
 

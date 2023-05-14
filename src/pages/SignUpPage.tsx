@@ -1,10 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
+import { AuthContext } from '../context/AuthContext';
 import { Typography, TextField, Button, IconButton, Paper, Stack, Link, Snackbar, Alert } from '@mui/material';
 import VisibilityOutlinedIcon from '@mui/icons-material/VisibilityOutlined';
 import VisibilityOffOutlinedIcon from '@mui/icons-material/VisibilityOffOutlined';
 import '../style/AuthPages.scss';
 import axios from 'axios';
-import { useAuthUser } from 'react-auth-kit';
 import { useNavigate } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
 
@@ -13,8 +13,8 @@ const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const SignUpPage = () => {
     useTheme();
-    const auth = useAuthUser();
     const navigate = useNavigate();
+    const { accessToken } = useContext(AuthContext);
 
     const [showPassword, setShowPassword] = useState(false);
     const [input, setInput] = useState({
@@ -31,10 +31,8 @@ const SignUpPage = () => {
     const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
 
     useEffect(() => {
-        if (auth()) {
-            navigate('/');
-        }
-    }, []);
+        if (accessToken) navigate('/');
+    });
 
     useEffect(() => {
         if (usernameFocus) {

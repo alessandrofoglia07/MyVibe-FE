@@ -3,8 +3,8 @@ import './style/App.scss';
 import './style/theme.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { StyledEngineProvider } from '@mui/material/styles';
-import { AuthProvider, RequireAuth } from 'react-auth-kit';
-import refreshApi from './api/refreshApi';
+import { AuthProvider } from './context/AuthContext';
+import PrivateRoutes from './components/ProtectedRoute';
 import MainPage from './pages/MainPage';
 import SignUpPage from './pages/SignUpPage';
 import LoginPage from './pages/LoginPage';
@@ -14,19 +14,14 @@ import ResetPasswordPage from './pages/ResetPasswordPage';
 
 function App() {
     return (
-        <AuthProvider authType='cookie' authName='auth' cookieDomain={window.location.hostname} cookieSecure={false} refresh={refreshApi}>
+        <AuthProvider>
             <StyledEngineProvider injectFirst>
                 <div className='App'>
                     <Router>
                         <Routes>
-                            <Route
-                                path='/'
-                                element={
-                                    <RequireAuth loginPath='/login'>
-                                        <MainPage />
-                                    </RequireAuth>
-                                }
-                            />
+                            <Route element={<PrivateRoutes />}>
+                                <Route path='/' element={<MainPage />} />
+                            </Route>
                             <Route path='/login' element={<LoginPage />} />
                             <Route path='/sign-up' element={<SignUpPage />} />
                             <Route path='/password-forgotten' element={<PasswordForgottenPage />} />
