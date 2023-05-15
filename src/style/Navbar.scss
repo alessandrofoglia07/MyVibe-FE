@@ -1,55 +1,129 @@
 @use 'variables' as v;
 
 .navbar {
-    background: v.$gradient;
-}
+    background: var(--color-bg);
 
-.toolbar {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-}
+    border-bottom: 2px solid #3c4043;
 
-.searchBar {
-    width: 30%;
-    background-color: var(--color-bg);
-    border-radius: 20px;
-
-    fieldset {
-        outline: none;
-        border: none;
+    .toolbar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
     }
 
-    * {
-        font-family: Inter, sans-serif;
-        color: var(--color-primary);
-        user-select: none;
-        --webkit-user-select: none;
-        --moz-user-select: none;
-        --ms-user-select: none;
-    }
-}
+    .searchBar {
+        width: 30%;
+        background-color: var(--color-searchbar);
+        border-radius: 20px;
+        border: 2px solid #434446;
 
-.searchBarFocused {
-    @keyframes big {
-        0% {
-            width: 30%;
+        @media only screen and (max-width: 768px) {
+            width: 60%;
         }
-        100% {
-            width: 40%;
-        }
-    }
-    animation: big 0.3s ease-in-out forwards;
-}
 
-.searchBarUnfocused {
-    @keyframes small {
-        0% {
-            width: 40%;
+        fieldset {
+            outline: none;
+            border: none;
         }
-        100% {
-            width: 30%;
+
+        * {
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+            user-select: none;
+            --webkit-user-select: none;
+            --moz-user-select: none;
+            --ms-user-select: none;
         }
     }
-    animation: small 0.3s ease-in-out forwards;
+
+    .searchBarFocused {
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            @keyframes big {
+                0% {
+                    width: 60%;
+                }
+                100% {
+                    width: 70%;
+                }
+            }
+        }
+        @media only screen and (min-width: 768px) {
+            @keyframes big {
+                0% {
+                    width: 30%;
+                }
+                100% {
+                    width: 40%;
+                }
+            }
+        }
+        animation: big 0.3s ease-in-out forwards;
+    }
+
+    .searchBarUnfocused {
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            @keyframes small {
+                0% {
+                    width: 70%;
+                }
+                100% {
+                    width: 60%;
+                }
+            }
+        }
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            @keyframes small {
+                0% {
+                    width: 40%;
+                }
+                100% {
+                    width: 30%;
+                }
+            }
+        }
+
+        animation: small 0.3s ease-in-out forwards;
+    }
+
+    .avatarContainer {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            &:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .notificationBtn {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            margin-right: -5px;
+        }
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            background-color: var(--color-hover);
+        }
+
+        svg {
+            color: var(--color-primary);
+        }
+    }
 }

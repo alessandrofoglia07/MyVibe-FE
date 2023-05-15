@@ -1,1 +1,27 @@
 @use 'variables' as v;
+
+.bottom {
+    display: flex;
+    justify-content: center;
+}
+
+.left {
+    width: 25%;
+    max-width: 300px;
+}
+
+.right {
+    width: 25%;
+    max-width: 300px;
+}
+
+.center {
+    /* Smaller screen (mobile) */
+    @media only screen and (max-width: 768px) {
+        width: 100%;
+    }
+    /* Larger screen (desktop/tablet) */
+    @media only screen and (min-width: 768px) {
+        width: 50%;
+    }
+}

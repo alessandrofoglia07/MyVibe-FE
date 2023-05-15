@@ -10,18 +10,23 @@ const useTheme = () => {
         }
     }, [localStorage.getItem('theme')]);
 
+    const toggleThemeTo = (theme: 'dark' | 'light') => {
+        localStorage.setItem('theme', theme);
+        document.documentElement.setAttribute('data-theme', theme);
+    };
+
     const toggleTheme = () => {
         const theme = localStorage.getItem('theme');
         if (theme === 'dark') {
-            localStorage.setItem('theme', 'light');
-            document.documentElement.setAttribute('data-theme', 'light');
+            toggleThemeTo('light');
         } else if (theme === 'light') {
-            localStorage.setItem('theme', 'dark');
-            document.documentElement.setAttribute('data-theme', 'dark');
+            toggleThemeTo('dark');
+        } else {
+            toggleThemeTo('dark');
         }
     };
 
-    return { toggleTheme };
+    return { toggleTheme, toggleThemeTo };
 };
 
 export default useTheme;

@@ -59,11 +59,11 @@
     -ms-user-select: none;
 }
 
-.navbar .myVibe {
-    color: #fff;
-}
-
 ::selection {
     background: #f64f59;
     color: #fff;
+}
+
+.test {
+    background-color: red;
 }

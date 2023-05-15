@@ -14,19 +14,22 @@ import {
     setUserInfo,
     removeUserInfo
 } from '../api/authApi';
+import LoadingPage from '../pages/LoadingPage';
 
 interface AuthContextType {
     accessToken: string | null;
     userInfo: UserInfo | null;
     login: (email: string, password: string) => Promise<void>;
     logout: () => void;
+    loading: boolean;
 }
 
 export const AuthContext = createContext<AuthContextType>({
     accessToken: null,
     userInfo: null,
     login: async () => {},
-    logout: () => {}
+    logout: () => {},
+    loading: false
 });
 
 interface AuthProviderProps {
@@ -36,21 +39,21 @@ interface AuthProviderProps {
 export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     const [accessToken, setAccessTokenState] = useState<string | null>(getAccessToken());
     const [userInfo, setUserInfoState] = useState<UserInfo | null>(getUserInfo());
+    const [loading, setLoading] = useState<boolean>(false);
 
     useEffect(() => {
         const storedAccessToken = getAccessToken();
         if (storedAccessToken) {
             setAccessTokenState(storedAccessToken);
         }
-        (async () => {
-            if (!storedAccessToken && getRefreshToken()) {
-                await handleTokenRefresh();
-            }
-        })();
+        if (!storedAccessToken && getRefreshToken()) {
+            handleTokenRefresh();
+        }
     }, []);
 
     const handleLogin = async (email: string, password: string) => {
         try {
+            setLoading(true);
             const res = await login(email, password);
             setAccessTokenState(res.accessToken);
             setAccessToken(res.accessToken);
@@ -60,6 +63,8 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setUserInfo(user);
         } catch (err) {
             console.log(err);
+        } finally {
+            setLoading(false);
         }
     };
 
@@ -76,21 +81,26 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (!storedRefreshToken) return;
 
         try {
+            setLoading(true);
             const accessToken = await refreshAccessToken(storedRefreshToken);
             setAccessTokenState(accessToken);
             setAccessToken(accessToken);
         } catch (err) {
             console.log(err);
             handleLogout();
+        } finally {
+            setLoading(false);
         }
     };
 
     useEffect(() => {
         const interval = setInterval(() => {
             handleTokenRefresh();
-        }, 14 * 60 * 1000);
+        }, 15 * 60 * 1000);
 
-        return () => clearInterval(interval);
+        return () => {
+            clearInterval(interval);
+        };
     }, []);
 
     return (
@@ -99,9 +109,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
                 accessToken,
                 userInfo,
                 login: handleLogin,
-                logout: handleLogout
+                logout: handleLogout,
+                loading
             }}>
-            {children}
+            {loading ? <LoadingPage /> : children}
         </AuthContext.Provider>
     );
 };
