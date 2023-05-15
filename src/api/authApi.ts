@@ -39,8 +39,18 @@ export function removeUserInfo() {
     localStorage.removeItem('user_info');
 }
 
+/**
+ * @param minutes 
+ * @returns date with minutes added
+ */
+const newDate = (minutes: number) => {
+    const date = new Date();
+    date.setMinutes(date.getMinutes() + minutes);
+    return date;
+};
+
 export function setAccessToken(accessToken: string) {
-    Cookies.set('access_token', accessToken, { expires: 15 / (24 * 60) });
+    Cookies.set('access_token', accessToken, { expires: newDate(15) });
 }
 
 export function getAccessToken(): string | null {

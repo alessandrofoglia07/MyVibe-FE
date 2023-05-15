@@ -41,8 +41,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         const storedAccessToken = getAccessToken();
         if (storedAccessToken) {
             setAccessTokenState(storedAccessToken);
-            setAccessToken(storedAccessToken);
         }
+        (async () => {
+            if (!storedAccessToken && getRefreshToken()) {
+                await handleTokenRefresh();
+            }
+        })();
     }, []);
 
     const handleLogin = async (email: string, password: string) => {
@@ -73,7 +77,6 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
 
         try {
             const accessToken = await refreshAccessToken(storedRefreshToken);
-            console.log('REFRESHING TOKEN!!');
             setAccessTokenState(accessToken);
             setAccessToken(accessToken);
         } catch (err) {
@@ -85,10 +88,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
     useEffect(() => {
         const interval = setInterval(() => {
             handleTokenRefresh();
-        }, 15 * 60 * 1000);
+        }, 14 * 60 * 1000);
 
         return () => clearInterval(interval);
-    });
+    }, []);
 
     return (
         <AuthContext.Provider
