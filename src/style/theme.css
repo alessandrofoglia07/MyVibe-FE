@@ -5,15 +5,17 @@
     --color-bg-2: #212121;
     --color-searchbar: #303134;
     --color-hover: #303134;
+    --color-outline: #434446;
 }
 
 [data-theme='light'] {
     --color-primary: #080710;
     --color-secondary: #fff;
-    --color-bg: #fff;
+    --color-bg: #F5F5F5;
     --color-bg-2: #fff;
     --color-searchbar: #fff;
     --color-hover: #eeeeee;
+    --color-outline: #DCDCDC;
 }
 
 [data-theme='dark'] {
@@ -23,4 +25,5 @@
     --color-bg-2: #212121;
     --color-searchbar: #303134;
     --color-hover: #303134;
+    --color-outline: #434446;
 }

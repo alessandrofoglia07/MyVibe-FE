@@ -30,37 +30,40 @@ const Navbar = () => {
     };
 
     return (
-        <AppBar position='static' id='navbar' className='navbar'>
-            <Toolbar className='toolbar'>
-                {width > 768 && (
-                    <div id='logo'>
-                        <Typography variant='h3' className='myVibe'>
-                            myvibe.
-                        </Typography>
+        <div>
+            <AppBar position='static' id='navbar' className='navbar'>
+                <Toolbar className='toolbar'>
+                    {width > 768 && (
+                        <div id='logo'>
+                            <Typography variant='h3' className='myVibe'>
+                                myvibe.
+                            </Typography>
+                        </div>
+                    )}
+                    <TextField
+                        InputProps={{ startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} /> }}
+                        id='searchBar'
+                        onFocus={handleFocus}
+                        placeholder='Search'
+                        variant='outlined'
+                        className='searchBar'
+                    />
+                    <div id='buttons' className='buttonsContainer'>
+                        <IconButton className='notificationBtn'>
+                            <Badge badgeContent={1} color='error' variant='dot'>
+                                <NotificationIcon />
+                            </Badge>
+                        </IconButton>
+                        <Button className='avatarContainer' disableRipple href='/profile'>
+                            <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                <PersonIcon />
+                            </Avatar>
+                        </Button>
                     </div>
-                )}
-                <TextField
-                    InputProps={{ startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} /> }}
-                    id='searchBar'
-                    onFocus={handleFocus}
-                    placeholder='Search'
-                    variant='outlined'
-                    className='searchBar'
-                />
-                <div id='buttons' className='buttonsContainer'>
-                    <IconButton className='notificationBtn'>
-                        <Badge badgeContent={1} color='error' variant='dot'>
-                            <NotificationIcon />
-                        </Badge>
-                    </IconButton>
-                    <Button className='avatarContainer' disableRipple href='/profile'>
-                        <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
-                            <PersonIcon />
-                        </Avatar>
-                    </Button>
-                </div>
-            </Toolbar>
-        </AppBar>
+                </Toolbar>
+            </AppBar>
+            <div className='navbarSpacer' />
+        </div>
     );
 };
 

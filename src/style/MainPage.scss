@@ -1,27 +1,61 @@
 @use 'variables' as v;
 
-.bottom {
-    display: flex;
-    justify-content: center;
-}
-
-.left {
-    width: 25%;
-    max-width: 300px;
-}
-
-.right {
-    width: 25%;
-    max-width: 300px;
-}
-
-.center {
-    /* Smaller screen (mobile) */
-    @media only screen and (max-width: 768px) {
-        width: 100%;
+#MainPage {
+    .bottom {
+        display: flex;
+        justify-content: center;
     }
-    /* Larger screen (desktop/tablet) */
-    @media only screen and (min-width: 768px) {
-        width: 50%;
+
+    .left {
+        width: 30%;
+        max-width: 300px;
+        max-height: calc(100vh - 70px);
+    }
+
+    .right {
+        width: 30%;
+        max-width: 300px;
+        max-height: calc(100vh - 70px);
+    }
+
+    .center {
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            width: 100%;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            width: 50%;
+        }
+    }
+
+    .friendList {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin-top: 30px;
+        border: 2px solid var(--color-outline);
+        border-radius: 20px;
+        height: clamp(300px, 90%, 100%);
+        overflow-y: auto;
+        background-color: var(--color-secondary);
+
+        .noFriendsText {
+            margin-left: 20px;
+            margin-top: 20px;
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+        }
+
+        .friend {
+            padding-top: 20px;
+            padding-bottom: 20px;
+            padding-left: 20px;
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+            border-bottom: 2px solid var(--color-outline);
+        }
     }
 }

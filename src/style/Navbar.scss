@@ -1,8 +1,14 @@
 @use 'variables' as v;
 
+.navbarSpacer {
+    height: 70px;
+}
+
 .navbar {
     background: var(--color-bg);
 
+    position: fixed;
+    height: 70px;
     border-bottom: 2px solid #3c4043;
 
     .toolbar {
@@ -15,7 +21,7 @@
         width: 30%;
         background-color: var(--color-searchbar);
         border-radius: 20px;
-        border: 2px solid #434446;
+        border: 2px solid var(--color-outline);
 
         @media only screen and (max-width: 768px) {
             width: 60%;
@@ -37,48 +43,57 @@
     }
 
     .searchBarFocused {
+
         /* Smaller screen (mobile) */
         @media only screen and (max-width: 768px) {
             @keyframes big {
                 0% {
                     width: 60%;
                 }
+
                 100% {
                     width: 70%;
                 }
             }
         }
+
         @media only screen and (min-width: 768px) {
             @keyframes big {
                 0% {
                     width: 30%;
                 }
+
                 100% {
                     width: 40%;
                 }
             }
         }
+
         animation: big 0.3s ease-in-out forwards;
     }
 
     .searchBarUnfocused {
+
         /* Smaller screen (mobile) */
         @media only screen and (max-width: 768px) {
             @keyframes small {
                 0% {
                     width: 70%;
                 }
+
                 100% {
                     width: 60%;
                 }
             }
         }
+
         /* Larger screen (desktop/tablet) */
         @media only screen and (min-width: 768px) {
             @keyframes small {
                 0% {
                     width: 40%;
                 }
+
                 100% {
                     width: 30%;
                 }
@@ -113,6 +128,7 @@
         @media only screen and (max-width: 768px) {
             margin-right: -5px;
         }
+
         /* Larger screen (desktop/tablet) */
         @media only screen and (min-width: 768px) {
             margin-right: 10px;
