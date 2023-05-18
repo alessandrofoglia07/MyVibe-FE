@@ -19,41 +19,72 @@ const Navbar = () => {
 
     const handleFocus = () => {
         const searchBar = document.getElementsByClassName('searchBar')[0];
-        searchBar?.classList.add('searchBarFocused');
-        searchBar?.addEventListener('focusout', () => {
+
+        const addFocusClass = () => {
+            searchBar?.classList.add('searchBarFocused');
+            searchBar?.addEventListener('focusout', handleFocusOut);
+        };
+
+        const handleFocusOut = () => {
             searchBar?.classList.remove('searchBarFocused');
             searchBar?.classList.add('searchBarUnfocused');
             setTimeout(() => {
                 searchBar?.classList.remove('searchBarUnfocused');
             }, 500);
-        });
+        };
+
+        const removeFocusClass = () => {
+            searchBar?.classList.remove('searchBarFocused');
+            searchBar?.removeEventListener('focusout', handleFocusOut);
+        };
+
+        const handleResize = () => {
+            const width = window.innerWidth || document.documentElement.clientWidth;
+            if (width > 768) {
+                addFocusClass();
+            } else {
+                removeFocusClass();
+            }
+        };
+
+        window.addEventListener('resize', handleResize);
+        handleResize();
+
+        return () => {
+            window.removeEventListener('resize', handleResize);
+            removeFocusClass();
+        };
     };
+
+    const adornmentProps =
+        width > 768
+            ? {
+                  startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />
+              }
+            : {
+                  startAdornment: null
+              };
+
+    const logoClassnames = width > 768 ? 'myVibe' : 'myVibe smallerMyVibe';
 
     return (
         <div>
             <AppBar position='static' id='navbar' className='navbar'>
                 <Toolbar className='toolbar'>
-                    {width > 768 && (
-                        <div id='logo'>
-                            <Typography variant='h3' className='myVibe'>
-                                myvibe.
-                            </Typography>
-                        </div>
-                    )}
-                    <TextField
-                        InputProps={{ startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} /> }}
-                        id='searchBar'
-                        onFocus={handleFocus}
-                        placeholder='Search'
-                        variant='outlined'
-                        className='searchBar'
-                    />
+                    <div id='logo'>
+                        <Typography variant='h3' className={logoClassnames}>
+                            myvibe.
+                        </Typography>
+                    </div>
+                    <TextField InputProps={adornmentProps} id='searchBar' onFocus={handleFocus} placeholder='Search' variant='outlined' className='searchBar' />
                     <div id='buttons' className='buttonsContainer'>
-                        <IconButton className='notificationBtn'>
-                            <Badge badgeContent={1} color='error' variant='dot'>
-                                <NotificationIcon />
-                            </Badge>
-                        </IconButton>
+                        {width > 768 && (
+                            <IconButton className='notificationBtn'>
+                                <Badge badgeContent={1} color='error' variant='dot'>
+                                    <NotificationIcon />
+                                </Badge>
+                            </IconButton>
+                        )}
                         <Button className='avatarContainer' disableRipple href='/profile'>
                             <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
                                 <PersonIcon />

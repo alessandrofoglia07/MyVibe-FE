@@ -17,14 +17,25 @@
         justify-content: space-between;
     }
 
+    .smallerMyVibe {
+        font-size: 1.5rem;
+        position: relative;
+        top: 18px;
+        left: -15px;
+        border: 1px dashed red
+    }
+
     .searchBar {
         width: 30%;
         background-color: var(--color-searchbar);
         border-radius: 20px;
         border: 2px solid var(--color-outline);
 
+        position: relative;
+        left: -10px;
+
         @media only screen and (max-width: 768px) {
-            width: 60%;
+            width: 100%;
         }
 
         fieldset {
@@ -44,28 +55,13 @@
 
     .searchBarFocused {
 
-        /* Smaller screen (mobile) */
-        @media only screen and (max-width: 768px) {
-            @keyframes big {
-                0% {
-                    width: 60%;
-                }
-
-                100% {
-                    width: 70%;
-                }
+        @keyframes big {
+            0% {
+                width: 30%;
             }
-        }
 
-        @media only screen and (min-width: 768px) {
-            @keyframes big {
-                0% {
-                    width: 30%;
-                }
-
-                100% {
-                    width: 40%;
-                }
+            100% {
+                width: 40%;
             }
         }
 
@@ -82,7 +78,7 @@
                 }
 
                 100% {
-                    width: 60%;
+                    width: 100%;
                 }
             }
         }
@@ -101,12 +97,29 @@
         }
 
         animation: small 0.3s ease-in-out forwards;
+
+        @media screen and (max-width: 768px) {
+            width: 100%;
+        }
     }
 
     .avatarContainer {
         width: 40px;
+        min-width: 40px;
         height: 40px;
         border-radius: 50%;
+
+        margin-right: 10px;
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            margin-left: -25px;
+        }
+
+        * {
+            width: 40px;
+            border-radius: 50%;
+        }
 
         .avatar {
             width: 40px;
@@ -140,6 +153,13 @@
 
         svg {
             color: var(--color-primary);
+        }
+    }
+
+    .buttonsContainer {
+        @media only screen and (max-width: 768px) {
+            position: relative;
+            left: 20px;
         }
     }
 }
