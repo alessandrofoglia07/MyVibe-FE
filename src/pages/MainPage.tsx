@@ -27,10 +27,6 @@ const MainPage = () => {
         }
     };
 
-    useEffect(() => {
-        toggleThemeTo('light');
-    }, []);
-
     return (
         <div id='MainPage' className='page' style={{ display: 'inline' }}>
             <div id='top'>

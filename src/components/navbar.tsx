@@ -5,17 +5,27 @@ import { AppBar, Toolbar, Stack, Typography, TextField, Avatar, Button, IconButt
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
+import useTheme from '../hooks/useTheme';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 
 const Navbar = () => {
     const [width, setWidth] = useState(window.innerWidth);
+    const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState(false);
+
+    const { toggleThemeTo, toggleTheme } = useTheme();
 
     useEffect(() => {
         window.addEventListener('resize', () => {
             setWidth(window.innerWidth);
         });
     }, []);
+
+    useEffect(() => {
+        if (width >= 768) {
+            setMobileSearchbarOpen(false);
+        }
+    }, [width]);
 
     const handleFocus = () => {
         const searchBar = document.getElementsByClassName('searchBar')[0];
@@ -56,45 +66,104 @@ const Navbar = () => {
         };
     };
 
-    const adornmentProps =
-        width > 768
-            ? {
-                  startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />
-              }
-            : {
-                  startAdornment: null
-              };
+    const handleSearchbarOpen = () => {
+        setMobileSearchbarOpen(true);
+
+        setTimeout(() => {
+            const searchBar = document.getElementById('searchBar');
+
+            if (searchBar) {
+                searchBar.focus();
+                searchBar.addEventListener('focusout', handleSearchbarClose);
+            }
+        }, 100);
+    };
+
+    // TODO fix this
+    const handleSearchbarClose = () => {
+        const searchBar = document.getElementById('searchBar');
+
+        if (searchBar) {
+            searchBar.classList.remove('searchBarMobileShow');
+            searchBar.classList.add('searchBarMobileHide');
+
+            setTimeout(() => {
+                setMobileSearchbarOpen(false);
+                searchBar.classList.remove('searchBarMobileHide');
+            }, 300);
+
+            searchBar.removeEventListener('focusout', handleSearchbarClose);
+        }
+    };
 
     const logoClassnames = width > 768 ? 'myVibe' : 'myVibe smallerMyVibe';
 
     return (
-        <div>
+        <>
             <AppBar position='static' id='navbar' className='navbar'>
-                <Toolbar className='toolbar'>
-                    <div id='logo'>
-                        <Typography variant='h3' className={logoClassnames}>
-                            myvibe.
-                        </Typography>
-                    </div>
-                    <TextField InputProps={adornmentProps} id='searchBar' onFocus={handleFocus} placeholder='Search' variant='outlined' className='searchBar' />
-                    <div id='buttons' className='buttonsContainer'>
-                        {width > 768 && (
-                            <IconButton className='notificationBtn'>
-                                <Badge badgeContent={1} color='error' variant='dot'>
-                                    <NotificationIcon />
-                                </Badge>
-                            </IconButton>
-                        )}
-                        <Button className='avatarContainer' disableRipple href='/profile'>
-                            <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
-                                <PersonIcon />
-                            </Avatar>
-                        </Button>
-                    </div>
+                <Toolbar className='toolbar' sx={{ justifyContent: mobileSearchbarOpen ? 'center' : 'space-between' }}>
+                    {!mobileSearchbarOpen && (
+                        <div id='logo'>
+                            <Typography variant='h3' className={logoClassnames}>
+                                myvibe.
+                            </Typography>
+                        </div>
+                    )}
+
+                    {width > 768 ? (
+                        // Desktop navbar
+                        <>
+                            <TextField
+                                InputProps={{
+                                    startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />
+                                }}
+                                id='searchBar'
+                                onFocus={handleFocus}
+                                placeholder='Search'
+                                variant='outlined'
+                                className='searchBar'
+                            />
+                            <div id='buttons' className='buttonsContainer'>
+                                <IconButton className='notificationBtn'>
+                                    <Badge badgeContent={1} color='error' variant='dot'>
+                                        <NotificationIcon />
+                                    </Badge>
+                                </IconButton>
+                                <Button className='avatarContainer' disableRipple href='/profile'>
+                                    <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                        <PersonIcon />
+                                    </Avatar>
+                                </Button>
+                            </div>
+                        </>
+                    ) : (
+                        // Mobile navbar
+                        <>
+                            {mobileSearchbarOpen ? (
+                                <TextField id='searchBar' placeholder='Search' variant='outlined' className='searchBarMobile searchBarMobileShow' />
+                            ) : (
+                                <div id='buttons' className='buttonsContainer'>
+                                    <IconButton className='searchBtn' onClick={handleSearchbarOpen}>
+                                        <SearchRoundedIcon />
+                                    </IconButton>
+                                    <IconButton className='notificationBtn'>
+                                        <Badge badgeContent={1} color='error' variant='dot'>
+                                            <NotificationIcon />
+                                        </Badge>
+                                    </IconButton>
+                                    <Button className='avatarContainer' disableRipple href='/profile'>
+                                        <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                            <PersonIcon />
+                                        </Avatar>
+                                    </Button>
+                                </div>
+                            )}
+                        </>
+                    )}
                 </Toolbar>
             </AppBar>
             <div className='navbarSpacer' />
-        </div>
+        </>
     );
 };
 
