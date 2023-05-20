@@ -15,7 +15,8 @@ The frontend is built with React (Typescript) using:
 -   [Material-UI](https://material-ui.com/)
 -   [Axios](https://axios-http.com/)
 -   [scss](https://sass-lang.com/)
--   [React-Auth-Kit](https://authkit.arkadip.dev/)
+-   [js-cookie](https://www.npmjs.com/package/js-cookie)
+-   [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 
 ## React App Scripts
 
