@@ -76,23 +76,16 @@ const Navbar = () => {
                 searchBar.focus();
                 searchBar.addEventListener('focusout', handleSearchbarClose);
             }
-        }, 100);
+        }, 50);
     };
 
-    // TODO fix this
     const handleSearchbarClose = () => {
         const searchBar = document.getElementById('searchBar');
 
         if (searchBar) {
-            searchBar.classList.remove('searchBarMobileShow');
-            searchBar.classList.add('searchBarMobileHide');
-
-            setTimeout(() => {
-                setMobileSearchbarOpen(false);
-                searchBar.classList.remove('searchBarMobileHide');
-            }, 300);
-
             searchBar.removeEventListener('focusout', handleSearchbarClose);
+            searchBar.classList.remove('searchBarMobileShow');
+            setMobileSearchbarOpen(false);
         }
     };
 
@@ -140,7 +133,15 @@ const Navbar = () => {
                         // Mobile navbar
                         <>
                             {mobileSearchbarOpen ? (
-                                <TextField id='searchBar' placeholder='Search' variant='outlined' className='searchBarMobile searchBarMobileShow' />
+                                <TextField
+                                    id='searchBar'
+                                    placeholder='Search'
+                                    variant='outlined'
+                                    className='searchBarMobile searchBarMobileShow'
+                                    InputProps={{
+                                        startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />
+                                    }}
+                                />
                             ) : (
                                 <div id='buttons' className='buttonsContainer'>
                                     <IconButton className='searchBtn' onClick={handleSearchbarOpen}>

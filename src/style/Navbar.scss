@@ -138,20 +138,6 @@
         animation: show 0.2s ease-in-out forwards;
     }
 
-    .searchBarMobileHide {
-        @keyframes hide {
-            0% {
-                width: 90%;
-            }
-
-            100% {
-                width: 0%;
-            }
-        }
-
-        animation: hide 0.3s ease-in-out;
-    }
-
     .avatarContainer {
         width: 40px;
         min-width: 40px;
