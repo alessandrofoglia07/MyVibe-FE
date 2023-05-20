@@ -1,0 +1,77 @@
+#Post {
+    .post {
+        margin: 10px;
+        padding: 20px;
+        background-color: var(--color-secondary);
+        border-radius: 10px;
+        border: 2px solid var(--color-outline);
+    }
+
+    .postHeader {
+        display: flex;
+        justify-content: start;
+        align-items: center;
+        flex-direction: row;
+        padding-bottom: 20px;
+        border-bottom: 1px solid var(--color-outline);
+
+        .username {
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+            font-size: 1.4rem;
+            font-weight: bold;
+            margin-left: 20px;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+        }
+    }
+
+    .postContent {
+
+
+        .content {
+            color: var(--color-primary);
+            font-family: Inter, sans-serif;
+            font-size: 20px;
+        }
+    }
+
+    .postFooter {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+
+        .likeButton {
+            .likeIcon {
+                color: var(--color-primary);
+            }
+
+            .likeIconFilled {
+                color: red;
+            }
+        }
+
+        .likes {
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+
+        .commentButton {
+
+            margin-left: 15px;
+
+            .commentIcon {
+                color: var(--color-primary);
+            }
+        }
+
+        .comments {
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+            font-size: 1.2rem;
+        }
+    }
+}
