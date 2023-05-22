@@ -12,7 +12,8 @@ const CommentIcon = ChatBubbleOutlineRoundedIcon;
 
 export interface postProps {
     _id: string;
-    user: string;
+    author: string;
+    authorUsername: string;
     content: string;
     date: string;
     likes: number;
@@ -27,8 +28,8 @@ const Post = (props: postProps) => {
                 <Stack spacing={2}>
                     <div className='postHeader'>
                         <Avatar className='avatar' />
-                        <Link variant='h6' className='username' href={`/profile/${props.user}`}>
-                            {props.user}
+                        <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
+                            {props.authorUsername}
                         </Link>
                     </div>
                     <div className='postContent'>

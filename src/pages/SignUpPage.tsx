@@ -142,7 +142,7 @@ const SignUpPage = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:5000/auth/send-code', input);
+        const res = await axios.post('http://localhost:5000/api/auth/send-code', input);
 
         switch (res.data.message) {
             case 'Email already registered':
@@ -164,7 +164,7 @@ const SignUpPage = () => {
     const handleVerificationCodeSubmit = async () => {
         if (!verificationCode.every((digit) => digit !== '')) return;
         const code = verificationCode.join('');
-        const res = await axios.post('http://localhost:5000/auth/verify-code', { ...input, code });
+        const res = await axios.post('http://localhost:5000/api/auth/verify-code', { ...input, code });
 
         switch (res.data?.message) {
             case 'Internal server error':

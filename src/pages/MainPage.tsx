@@ -22,34 +22,13 @@ const MainPage = () => {
 
     const { userInfo } = useContext(AuthContext);
 
-    const changefollowings = () => {
-        if (followingList.length > 0) {
-            setfollowingList([]);
-        } else {
-            setfollowingList([
-                'following1',
-                'following2WithAVeryLongLongLongLongLongName',
-                'following3',
-                'following4',
-                'following5',
-                'following6',
-                'following7',
-                'following8',
-                'following9',
-                'following10',
-                'following11',
-                'following12'
-            ]);
-        }
-    };
-
     useEffect(() => {
         getPosts();
     }, []);
 
     const getPosts = async () => {
         const res = await authAxios.get('/posts');
-        setPosts(res.data);
+        setPosts(res.data.posts);
     };
 
     return (
@@ -66,7 +45,8 @@ const MainPage = () => {
                                 <Post
                                     key={post._id}
                                     _id={post._id}
-                                    user={post.user}
+                                    author={post.author}
+                                    authorUsername={post.authorUsername}
                                     content={post.content}
                                     date={post.date}
                                     likes={post.likes}
