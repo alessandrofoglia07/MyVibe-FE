@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Stack, Typography, Avatar, IconButton, Button, Link } from '@mui/material';
+import { Paper, Stack, Typography, Avatar, IconButton, Link } from '@mui/material';
 import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';

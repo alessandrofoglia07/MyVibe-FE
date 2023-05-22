@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const url = 'http://localhost:5000/auth';
+const url = 'http://localhost:5000/api/auth';
 
 export interface LoginResponse {
     accessToken: string;
