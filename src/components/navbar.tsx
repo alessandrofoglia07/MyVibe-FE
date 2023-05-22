@@ -6,14 +6,24 @@ import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
 import useTheme from '../hooks/useTheme';
+import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
+import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
+const LightModeIcon = WbSunnyOutlinedIcon;
+const DarkModeIcon = DarkModeOutlinedIcon;
 
 const Navbar = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState(false);
+    const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
-    const { toggleThemeTo, toggleTheme } = useTheme();
+    const { toggleTheme } = useTheme();
+
+    const handleThemeChange = () => {
+        toggleTheme();
+        setTheme(localStorage.getItem('theme') || 'light');
+    };
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -117,6 +127,9 @@ const Navbar = () => {
                                 className='searchBar'
                             />
                             <div id='buttons' className='buttonsContainer'>
+                                <IconButton className='themeBtn' onClick={handleThemeChange}>
+                                    {theme === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
+                                </IconButton>
                                 <IconButton className='notificationBtn'>
                                     <Badge badgeContent={1} color='error' variant='dot'>
                                         <NotificationIcon />

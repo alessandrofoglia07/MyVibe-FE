@@ -216,6 +216,30 @@
         }
     }
 
+    .themeBtn {
+        width: 40px;
+        height: 40px;
+        border-radius: 10px;
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            margin-right: 10px;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            margin-right: 10px;
+        }
+
+        &:hover {
+            background-color: var(--color-hover);
+        }
+
+        svg {
+            color: var(--color-primary);
+        }
+    }
+
     .buttonsContainer {
         @media only screen and (max-width: 768px) {
             position: relative;

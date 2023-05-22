@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/MainPage.scss';
-import { Typography, Stack, Button, TextField, IconButton, Paper } from '@mui/material';
+import { Typography, Stack, Button, TextField, IconButton, Paper, Link } from '@mui/material';
 import useTheme from '../hooks/useTheme';
 import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
@@ -11,7 +11,7 @@ import Post, { postProps } from '../components/Post';
 const MainPage = () => {
     const { toggleThemeTo, toggleTheme } = useTheme();
     const [width, setWidth] = useState(window.innerWidth);
-    const [friendList, setFriendList] = useState<any[]>([]);
+    const [followingList, setfollowingList] = useState<any[]>([]);
     const [posts, setPosts] = useState<postProps[]>([]);
 
     useEffect(() => {
@@ -22,11 +22,24 @@ const MainPage = () => {
 
     const { userInfo } = useContext(AuthContext);
 
-    const changeFriends = () => {
-        if (friendList.length > 0) {
-            setFriendList([]);
+    const changefollowings = () => {
+        if (followingList.length > 0) {
+            setfollowingList([]);
         } else {
-            setFriendList(['friend1', 'friend2WithAVeryLongLongName', 'friend3', 'friend4', 'friend5', 'friend6', 'friend7', 'friend8', 'friend9', 'friend10', 'friend11', 'friend12']);
+            setfollowingList([
+                'following1',
+                'following2WithAVeryLongLongLongLongLongName',
+                'following3',
+                'following4',
+                'following5',
+                'following6',
+                'following7',
+                'following8',
+                'following9',
+                'following10',
+                'following11',
+                'following12'
+            ]);
         }
     };
 
@@ -47,20 +60,6 @@ const MainPage = () => {
             <div id='bottom' className='bottom'>
                 {width > 768 && <div id='left' className='left'></div>}
                 <div id='center' className='center'>
-                    <Button
-                        variant='contained'
-                        onClick={() => {
-                            toggleTheme();
-                        }}>
-                        Change theme
-                    </Button>
-                    <Button
-                        variant='contained'
-                        onClick={() => {
-                            changeFriends();
-                        }}>
-                        Change friends
-                    </Button>
                     {posts.length > 0 ? (
                         <Stack spacing={2}>
                             {posts.map((post) => (
@@ -77,28 +76,28 @@ const MainPage = () => {
                             ))}
                         </Stack>
                     ) : (
+                        // TODO change this to a better looking component
                         <Typography variant='h6' className='noPostsText'>
-                            No posts
+                            No posts here... try following someone first...
                         </Typography>
                     )}
                 </div>
                 {width > 768 && (
                     <div id='right' className='right'>
-                        <Paper elevation={0} className='friendList'>
-                            {friendList.length > 0 ? (
+                        <Paper elevation={0} className='followingList'>
+                            {followingList.length > 0 ? (
                                 <Stack spacing={2}>
-                                    {friendList.map((friend) => {
-                                        const shortenFriend = friend.length > 20 ? friend.substring(0, 20) + '...' : friend;
-                                        return (
-                                            <Typography key={friend} variant='h6' className='friend'>
-                                                {shortenFriend}
-                                            </Typography>
-                                        );
-                                    })}
+                                    {followingList.map((following) => (
+                                        <Typography key={following} variant='h6' className='following'>
+                                            <Link href={`/profile/${following}`} className='followingLinks'>
+                                                {following}
+                                            </Link>
+                                        </Typography>
+                                    ))}
                                 </Stack>
                             ) : (
-                                <Typography variant='h6' className='noFriendsText'>
-                                    No friends
+                                <Typography variant='h6' className='noFollowingsText'>
+                                    You are not following anyone yet...
                                 </Typography>
                             )}
                         </Paper>

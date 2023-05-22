@@ -20,6 +20,9 @@
 
     .center {
 
+        display: flex;
+        justify-content: center;
+
         /* Smaller screen (mobile) */
         @media only screen and (max-width: 768px) {
             width: 100%;
@@ -32,7 +35,7 @@
     }
 
     // TODO fix this
-    .friendList {
+    .followingList {
         position: fixed;
         top: 80px;
         bottom: 50px;
@@ -47,20 +50,37 @@
         overflow-y: auto;
         background-color: var(--color-secondary);
 
-        .noFriendsText {
+        .noFollowingsText {
             margin-left: 20px;
             margin-top: 20px;
             font-family: Inter, sans-serif;
             color: var(--color-primary);
         }
 
-        .friend {
+        .following {
             padding-top: 20px;
             padding-bottom: 20px;
             padding-left: 20px;
             font-family: Inter, sans-serif;
             color: var(--color-primary);
             border-bottom: 2px solid var(--color-outline);
+            text-overflow: ellipsis;
+            overflow: hidden;
+            white-space: nowrap;
+
+            .followingLinks {
+                color: var(--color-primary);
+                text-decoration: none;
+            }
         }
+    }
+
+    .noPostsText {
+        font-family: v.$font;
+        color: var(--color-primary);
+        font-size: 3rem;
+        text-align: center;
+        margin-top: 50px;
+        width: 90%;
     }
 }
