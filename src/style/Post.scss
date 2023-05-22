@@ -5,6 +5,10 @@
         background-color: var(--color-secondary);
         border-radius: 10px;
         border: 2px solid var(--color-outline);
+
+        @media only screen and (width < 768px) {
+            margin: 25px;
+        }
     }
 
     .postHeader {
@@ -34,7 +38,7 @@
         .content {
             color: var(--color-primary);
             font-family: Inter, sans-serif;
-            font-size: 20px;
+            font-size: 1.2rem;
         }
     }
 

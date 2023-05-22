@@ -5,7 +5,7 @@ import { Typography, Stack, Button, TextField, IconButton, Paper } from '@mui/ma
 import useTheme from '../hooks/useTheme';
 import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
-import axios from 'axios';
+import authAxios from '../api/authAxiosApi';
 import Post, { postProps } from '../components/Post';
 
 const MainPage = () => {
@@ -31,40 +31,11 @@ const MainPage = () => {
     };
 
     useEffect(() => {
-        setPosts([
-            {
-                _id: '1',
-                user: 'friend1',
-                content:
-                    'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.',
-                date: '2021-10-10',
-                likes: 1000,
-                comments: 234,
-                liked: true
-            },
-            {
-                _id: '2',
-                user: 'friend2WithAVeryLongLongName',
-                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                date: '2021-10-10',
-                likes: 100000000,
-                comments: 879,
-                liked: false
-            },
-            {
-                _id: '3',
-                user: 'friend3',
-                content: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
-                date: '2021-10-10',
-                likes: 1000,
-                comments: 234,
-                liked: true
-            }
-        ]);
+        getPosts();
     }, []);
 
     const getPosts = async () => {
-        const res = await axios.get(`http://localhost:5000/api/posts/getPosts/${userInfo?.userId}`);
+        const res = await authAxios.get('/posts');
         setPosts(res.data);
     };
 
