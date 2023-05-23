@@ -6,13 +6,13 @@ import useTheme from '../hooks/useTheme';
 import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
 import authAxios from '../api/authAxiosApi';
-import Post, { postProps } from '../components/Post';
+import Post from '../components/Post';
 
 const MainPage = () => {
     const { toggleThemeTo, toggleTheme } = useTheme();
     const [width, setWidth] = useState(window.innerWidth);
     const [followingList, setfollowingList] = useState<any[]>([]);
-    const [posts, setPosts] = useState<postProps[]>([]);
+    const [posts, setPosts] = useState<any[]>([]);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -49,7 +49,7 @@ const MainPage = () => {
                                     authorUsername={post.authorUsername}
                                     content={post.content}
                                     date={post.date}
-                                    likes={post.likes}
+                                    likes={post.likes.length}
                                     liked={post.liked}
                                     comments={post.comments}
                                 />

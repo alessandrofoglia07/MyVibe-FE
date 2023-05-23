@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Paper, Stack, Typography, Avatar, IconButton, Link } from '@mui/material';
 import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../api/abbreviateNumber';
+import authAxios from '../api/authAxiosApi';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -22,6 +23,20 @@ export interface postProps {
 }
 
 const Post = (props: postProps) => {
+    const [liked, setLiked] = useState<boolean>(props.liked);
+    const [likes, setLikes] = useState<number>(props.likes);
+
+    const handleLike = async () => {
+        const res = await authAxios.post(`/posts/like/${props._id}`);
+        if (res.data.message === 'Post liked') {
+            setLiked(true);
+            setLikes(likes + 1);
+        } else if (res.data.message === 'Post unliked') {
+            setLiked(false);
+            setLikes(likes - 1);
+        }
+    };
+
     return (
         <div id='Post'>
             <Paper elevation={0} className='post'>
@@ -38,9 +53,11 @@ const Post = (props: postProps) => {
                         </Typography>
                     </div>
                     <div className='postFooter'>
-                        <IconButton className='likeButton'>{props.liked ? <LikeIconFilled className='likeIconFilled' /> : <LikeIconEmpty className='likeIcon' />}</IconButton>
+                        <IconButton className='likeButton' onClick={handleLike}>
+                            {liked ? <LikeIconFilled className='likeIconFilled' /> : <LikeIconEmpty className='likeIcon' />}
+                        </IconButton>
                         <Typography variant='body1' className='likes'>
-                            {abbreviate(props.likes, 2, false, false)}
+                            {abbreviate(likes, 2, false, false)}
                         </Typography>
                         <IconButton className='commentButton'>
                             <CommentIcon className='commentIcon' />
