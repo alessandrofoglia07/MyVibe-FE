@@ -1,13 +1,3 @@
-:root {
-    --color-primary: #fff;
-    --color-secondary: #080710;
-    --color-bg: #080710;
-    --color-bg-2: #212121;
-    --color-searchbar: #303134;
-    --color-hover: #303134;
-    --color-outline: #434446;
-}
-
 [data-theme='light'] {
     --color-primary: #080710;
     --color-secondary: #fff;

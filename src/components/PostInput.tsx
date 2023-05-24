@@ -3,9 +3,9 @@ import '../style/PostInput.scss';
 import { Paper, Stack, Typography, Avatar } from '@mui/material';
 import Button from '@mui/base/Button';
 
-const PostInput = () => {
+const PostInput = (props: { onClick: () => void }) => {
     const handleClick = () => {
-        console.log('clicked');
+        props.onClick();
     };
 
     return (

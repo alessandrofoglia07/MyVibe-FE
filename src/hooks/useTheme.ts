@@ -7,6 +7,9 @@ const useTheme = () => {
             document.documentElement.setAttribute('data-theme', 'dark');
         } else if (theme === 'light') {
             document.documentElement.setAttribute('data-theme', 'light');
+        } else {
+            // default to light theme
+            document.documentElement.setAttribute('data-theme', 'light');
         }
     }, [localStorage.getItem('theme')]);
 
