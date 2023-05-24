@@ -11,8 +11,10 @@ Note that
 
 The frontend is built with React (Typescript) using:
 
+-   [Vite](https://vitejs.dev/)
 -   [React-Router](https://reactrouter.com/)
 -   [Material-UI](https://material-ui.com/)
+-   [Base-UI](https://mui.com/base/getting-started/overview/)
 -   [Axios](https://axios-http.com/)
 -   [scss](https://sass-lang.com/)
 -   [js-cookie](https://www.npmjs.com/package/js-cookie)

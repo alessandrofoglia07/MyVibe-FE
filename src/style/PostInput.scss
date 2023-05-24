@@ -1,0 +1,41 @@
+#PostInput {
+
+    width: 80%;
+
+    .postInput {
+        margin: 10px;
+        padding: 20px;
+        background-color: var(--color-secondary);
+        border-radius: 10px;
+        border: 2px solid var(--color-outline);
+
+        @media only screen and (width < 768px) {
+            margin: 25px;
+        }
+
+        .button {
+            width: 100%;
+            text-transform: none;
+            font-size: 1.3rem;
+            background-color: var(--color-bg);
+            font-family: Inter, sans-serif;
+            text-align: left;
+            cursor: pointer;
+            color: var(--color-primary);
+            border: 2px solid var(--color-outline);
+            padding: 10px;
+            border-radius: 10px;
+
+            &:hover {
+                background-color: var(--color-hover);
+            }
+        }
+
+        .avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: 20px;
+        }
+    }
+}

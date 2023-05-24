@@ -21,7 +21,8 @@
     .center {
 
         display: flex;
-        justify-content: center;
+        flex-direction: column;
+        align-items: center;
 
         /* Smaller screen (mobile) */
         @media only screen and (max-width: 768px) {

@@ -7,6 +7,8 @@ import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
 import authAxios from '../api/authAxiosApi';
 import Post from '../components/Post';
+import Modal from '@mui/base/Modal';
+import PostInput from '../components/PostInput';
 
 const MainPage = () => {
     const { toggleThemeTo, toggleTheme } = useTheme();
@@ -39,8 +41,9 @@ const MainPage = () => {
             <div id='bottom' className='bottom'>
                 {width > 768 && <div id='left' className='left'></div>}
                 <div id='center' className='center'>
+                    <PostInput />
                     {posts.length > 0 ? (
-                        <Stack spacing={2}>
+                        <Stack spacing={2} width='80%'>
                             {posts.map((post) => (
                                 <Post
                                     key={post._id}
