@@ -58,7 +58,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setAccessTokenState(res.accessToken);
             setAccessToken(res.accessToken);
             setRefreshToken(res.refreshToken);
-            const user = { userId: res.userId, email: res.email };
+            const user = { userId: res.userId, email: res.email, username: res.username };
             setUserInfoState(user);
             setUserInfo(user);
         } catch (err) {

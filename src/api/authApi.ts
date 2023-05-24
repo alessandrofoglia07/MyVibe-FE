@@ -8,22 +8,32 @@ export interface LoginResponse {
     refreshToken: string;
     userId: string;
     email: string;
+    username: string;
     message: string;
 }
 
 export interface UserInfo {
     userId: string;
+    username: string;
     email: string;
 }
 
 export async function login(email: string, password: string): Promise<LoginResponse> {
     const res = await axios.post(`${url}/login`, { email, password });
-    return res.data;
+    if (res.data.message === "Login successful") {
+        return res.data;
+    } else {
+        throw new Error(res.data.message);
+    }
 }
 
 export async function refreshAccessToken(refreshToken: string): Promise<string> {
     const res = await axios.post(`${url}/refresh-token`, { refreshToken });
-    return res.data.accessToken;
+    if (res.data.message === "Token refreshed") {
+        return res.data.accessToken;
+    } else {
+        throw new Error(res.data.message);
+    }
 }
 
 export function setUserInfo(userInfo: UserInfo) {
