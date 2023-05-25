@@ -9,6 +9,7 @@ import authAxios from '../api/authAxiosApi';
 import Post from '../components/Post';
 import PostInput from '../components/PostInput';
 import InputModal from '../components/InputModal';
+import CircularProgress from '@mui/material/CircularProgress';
 
 interface IPost {
     _id: string;
@@ -29,6 +30,7 @@ const MainPage = () => {
     const [followingList, setFollowingList] = useState<string[]>([]);
     const [posts, setPosts] = useState<IPost[]>([]);
     const [writingPost, setWritingPost] = useState(false);
+    const [loading, setLoading] = useState(false);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -43,8 +45,17 @@ const MainPage = () => {
     const { userInfo } = useContext(AuthContext);
 
     useEffect(() => {
-        getPosts();
-        getFollowingList();
+        (async () => {
+            try {
+                setLoading(true);
+                await getPosts();
+                await getFollowingList();
+            } catch (err) {
+                console.log(err);
+            } finally {
+                setLoading(false);
+            }
+        })();
     }, []);
 
     const getFollowingList = async () => {
@@ -66,49 +77,59 @@ const MainPage = () => {
                 {width > 768 && <div id='left' className='left'></div>}
                 <div id='center' className='center'>
                     <PostInput onClick={handleInputStart} />
-                    {posts.length > 0 ? (
-                        <Stack spacing={2} width='80%'>
-                            {posts.map((post) => (
-                                <Post
-                                    key={post._id}
-                                    _id={post._id}
-                                    author={post.author}
-                                    authorUsername={post.authorUsername}
-                                    content={post.content}
-                                    date={post.createdAt}
-                                    likes={post.likes.length}
-                                    liked={post.liked}
-                                    comments={post.comments.length}
-                                />
-                            ))}
-                        </Stack>
+                    {!loading ? (
+                        <>
+                            {posts.length > 0 ? (
+                                <Stack spacing={2} width='80%'>
+                                    {posts.map((post) => (
+                                        <Post
+                                            key={post._id}
+                                            _id={post._id}
+                                            author={post.author}
+                                            authorUsername={post.authorUsername}
+                                            content={post.content}
+                                            date={post.createdAt}
+                                            likes={post.likes.length}
+                                            liked={post.liked}
+                                            comments={post.comments.length}
+                                        />
+                                    ))}
+                                </Stack>
+                            ) : (
+                                // TODO change this to a better looking component
+                                <Typography variant='h6' className='noPostsText'>
+                                    No posts here... try following someone first...
+                                </Typography>
+                            )}
+                        </>
                     ) : (
-                        // TODO change this to a better looking component
-                        <Typography variant='h6' className='noPostsText'>
-                            No posts here... try following someone first...
-                        </Typography>
+                        <CircularProgress className='circularProgress' />
                     )}
                 </div>
                 {width > 768 && (
                     <div id='right' className='right'>
                         <Paper elevation={0} className='followingList'>
-                            {followingList.length > 0 ? (
-                                <Stack spacing={2}>
-                                    <Typography variant='h6' className='followingListTitle'>
-                                        Following
-                                    </Typography>
-                                    {followingList.map((following) => (
-                                        <Typography key={following} variant='h6' className='following'>
-                                            <Link href={`/profile/${following}`} className='followingLinks'>
-                                                {following}
-                                            </Link>
+                            {!loading && (
+                                <>
+                                    {followingList.length > 0 ? (
+                                        <Stack spacing={2}>
+                                            <Typography variant='h6' className='followingListTitle'>
+                                                Following
+                                            </Typography>
+                                            {followingList.map((following) => (
+                                                <Typography key={following} variant='h6' className='following'>
+                                                    <Link href={`/profile/${following}`} className='followingLinks'>
+                                                        {following}
+                                                    </Link>
+                                                </Typography>
+                                            ))}
+                                        </Stack>
+                                    ) : (
+                                        <Typography variant='h6' className='noFollowingsText'>
+                                            You are not following anyone yet...
                                         </Typography>
-                                    ))}
-                                </Stack>
-                            ) : (
-                                <Typography variant='h6' className='noFollowingsText'>
-                                    You are not following anyone yet...
-                                </Typography>
+                                    )}
+                                </>
                             )}
                         </Paper>
                     </div>
