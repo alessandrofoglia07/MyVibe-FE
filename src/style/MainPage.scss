@@ -51,6 +51,17 @@
         overflow-y: auto;
         background-color: var(--color-secondary);
 
+        .followingListTitle {
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+            font-size: 1.5rem;
+            font-weight: bold;
+            padding-top: 20px;
+            padding-bottom: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--color-outline);
+        }
+
         .noFollowingsText {
             margin-left: 20px;
             margin-top: 20px;
@@ -59,7 +70,6 @@
         }
 
         .following {
-            padding-top: 20px;
             padding-bottom: 20px;
             padding-left: 20px;
             font-family: Inter, sans-serif;
@@ -176,52 +186,64 @@
             }
         }
 
-        .input {
-            margin-top: 20px;
+        form {
+
             width: 100%;
-            height: 70%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
 
-            textarea {
-                resize: none;
+            .input {
+                margin-top: 20px;
                 width: 100%;
-                height: 90%;
-                border: none;
-                font-family: Inter, sans-serif;
-                font-size: 1.2rem;
-                background-color: var(--color-secondary);
-                color: var(--color-primary);
+                height: 70%;
 
-                &:focus {
-                    outline: none;
+                textarea {
+                    resize: none;
+                    width: 100%;
+                    height: 90%;
+                    border: none;
+                    font-family: Inter, sans-serif;
+                    font-size: 1.2rem;
+                    background-color: var(--color-secondary);
+                    color: var(--color-primary);
+
+                    &:focus {
+                        outline: none;
+                    }
+                }
+            }
+
+            .charCount {
+                font-family: Inter, sans-serif;
+                color: var(--color-primary);
+                font-size: 0.8rem;
+                margin-bottom: 5px;
+                align-self: flex-end;
+                margin-right: 10px;
+            }
+
+            .publishButton {
+                background-color: var(--color-primary);
+                color: var(--color-secondary);
+                font-family: v.$font;
+                font-weight: 600;
+                font-size: 1.2rem;
+                width: 70%;
+                height: 60px;
+                border-radius: 5px;
+                text-transform: none;
+                margin: 10px 0;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-secondary);
                 }
             }
         }
 
-        .charCount {
-            font-family: Inter, sans-serif;
-            color: var(--color-primary);
-            font-size: 0.8rem;
-            margin-bottom: 5px;
-            align-self: flex-end;
-            margin-right: 10px;
-        }
 
-        .publishButton {
-            background-color: var(--color-primary);
-            color: var(--color-secondary);
-            font-family: v.$font;
-            font-weight: 600;
-            font-size: 1.2rem;
-            width: 70%;
-            height: 60px;
-            border-radius: 5px;
-            text-transform: none;
-            margin: 10px 0;
-
-            &:hover {
-                background-color: var(--color-primary);
-                color: var(--color-secondary);
-            }
-        }
     }
 }

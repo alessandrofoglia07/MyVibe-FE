@@ -1,12 +1,24 @@
 import axios from 'axios';
-import { getAccessToken } from './authApi';
+import { getAccessToken, getRefreshToken, refreshAccessToken, setAccessToken } from './authApi';
 
 const authAxios = axios.create({
     baseURL: 'http://localhost:5000/api'
 });
 
-authAxios.interceptors.request.use((config) => {
+authAxios.interceptors.request.use(async (config) => {
     const accessToken = getAccessToken();
+    const refreshToken = getRefreshToken();
+
+    if (refreshToken && !accessToken) {
+        try {
+            const accessToken = await refreshAccessToken(refreshToken);
+            setAccessToken(accessToken);
+            config.headers.Authorization = `Bearer ${accessToken}`;
+        } catch (err) {
+            console.log(err);
+        }
+    }
+
     if (accessToken) {
         config.headers.Authorization = `Bearer ${accessToken}`;
     }

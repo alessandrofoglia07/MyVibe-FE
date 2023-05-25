@@ -10,11 +10,24 @@ import Post from '../components/Post';
 import PostInput from '../components/PostInput';
 import InputModal from '../components/InputModal';
 
+interface IPost {
+    _id: string;
+    author: string;
+    authorUsername: string;
+    content: string;
+    likes: string[];
+    comments: string[];
+    createdAt: string;
+    updatedAt: string;
+    __v: number;
+    liked: boolean;
+}
+
 const MainPage = () => {
     useTheme();
     const [width, setWidth] = useState(window.innerWidth);
-    const [followingList, setfollowingList] = useState<any[]>([]);
-    const [posts, setPosts] = useState<any[]>([]);
+    const [followingList, setFollowingList] = useState<string[]>([]);
+    const [posts, setPosts] = useState<IPost[]>([]);
     const [writingPost, setWritingPost] = useState(false);
 
     useEffect(() => {
@@ -31,7 +44,13 @@ const MainPage = () => {
 
     useEffect(() => {
         getPosts();
+        getFollowingList();
     }, []);
+
+    const getFollowingList = async () => {
+        const res = await authAxios.get('/posts/following');
+        setFollowingList(res.data.usernames);
+    };
 
     const getPosts = async () => {
         const res = await authAxios.get('/posts');
@@ -56,10 +75,10 @@ const MainPage = () => {
                                     author={post.author}
                                     authorUsername={post.authorUsername}
                                     content={post.content}
-                                    date={post.date}
+                                    date={post.createdAt}
                                     likes={post.likes.length}
                                     liked={post.liked}
-                                    comments={post.comments}
+                                    comments={post.comments.length}
                                 />
                             ))}
                         </Stack>
@@ -75,6 +94,9 @@ const MainPage = () => {
                         <Paper elevation={0} className='followingList'>
                             {followingList.length > 0 ? (
                                 <Stack spacing={2}>
+                                    <Typography variant='h6' className='followingListTitle'>
+                                        Following
+                                    </Typography>
                                     {followingList.map((following) => (
                                         <Typography key={following} variant='h6' className='following'>
                                             <Link href={`/profile/${following}`} className='followingLinks'>
