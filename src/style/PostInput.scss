@@ -1,6 +1,6 @@
 #PostInput {
 
-    width: 80%;
+    width: 95%;
 
     .postInput {
         margin: 10px;
@@ -8,10 +8,6 @@
         background-color: var(--color-secondary);
         border-radius: 10px;
         border: 2px solid var(--color-outline);
-
-        @media only screen and (width < 768px) {
-            margin: 25px;
-        }
 
         .button {
             width: 100%;

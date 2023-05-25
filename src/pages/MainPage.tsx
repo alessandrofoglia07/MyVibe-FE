@@ -1,24 +1,21 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/MainPage.scss';
-import { Typography, Stack, Button, TextField, IconButton, Paper, Link, Modal, Box, Avatar } from '@mui/material';
+import { Typography, Stack, Paper, Link } from '@mui/material';
 import useTheme from '../hooks/useTheme';
 import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
 import authAxios from '../api/authAxiosApi';
 import Post from '../components/Post';
 import PostInput from '../components/PostInput';
-import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
-
-const CloseIcon = CloseOutlinedIcon;
+import InputModal from '../components/InputModal';
 
 const MainPage = () => {
     useTheme();
     const [width, setWidth] = useState(window.innerWidth);
     const [followingList, setfollowingList] = useState<any[]>([]);
     const [posts, setPosts] = useState<any[]>([]);
-    const [writingPost, setWritingPost] = useState<boolean>(false);
-    const [postContent, setPostContent] = useState<string>('');
+    const [writingPost, setWritingPost] = useState(false);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -94,25 +91,7 @@ const MainPage = () => {
                         </Paper>
                     </div>
                 )}
-                <Modal open={writingPost} onClose={() => setWritingPost(false)}>
-                    <Box className='postModal'>
-                        <header>
-                            <div className='headerLeft' />
-                            <Typography variant='h6' className='title'>
-                                Write a post.
-                            </Typography>
-                            <IconButton className='closeButton' onClick={() => setWritingPost(false)} disableRipple>
-                                <CloseIcon />
-                            </IconButton>
-                        </header>
-                        <main>
-                            <Avatar className='avatar' />
-                            <Typography variant='h6' className='username'>
-                                {userInfo?.username}
-                            </Typography>
-                        </main>
-                    </Box>
-                </Modal>
+                {writingPost && <InputModal close={() => setWritingPost(false)} userInfo={userInfo} />}
             </div>
         </div>
     );
