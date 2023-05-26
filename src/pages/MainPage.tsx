@@ -110,7 +110,7 @@ const MainPage = () => {
                         <Paper elevation={0} className='followingList'>
                             {!loading && (
                                 <>
-                                    {followingList.length > 0 ? (
+                                    {followingList?.length > 0 ? (
                                         <Stack spacing={2}>
                                             <Typography variant='h6' className='followingListTitle'>
                                                 Following

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../style/Navbar.scss';
 import { AppBar, Toolbar, Typography, TextField, Avatar, Button, IconButton, Badge } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
@@ -7,6 +7,7 @@ import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneR
 import useTheme from '../hooks/useTheme';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
+import { AuthContext } from '../context/AuthContext';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
@@ -18,6 +19,8 @@ const Navbar = () => {
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
 
     const { toggleTheme } = useTheme();
+
+    const { userInfo } = useContext(AuthContext);
 
     const handleThemeChange = () => {
         toggleTheme();
@@ -134,7 +137,7 @@ const Navbar = () => {
                                         <NotificationIcon />
                                     </Badge>
                                 </IconButton>
-                                <Button className='avatarContainer' disableRipple href='/profile'>
+                                <Button className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
                                     <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
                                         <PersonIcon />
                                     </Avatar>
@@ -164,7 +167,7 @@ const Navbar = () => {
                                             <NotificationIcon />
                                         </Badge>
                                     </IconButton>
-                                    <Button className='avatarContainer' disableRipple href='/profile'>
+                                    <Button className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
                                         <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
                                             <PersonIcon />
                                         </Avatar>
