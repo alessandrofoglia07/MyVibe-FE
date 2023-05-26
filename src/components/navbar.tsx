@@ -1,7 +1,6 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect } from 'react';
 import '../style/Navbar.scss';
-import { AppBar, Toolbar, Stack, Typography, TextField, Avatar, Button, IconButton, Badge } from '@mui/material';
+import { AppBar, Toolbar, Typography, TextField, Avatar, Button, IconButton, Badge } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';

@@ -9,6 +9,7 @@ import LoginPage from '../pages/LoginPage';
 import NotFoundPage from '../pages/404Page';
 import PasswordForgottenPage from '../pages/PasswordForgottenPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
+import ProfilePage from '../pages/ProfilePage';
 
 const App = () => {
     return (
@@ -17,6 +18,7 @@ const App = () => {
                 <Routes>
                     <Route element={<PrivateRoutes />}>
                         <Route path='/' element={<MainPage />} />
+                        <Route path='/profile/:id' element={<ProfilePage />} />
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/sign-up' element={<SignUpPage />} />

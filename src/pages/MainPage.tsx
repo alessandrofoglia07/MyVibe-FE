@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/MainPage.scss';
 import { Typography, Stack, Paper, Link } from '@mui/material';
@@ -59,7 +58,7 @@ const MainPage = () => {
     }, []);
 
     const getFollowingList = async () => {
-        const res = await authAxios.get('/posts/following');
+        const res = await authAxios.get('/users/following');
         setFollowingList(res.data.usernames);
     };
 
