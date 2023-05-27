@@ -69,10 +69,10 @@ const MainPage = () => {
 
     return (
         <div id='MainPage' className='page' style={{ display: 'inline' }}>
-            <div id='top'>
+            <header id='top'>
                 <Navbar />
-            </div>
-            <div id='bottom' className='bottom'>
+            </header>
+            <main id='bottom' className='bottom'>
                 {width > 768 && <div id='left' className='left'></div>}
                 <div id='center' className='center'>
                     <PostInput onClick={handleInputStart} />
@@ -134,7 +134,7 @@ const MainPage = () => {
                     </div>
                 )}
                 {writingPost && <InputModal close={() => setWritingPost(false)} userInfo={userInfo} />}
-            </div>
+            </main>
         </div>
     );
 };
