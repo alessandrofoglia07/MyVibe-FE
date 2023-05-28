@@ -26,32 +26,104 @@
             color: var(--color-primary);
         }
 
-        .avatarContainer {
-            width: 40px;
-            min-width: 40px;
-            height: 40px;
-            border-radius: 50%;
-
-            margin-right: 10px;
+        .top {
 
             /* Smaller screen (mobile) */
             @media only screen and (max-width: 768px) {
-                margin-left: -25px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
             }
+
+            /* Larger screen (desktop/tablet) */
+            @media only screen and (min-width: 768px) {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .avatarContainer {
+                width: 120px;
+                min-width: 120px;
+                height: 120px;
+                border-radius: 50%;
+                margin: 20px 20px;
+
+                * {
+                    width: 120px;
+                    border-radius: 50%;
+                }
+
+                .avatar {
+                    width: 120px;
+                    height: 120px;
+                    border-radius: 50%;
+
+                    &:hover {
+                        box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                    }
+                }
+            }
+
+            div {
+
+                /* Smaller screen (mobile) */
+                @media only screen and (max-width: 768px) {
+                    text-align: center;
+                }
+
+                /* Larger screen (desktop/tablet) */
+                @media only screen and (min-width: 768px) {
+                    text-align: left;
+                }
+
+                .username {
+                    font-size: 2.5rem;
+                    font-weight: 600;
+                }
+
+                .email {
+                    font-size: 1rem;
+                    margin-bottom: 15px;
+                }
+            }
+
+            border-bottom: 2px solid var(--color-outline);
+        }
+
+        .numericStats {
+            text-align: center;
+            margin-top: 15px;
 
             * {
-                width: 40px;
-                border-radius: 50%;
+                font-size: 1.5rem;
+                font-weight: 600;
             }
+        }
 
-            .avatar {
-                width: 40px;
-                height: 40px;
-                border-radius: 50%;
+        .createdAt {
+            font-size: 1rem;
+            margin-top: 10px;
+        }
 
-                &:hover {
-                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-                }
+        .bio {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            padding-bottom: 10px;
+            text-align: center;
+            width: 80%;
+            border-bottom: 2px solid var(--color-outline);
+        }
+
+        .posts {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .postsTitle {
+                font-size: 1.8rem;
+                font-weight: 600;
+                margin-top: 20px;
             }
         }
     }
