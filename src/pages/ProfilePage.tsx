@@ -7,6 +7,7 @@ import authAxios from '../api/authAxiosApi';
 import { Avatar, Typography, Stack, Button } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import Post from '../components/Post';
+import formatDate from '../utils/formatDate';
 
 interface IUser {
     _id: string;
@@ -36,14 +37,6 @@ const ProfilePage = () => {
         }
     };
 
-    const formatDate = (date: Date): string => {
-        const d = new Date(date);
-        const day = d.getUTCDate() < 10 ? '0' + d.getUTCDate() : d.getUTCDate();
-        const month = d.getUTCMonth() + 1 < 10 ? '0' + (d.getUTCMonth() + 1) : d.getUTCMonth() + 1;
-        const year = d.getUTCFullYear();
-        return `${day}/${month}/${year}`;
-    };
-
     return (
         <div id='ProfilePage'>
             <header>
@@ -56,27 +49,27 @@ const ProfilePage = () => {
                         <PersonIcon />
                     </Avatar>
                 </Button>
-                <Typography variant='h4' className='username'>
+                <Typography component='p' className='username'>
                     {username}
                 </Typography>
-                <Typography variant='h6' className='email'>
+                <Typography component='p' className='email'>
                     {user?.email}
                 </Typography>
                 {user?.info.firstName && user?.info.lastName ? (
-                    <Typography variant='h6' className='fullName'>
+                    <Typography component='p' className='fullName'>
                         {user?.info.firstName + ' ' + user?.info.lastName}
                     </Typography>
                 ) : null}
-                <Typography variant='h6' className='bio'>
+                <Typography component='p' className='bio'>
                     {user?.info.bio || 'No bio yet.'}
                 </Typography>
-                <Typography variant='h6' className='following'>
+                <Typography component='p' className='following'>
                     Following <br /> {user?.followingIDs.length}
                 </Typography>
-                <Typography variant='h6' className='followers'>
+                <Typography component='p' className='followers'>
                     Followers <br /> {user?.followersIDs.length}
                 </Typography>
-                <Typography variant='h6' className='createdAt'>
+                <Typography component='p' className='createdAt'>
                     Joined {formatDate(user?.createdAt as Date)}
                 </Typography>
             </main>

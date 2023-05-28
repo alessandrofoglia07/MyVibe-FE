@@ -4,7 +4,7 @@ import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
-import abbreviate from '../api/abbreviateNumber';
+import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;

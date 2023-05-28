@@ -20,5 +20,39 @@
         .circularProgress {
             margin-top: 50px;
         }
+
+        p {
+            font-family: Inter, sans-serif;
+            color: var(--color-primary);
+        }
+
+        .avatarContainer {
+            width: 40px;
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            margin-right: 10px;
+
+            /* Smaller screen (mobile) */
+            @media only screen and (max-width: 768px) {
+                margin-left: -25px;
+            }
+
+            * {
+                width: 40px;
+                border-radius: 50%;
+            }
+
+            .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+
+                &:hover {
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
     }
 }

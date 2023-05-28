@@ -5,6 +5,8 @@
  * @param forcePlaces - The exact number of decimal places to include in the result, overriding `maxPlaces`.
  * @param forceLetter - Forces a specific abbreviation letter to be appended to the result. Set to `false` to use the default abbreviation.
  * @returns The abbreviated and annotated number as a string.
+ * @example abbreviate(1234567, 2, false, false) // 1.23M
+ * @example abbreviate(1234567, 2, false, 'K') // 1234.57K
  */
 function abbreviate(number: number, maxPlaces: number | false, forcePlaces: number | false, forceLetter: string | false): string {
     number = Number(number);
