@@ -1,11 +1,12 @@
 import React, { useState } from 'react';
-import { Paper, Stack, Typography, Avatar, IconButton, Link } from '@mui/material';
+import { Paper, Stack, Typography, Avatar, IconButton, Link, Button } from '@mui/material';
 import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
+import PersonIcon from '@mui/icons-material/Person';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -42,7 +43,11 @@ const Post = (props: postProps) => {
             <Paper elevation={0} className='post'>
                 <Stack spacing={2}>
                     <div className='postHeader'>
-                        <Avatar className='avatar' />
+                        <Button className='avatarContainer' disableRipple href={`/profile/${props.authorUsername}`}>
+                            <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                <PersonIcon />
+                            </Avatar>
+                        </Button>
                         <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
                             {props.authorUsername}
                         </Link>

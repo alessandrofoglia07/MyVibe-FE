@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/Navbar.scss';
-import { AppBar, Toolbar, Typography, TextField, Avatar, Button, IconButton, Badge } from '@mui/material';
+import { AppBar, Toolbar, Typography, TextField, Avatar, Button, IconButton, Badge, Link } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
@@ -109,9 +109,9 @@ const Navbar = () => {
                 <Toolbar className='toolbar' sx={{ justifyContent: mobileSearchbarOpen ? 'center' : 'space-between' }}>
                     {!mobileSearchbarOpen && (
                         <div id='logo'>
-                            <Typography variant='h3' className={logoClassnames}>
-                                myvibe.
-                            </Typography>
+                            <Link underline='none' href='/'>
+                                <Typography className={logoClassnames}>myvibe.</Typography>
+                            </Link>
                         </div>
                     )}
 
