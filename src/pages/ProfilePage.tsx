@@ -20,11 +20,23 @@ interface IUser {
     createdAt: Date;
 }
 
+interface IPost {
+    _id: string;
+    author: string;
+    authorUsername: string;
+    content: string;
+    likes: string[];
+    comments: string[];
+    createdAt: string;
+    updatedAt: string;
+    liked: boolean;
+}
+
 const ProfilePage = () => {
     const { username } = useParams<{ username: string }>();
     const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
-    const [posts, setPosts] = useState<any[]>([]);
+    const [posts, setPosts] = useState<IPost[]>([]);
 
     useEffect(() => {
         (async () => {
@@ -81,13 +93,13 @@ const ProfilePage = () => {
                                 <Typography component='p' className='email'>
                                     {user?.email}
                                 </Typography>
+                                {user?.info.firstName && user?.info.lastName ? (
+                                    <Typography component='p' className='fullName'>
+                                        {user?.info.firstName + ' ' + user?.info.lastName}
+                                    </Typography>
+                                ) : null}
                             </div>
                         </div>
-                        {user?.info.firstName && user?.info.lastName ? (
-                            <Typography component='p' className='fullName'>
-                                {user?.info.firstName + ' ' + user?.info.lastName}
-                            </Typography>
-                        ) : null}
                         <Stack direction='row' spacing={3} className='numericStats'>
                             <Typography component='p' className='following'>
                                 Following <br /> {user?.followingIDs.length}
@@ -96,11 +108,11 @@ const ProfilePage = () => {
                                 Followers <br /> {user?.followersIDs.length}
                             </Typography>
                         </Stack>
-                        <Typography component='p' className='createdAt'>
-                            Joined {formatDate(user?.createdAt as Date)}
-                        </Typography>
                         <Typography component='p' className='bio'>
                             {user?.info.bio || 'No bio yet.'}
+                        </Typography>
+                        <Typography component='p' className='createdAt'>
+                            Joined {formatDate(user?.createdAt as Date)}
                         </Typography>
                         <div className='posts'>
                             <Typography component='p' className='postsTitle'>
