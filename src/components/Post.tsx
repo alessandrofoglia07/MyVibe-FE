@@ -7,6 +7,7 @@ import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
 import PersonIcon from '@mui/icons-material/Person';
+import Comment from './Comment';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -19,13 +20,23 @@ export interface postProps {
     content: string;
     date: string;
     likes: number;
-    comments: number;
+    comments: string[];
+    liked: boolean;
+}
+
+interface IComment {
+    _id: string;
+    author: string;
+    authorUsername: string;
+    content: string;
+    likes: string[];
     liked: boolean;
 }
 
 const Post = (props: postProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
+    const [comments, setComments] = useState<IComment[]>([]);
 
     const handleLike = async () => {
         const res = await authAxios.post(`/posts/like/${props._id}`);
@@ -35,6 +46,20 @@ const Post = (props: postProps) => {
         } else if (res.data.message === 'Post unliked') {
             setLiked(false);
             setLikes(likes - 1);
+        }
+    };
+
+    const getComments = async () => {
+        const res = await authAxios.get(`/posts/comments/${props._id}`);
+        console.log(res.data.comments);
+        setComments(res.data.comments);
+    };
+
+    const handleShowComments = () => {
+        if (comments.length === 0) {
+            getComments();
+        } else {
+            setComments([]);
         }
     };
 
@@ -58,18 +83,27 @@ const Post = (props: postProps) => {
                         </Typography>
                     </div>
                     <div className='postFooter'>
-                        <IconButton className='likeButton' onClick={handleLike}>
-                            {liked ? <LikeIconFilled className='likeIconFilled' /> : <LikeIconEmpty className='likeIcon' />}
-                        </IconButton>
-                        <Typography variant='body1' className='likes'>
-                            {abbreviate(likes, 2, false, false)}
-                        </Typography>
-                        <IconButton className='commentButton'>
-                            <CommentIcon className='commentIcon' />
-                        </IconButton>
-                        <Typography variant='body1' className='comments'>
-                            {abbreviate(props.comments, 2, false, false)}
-                        </Typography>
+                        <div className='buttonsContainer'>
+                            <IconButton className='likeButton' onClick={handleLike}>
+                                {liked ? <LikeIconFilled className='likeIconFilled' /> : <LikeIconEmpty className='likeIcon' />}
+                            </IconButton>
+                            <Typography variant='body1' className='likes'>
+                                {abbreviate(likes, 2, false, false)}
+                            </Typography>
+                            <IconButton className='commentButton' onClick={handleShowComments}>
+                                <CommentIcon className='commentIcon' />
+                            </IconButton>
+                            <Typography variant='body1' className='comments'>
+                                {abbreviate(props.comments.length, 2, false, false)}
+                            </Typography>
+                        </div>
+                        {comments.length > 0 && (
+                            <div className='commentsContainer'>
+                                {comments.map(({ _id, author, authorUsername, content, likes, liked }) => {
+                                    return <Comment key={_id} _id={_id} author={author} authorUsername={authorUsername} content={content} likes={likes.length} liked={liked} />;
+                                })}
+                            </div>
+                        )}
                     </div>
                 </Stack>
             </Paper>

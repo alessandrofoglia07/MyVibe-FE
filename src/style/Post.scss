@@ -40,38 +40,53 @@
 
     .postFooter {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
 
-        .likeButton {
-            .likeIcon {
+        .buttonsContainer {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+
+            .likeButton {
+                .likeIcon {
+                    color: var(--color-primary);
+                }
+
+                .likeIconFilled {
+                    color: red;
+                }
+            }
+
+            .likes {
+                font-family: Inter, sans-serif;
                 color: var(--color-primary);
+                font-size: 1.2rem;
             }
 
-            .likeIconFilled {
-                color: red;
+            .commentButton {
+
+                margin-left: 15px;
+
+                .commentIcon {
+                    color: var(--color-primary);
+                }
             }
-        }
 
-        .likes {
-            font-family: Inter, sans-serif;
-            color: var(--color-primary);
-            font-size: 1.2rem;
-        }
-
-        .commentButton {
-
-            margin-left: 15px;
-
-            .commentIcon {
+            .comments {
+                font-family: Inter, sans-serif;
                 color: var(--color-primary);
+                font-size: 1.2rem;
             }
         }
 
-        .comments {
-            font-family: Inter, sans-serif;
-            color: var(--color-primary);
-            font-size: 1.2rem;
+        .commentsContainer {
+            display: flex;
+            flex-direction: column;
+            padding-top: 20px;
+            margin-top: 20px;
+            border-top: 2px solid var(--color-outline);
+            align-items: center;
+            gap: 10px;
         }
     }
 

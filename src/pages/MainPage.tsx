@@ -90,7 +90,7 @@ const MainPage = () => {
                                             date={post.createdAt}
                                             likes={post.likes.length}
                                             liked={post.liked}
-                                            comments={post.comments.length}
+                                            comments={post.comments}
                                         />
                                     ))}
                                 </Stack>

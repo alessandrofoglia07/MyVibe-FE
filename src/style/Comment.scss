@@ -1,0 +1,74 @@
+#Comment {
+
+    .commentContainer {
+
+        display: flex;
+        flex-direction: row;
+
+
+        .avatarContainer {
+            width: 40px;
+            min-width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            * {
+                width: 40px;
+                border-radius: 50%;
+            }
+
+            .avatar {
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+
+                &:hover {
+                    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                }
+            }
+        }
+
+        .commentMain {
+            margin: 0 10px;
+
+            .username {
+                font-family: Inter, sans-serif;
+                color: var(--color-primary);
+                font-size: 1.2rem;
+                font-weight: bold;
+                text-decoration: none;
+                text-overflow: ellipsis;
+                overflow: hidden;
+                white-space: nowrap;
+            }
+
+            .content {
+                color: var(--color-primary);
+                font-family: Inter, sans-serif;
+                font-size: 1rem;
+            }
+
+            .commentFooter {
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+
+                .likeButton {
+                    .likeIcon {
+                        color: var(--color-primary);
+                    }
+
+                    .likeIconFilled {
+                        color: red;
+                    }
+                }
+
+                .likes {
+                    font-family: Inter, sans-serif;
+                    color: var(--color-primary);
+                    font-size: 1.2rem;
+                }
+            }
+        }
+    }
+}
