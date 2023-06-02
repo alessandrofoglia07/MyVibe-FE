@@ -51,7 +51,6 @@ const Post = (props: postProps) => {
 
     const getComments = async () => {
         const res = await authAxios.get(`/posts/comments/${props._id}`);
-        console.log(res.data.comments);
         setComments(res.data.comments);
     };
 

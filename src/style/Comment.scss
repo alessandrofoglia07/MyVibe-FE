@@ -30,6 +30,10 @@
 
         .commentMain {
             margin: 0 10px;
+            background-color: var(--color-hover);
+            width: 100%;
+            border-radius: 10px;
+            padding: 0 10px;
 
             .username {
                 font-family: Inter, sans-serif;

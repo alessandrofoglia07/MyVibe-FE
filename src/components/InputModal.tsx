@@ -11,11 +11,11 @@ interface IProps {
     userInfo: any;
 }
 
-const InputModal = (props: IProps) => {
+const InputModal = ({ close, userInfo }: IProps) => {
     const [content, setContent] = useState('');
 
     const handleClose = () => {
-        props.close();
+        close();
     };
 
     const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,7 +31,7 @@ const InputModal = (props: IProps) => {
         const res = await authAxios.post('/posts/create', { content });
         if (res.data.message === 'Post created') {
             setContent('');
-            props.close();
+            close();
         } else {
             throw new Error(res.data.message);
         }
@@ -59,7 +59,7 @@ const InputModal = (props: IProps) => {
                     <div className='top'>
                         <Avatar className='avatar' />
                         <Typography variant='h6' className='username'>
-                            {props.userInfo?.username}
+                            {userInfo?.username}
                         </Typography>
                     </div>
                     <form autoComplete='off' onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
