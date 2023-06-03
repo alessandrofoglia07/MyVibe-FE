@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import { Paper, Stack, Typography, Avatar, IconButton, Link, Button } from '@mui/material';
 import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -8,6 +8,8 @@ import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
 import PersonIcon from '@mui/icons-material/Person';
 import Comment from './Comment';
+import InputModal from './InputModal';
+import { AuthContext } from '../context/AuthContext';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -38,6 +40,8 @@ const Post = (props: postProps) => {
     const [likes, setLikes] = useState<number>(props.likes);
     const [comments, setComments] = useState<IComment[]>([]);
     const [page, setPage] = useState<number>(1);
+    const [commentsOpen, setCommentsOpen] = useState<boolean>(false);
+    const [writingComment, setWritingComment] = useState<boolean>(false);
 
     const handleLike = async () => {
         const res = await authAxios.post(`/posts/like/${props._id}`);
@@ -49,6 +53,8 @@ const Post = (props: postProps) => {
             setLikes(likes - 1);
         }
     };
+
+    const { userInfo } = useContext(AuthContext);
 
     const getComments = async () => {
         const res = await authAxios.get(`/posts/comments/${props._id}?page=${page}`);
@@ -62,10 +68,28 @@ const Post = (props: postProps) => {
     };
 
     const handleShowComments = () => {
+        setCommentsOpen((prev) => !prev);
         if (comments.length === 0) {
             getComments();
         } else {
             closeComments();
+        }
+    };
+
+    const handleCommentInputClose = (comment?: { content: string; id: string; author: string; authorUsername: string }) => {
+        setWritingComment(false);
+        if (comment?.content && comment?.id) {
+            setComments((prev) => [
+                {
+                    _id: comment.id,
+                    author: comment.author,
+                    authorUsername: comment.authorUsername,
+                    content: comment.content,
+                    likes: [],
+                    liked: false
+                },
+                ...prev
+            ]);
         }
     };
 
@@ -103,10 +127,10 @@ const Post = (props: postProps) => {
                                 {abbreviate(props.comments.length, 2, false, false)}
                             </Typography>
                         </div>
-                        {comments.length > 0 && (
+                        {commentsOpen && (
                             <div className='commentsContainer'>
                                 <Stack className='commentsInput'>
-                                    <Button className='commentsInputButton' disableRipple>
+                                    <Button className='commentsInputButton' disableRipple onClick={() => setWritingComment(true)}>
                                         Something to say?
                                     </Button>
                                 </Stack>
@@ -123,6 +147,7 @@ const Post = (props: postProps) => {
                     </div>
                 </Stack>
             </Paper>
+            {writingComment && <InputModal type='comment' postId={props._id} close={handleCommentInputClose} userInfo={userInfo} />}
         </div>
     );
 };

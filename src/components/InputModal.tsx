@@ -7,12 +7,15 @@ import authAxios from '../api/authAxiosApi';
 const CloseIcon = CloseOutlinedIcon;
 
 interface IProps {
-    close: () => void;
+    type: 'post' | 'comment';
+    close: (commentInfo?: { content: string; id: string; author: string; authorUsername: string }) => void;
     userInfo: any;
+    postId?: string;
 }
 
-const InputModal = ({ close, userInfo }: IProps) => {
+const InputModal = ({ type, close, userInfo, postId }: IProps) => {
     const [content, setContent] = useState('');
+    const url = type === 'post' ? '/posts/create' : `/posts/comments/create/${postId}`;
 
     const handleClose = () => {
         close();
@@ -28,10 +31,14 @@ const InputModal = ({ close, userInfo }: IProps) => {
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await authAxios.post('/posts/create', { content });
+        const res = await authAxios.post(url, { content });
         if (res.data.message === 'Post created') {
             setContent('');
             close();
+        } else if (res.data.message === 'Comment created') {
+            setContent('');
+            const comment = res.data.comment;
+            close({ content: comment.content, id: comment._id, author: comment.author, authorUsername: comment.authorUsername });
         } else {
             throw new Error(res.data.message);
         }
@@ -49,7 +56,7 @@ const InputModal = ({ close, userInfo }: IProps) => {
                 <header>
                     <div className='headerLeft' />
                     <Typography variant='h6' className='title'>
-                        Write a post.
+                        Write a {type}.
                     </Typography>
                     <IconButton className='closeButton' onClick={handleClose} disableRipple>
                         <CloseIcon />

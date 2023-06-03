@@ -133,7 +133,7 @@ const MainPage = () => {
                         </Paper>
                     </div>
                 )}
-                {writingPost && <InputModal close={() => setWritingPost(false)} userInfo={userInfo} />}
+                {writingPost && <InputModal type='post' close={() => setWritingPost(false)} userInfo={userInfo} />}
             </main>
         </div>
     );
