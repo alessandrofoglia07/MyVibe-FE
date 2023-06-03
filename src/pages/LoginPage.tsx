@@ -10,7 +10,7 @@ import { AuthContext } from '../context/AuthContext';
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
-const LoginPage = () => {
+const LoginPage: React.FC<any> = () => {
     useTheme();
     const navigate = useNavigate();
     const { login, accessToken } = useContext(AuthContext);

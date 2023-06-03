@@ -5,7 +5,7 @@ import { Typography, TextField, Paper, Button, Snackbar, Alert } from '@mui/mate
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
 
-const ResetPasswordPage = () => {
+const ResetPasswordPage: React.FC<any> = () => {
     useTheme();
 
     const { id } = useParams<{ id: string }>();

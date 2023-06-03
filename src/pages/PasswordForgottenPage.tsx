@@ -4,7 +4,7 @@ import { Typography, TextField, Button, Paper, Stack } from '@mui/material';
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
 
-const PasswordForgottenPage = () => {
+const PasswordForgottenPage: React.FC<any> = () => {
     useTheme();
 
     const [email, setEmail] = useState('');

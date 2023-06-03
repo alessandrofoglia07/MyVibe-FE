@@ -13,7 +13,7 @@ interface IProps {
     postId?: string;
 }
 
-const InputModal = ({ type, close, userInfo, postId }: IProps) => {
+const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId }: IProps) => {
     const [content, setContent] = useState('');
     const url = type === 'post' ? '/posts/create' : `/posts/comments/create/${postId}`;
 

@@ -16,7 +16,7 @@ interface IProps {
     liked: boolean;
 }
 
-const Comment = (props: IProps) => {
+const Comment: React.FC<IProps> = (props: IProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
 

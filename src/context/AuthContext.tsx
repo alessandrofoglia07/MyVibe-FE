@@ -51,6 +51,12 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         }
     }, []);
 
+    onstorage = () => {
+        if (!getUserInfo()) {
+            handleLogout();
+        }
+    };
+
     const handleLogin = async (email: string, password: string) => {
         try {
             setLoading(true);

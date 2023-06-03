@@ -11,7 +11,7 @@ import useTheme from '../hooks/useTheme';
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
-const SignUpPage = () => {
+const SignUpPage: React.FC<any> = () => {
     useTheme();
     const navigate = useNavigate();
     const { accessToken } = useContext(AuthContext);

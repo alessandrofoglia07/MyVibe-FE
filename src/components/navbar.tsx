@@ -13,7 +13,7 @@ const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
 const DarkModeIcon = DarkModeOutlinedIcon;
 
-const Navbar = () => {
+const Navbar: React.FC<any> = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');

@@ -23,7 +23,7 @@ interface IPost {
     liked: boolean;
 }
 
-const MainPage = () => {
+const MainPage: React.FC<any> = () => {
     useTheme();
     const [width, setWidth] = useState(window.innerWidth);
     const [followingList, setFollowingList] = useState<string[]>([]);

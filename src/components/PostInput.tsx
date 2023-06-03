@@ -4,9 +4,13 @@ import { Paper, Stack, Avatar } from '@mui/material';
 import Button from '@mui/base/Button';
 import PersonIcon from '@mui/icons-material/Person';
 
-const PostInput = (props: { onClick: () => void }) => {
+interface IProps {
+    onClick: () => void;
+}
+
+const PostInput: React.FC<IProps> = ({ onClick }: IProps) => {
     const handleClick = () => {
-        props.onClick();
+        onClick();
     };
 
     return (

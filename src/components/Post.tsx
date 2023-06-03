@@ -35,7 +35,7 @@ interface IComment {
     liked: boolean;
 }
 
-const Post = (props: postProps) => {
+const Post: React.FC<postProps> = (props: postProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
     const [comments, setComments] = useState<IComment[]>([]);

@@ -11,7 +11,7 @@ import PasswordForgottenPage from '../pages/PasswordForgottenPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
 import ProfilePage from '../pages/ProfilePage';
 
-const App = () => {
+const App: React.FC<any> = () => {
     return (
         <div className='App'>
             <Router>

@@ -1,7 +1,8 @@
 import { useEffect } from 'react';
 
 const useTheme = () => {
-    useEffect(() => {
+
+    const setTheme = () => {
         const theme = localStorage.getItem('theme');
         if (theme === 'dark') {
             document.documentElement.setAttribute('data-theme', 'dark');
@@ -9,9 +10,16 @@ const useTheme = () => {
             document.documentElement.setAttribute('data-theme', 'light');
         } else {
             // default to light theme
+            localStorage.setItem('theme', 'light');
             document.documentElement.setAttribute('data-theme', 'light');
         }
-    }, [localStorage.getItem('theme')]);
+    };
+
+    useEffect(() => {
+        window.addEventListener('storage', setTheme);
+        setTheme();
+        return () => window.removeEventListener('storage', setTheme);
+    }, []);
 
     const toggleThemeTo = (theme: 'dark' | 'light') => {
         localStorage.setItem('theme', theme);

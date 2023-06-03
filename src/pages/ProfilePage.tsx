@@ -32,7 +32,7 @@ interface IPost {
     liked: boolean;
 }
 
-const ProfilePage = () => {
+const ProfilePage: React.FC<any> = () => {
     const { username } = useParams<{ username: string }>();
     const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);

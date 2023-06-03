@@ -3,7 +3,7 @@ import '../style/404Page.scss';
 import { Typography, Link, Stack } from '@mui/material';
 import useTheme from '../hooks/useTheme';
 
-const NotFoundPage = () => {
+const NotFoundPage: React.FC<any> = () => {
     useTheme();
 
     return (
