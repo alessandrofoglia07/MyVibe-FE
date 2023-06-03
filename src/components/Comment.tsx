@@ -34,11 +34,13 @@ const Comment = (props: IProps) => {
     return (
         <div id='Comment'>
             <Stack spacing={2} className='commentContainer'>
-                <Button className='avatarContainer' disableRipple href={`/profile/${props.authorUsername}`}>
-                    <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
-                        <PersonIcon />
-                    </Avatar>
-                </Button>
+                {window.innerWidth > 768 && (
+                    <Button className='avatarContainer' disableRipple href={`/profile/${props.authorUsername}`}>
+                        <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                            <PersonIcon />
+                        </Avatar>
+                    </Button>
+                )}
                 <div className='commentMain'>
                     <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
                         {props.authorUsername}
