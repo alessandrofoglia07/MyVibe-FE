@@ -37,6 +37,7 @@ const Post = (props: postProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
     const [comments, setComments] = useState<IComment[]>([]);
+    const [page, setPage] = useState<number>(1);
 
     const handleLike = async () => {
         const res = await authAxios.post(`/posts/like/${props._id}`);
@@ -50,15 +51,21 @@ const Post = (props: postProps) => {
     };
 
     const getComments = async () => {
-        const res = await authAxios.get(`/posts/comments/${props._id}`);
-        setComments(res.data.comments);
+        const res = await authAxios.get(`/posts/comments/${props._id}?page=${page}`);
+        setComments((prev) => prev.concat(res.data.comments));
+        setPage((prev) => prev + 1);
+    };
+
+    const closeComments = () => {
+        setComments([]);
+        setPage(1);
     };
 
     const handleShowComments = () => {
         if (comments.length === 0) {
             getComments();
         } else {
-            setComments([]);
+            closeComments();
         }
     };
 
@@ -98,9 +105,19 @@ const Post = (props: postProps) => {
                         </div>
                         {comments.length > 0 && (
                             <div className='commentsContainer'>
+                                <Stack className='commentsInput'>
+                                    <Button className='commentsInputButton' disableRipple>
+                                        Something to say?
+                                    </Button>
+                                </Stack>
                                 {comments.map(({ _id, author, authorUsername, content, likes, liked }) => {
                                     return <Comment key={_id} _id={_id} author={author} authorUsername={authorUsername} content={content} likes={likes.length} liked={liked} />;
                                 })}
+                                {comments.length !== props.comments.length && (
+                                    <Link className='showMoreComments' onClick={getComments}>
+                                        Show more comments
+                                    </Link>
+                                )}
                             </div>
                         )}
                     </div>
