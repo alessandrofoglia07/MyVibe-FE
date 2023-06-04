@@ -37,6 +37,8 @@ const ProfilePage: React.FC<any> = () => {
     const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [posts, setPosts] = useState<IPost[]>([]);
+    const [following, setFollowing] = useState<boolean>(false);
+    const [profile, setProfile] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
@@ -55,6 +57,8 @@ const ProfilePage: React.FC<any> = () => {
         try {
             const res = await authAxios.get(`/users/profile/${username}`);
             setUser(res.data.user);
+            setFollowing(res.data.isFollowing);
+            setProfile(res.data.isProfile);
         } catch (err) {
             console.log(err);
         }
@@ -67,6 +71,38 @@ const ProfilePage: React.FC<any> = () => {
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const handleFollow = async (): Promise<void> => {
+        const res = await authAxios.post(`/users/follow/${user?._id}`);
+        setFollowing(true);
+        setUser((prev) => {
+            if (prev) {
+                return {
+                    ...prev,
+                    followersIDs: [...prev.followersIDs, res.data.followerID]
+                };
+            }
+            return prev;
+        });
+    };
+
+    const handleUnfollow = async (): Promise<void> => {
+        const res = await authAxios.post(`/users/unfollow/${user?._id}`);
+        setFollowing(false);
+        setUser((prev) => {
+            if (prev) {
+                return {
+                    ...prev,
+                    followersIDs: prev.followersIDs.filter((id) => id !== res.data.followerID)
+                };
+            }
+            return prev;
+        });
+    };
+
+    const handleEdit = async (): Promise<void> => {
+        console.log(1);
     };
 
     return (
@@ -107,6 +143,19 @@ const ProfilePage: React.FC<any> = () => {
                                 Followers <br /> {user?.followersIDs.length}
                             </Typography>
                         </Stack>
+                        {profile ? (
+                            <Button disableRipple variant='contained' className='profileButton' onClick={handleEdit}>
+                                Edit
+                            </Button>
+                        ) : following ? (
+                            <Button disableRipple variant='contained' className='profileButton' onClick={handleUnfollow}>
+                                Unfollow
+                            </Button>
+                        ) : (
+                            <Button disableRipple variant='contained' className='profileButton' onClick={handleFollow}>
+                                Follow
+                            </Button>
+                        )}
                         <Typography component='p' className='bio'>
                             {user?.info.bio || 'No bio yet.'}
                         </Typography>

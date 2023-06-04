@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 #ProfilePage {
     main {
         position: absolute;
@@ -93,7 +95,25 @@
                 }
             }
 
-            border-bottom: 2px solid var(--color-outline);
+            border-bottom: 2px solid var(--color-primary);
+        }
+
+        .profileButton {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+            font-family: v.$font;
+            font-weight: 600;
+            font-size: 1.2rem;
+            width: 50%;
+            height: 60px;
+            border-radius: 5px;
+            margin-top: 25px;
+            text-transform: none;
+
+            &:hover {
+                background-color: var(--color-primary);
+                color: var(--color-secondary);
+            }
         }
 
         .createdAt {
@@ -118,7 +138,7 @@
             padding-bottom: 10px;
             text-align: center;
             width: 80%;
-            border-bottom: 2px solid var(--color-outline);
+            border-bottom: 2px solid var(--color-primary);
         }
 
         .posts {
