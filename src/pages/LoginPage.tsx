@@ -103,13 +103,13 @@ const LoginPage: React.FC<any> = () => {
     return (
         <div id='LoginPage' className='page loginPage authpage'>
             <div id='bg'>
-                <div className='ball ball-purple1' />
-                <div className='ball ball-red1' />
-                <div className='ball ball-blue1' />
+                <div className='ball unselectable ball-purple1' />
+                <div className='ball unselectable ball-red1' />
+                <div className='ball unselectable ball-blue1' />
             </div>
 
             <Paper className='form'>
-                <Typography variant='h4' className='title'>
+                <Typography variant='h4' className='title unselectable'>
                     Log In Here.
                 </Typography>
                 <form autoComplete='off' onSubmit={handleSubmit}>

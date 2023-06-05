@@ -5,10 +5,6 @@
         width: 200px;
         height: 200px;
         border-radius: 50%;
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
     }
 
     .ball-blue,
@@ -138,10 +134,6 @@
         color: var(--color-primary);
         text-align: center;
         margin-top: 20px;
-        user-select: none;
-        -webkit-user-select: none;
-        -moz-user-select: none;
-        -ms-user-select: none;
     }
 
     .input {

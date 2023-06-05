@@ -196,9 +196,9 @@ const SignUpPage: React.FC<any> = () => {
     return (
         <div id='SignUpPage' className='page signupPage authpage'>
             <div id='bg'>
-                <div className='ball ball-blue' />
-                <div className='ball ball-red' />
-                <div className='ball ball-purple' />
+                <div className='ball unselectable ball-blue' />
+                <div className='ball unselectable ball-red' />
+                <div className='ball unselectable ball-purple' />
             </div>
 
             <Paper className='form'>
@@ -207,7 +207,7 @@ const SignUpPage: React.FC<any> = () => {
                         <Typography variant='h3' className='myVibe'>
                             myvibe.
                         </Typography>
-                        <Typography variant='h4' className='title'>
+                        <Typography variant='h4' className='title unselectable'>
                             Verification Code
                         </Typography>
                         <Typography variant='h5' className='subtitle' sx={{ textAlign: 'center' }}>
