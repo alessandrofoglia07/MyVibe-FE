@@ -9,7 +9,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Post from '../components/Post';
 import formatDate from '../utils/formatDate';
 
-interface IUser {
+export interface IUser {
     _id: string;
     username: string;
     email: string;
@@ -101,10 +101,6 @@ const ProfilePage: React.FC<any> = () => {
         });
     };
 
-    const handleEdit = async (): Promise<void> => {
-        console.log(1);
-    };
-
     return (
         <div id='ProfilePage'>
             <header>
@@ -144,7 +140,7 @@ const ProfilePage: React.FC<any> = () => {
                             </Typography>
                         </Stack>
                         {profile ? (
-                            <Button disableRipple variant='contained' className='profileButton' onClick={handleEdit}>
+                            <Button disableRipple variant='contained' className='profileButton' href='/profile/edit'>
                                 Edit
                             </Button>
                         ) : following ? (

@@ -10,6 +10,7 @@ import NotFoundPage from '../pages/404Page';
 import PasswordForgottenPage from '../pages/PasswordForgottenPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
 import ProfilePage from '../pages/ProfilePage';
+import SettingsPage from '../pages/SettingsPage';
 
 const App: React.FC<any> = () => {
     return (
@@ -19,6 +20,7 @@ const App: React.FC<any> = () => {
                     <Route element={<PrivateRoutes />}>
                         <Route path='/' element={<MainPage />} />
                         <Route path='/profile/:username' element={<ProfilePage />} />
+                        <Route path='/profile/edit' element={<SettingsPage />} />
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/sign-up' element={<SignUpPage />} />

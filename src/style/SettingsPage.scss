@@ -1,0 +1,186 @@
+#SettingsPage {
+    main {
+
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        justify-content: center;
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            width: 100%;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            width: 50%;
+        }
+
+        .loading {
+            margin-top: 30%;
+        }
+
+        .mainContainer {
+
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+
+            .top {
+                width: 100%;
+
+                /* Smaller screen (mobile) */
+                @media only screen and (max-width: 768px) {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                /* Larger screen (desktop/tablet) */
+                @media only screen and (min-width: 768px) {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    justify-content: center;
+                }
+
+                h3 {
+                    font-family: HelveticaNeue, sans-serif;
+                    letter-spacing: -1px;
+                    font-size: 2.8rem;
+                    color: var(--color-primary);
+                    text-align: center;
+                }
+
+                .avatarContainer {
+                    width: 80px;
+                    min-width: 80px;
+                    height: 80px;
+                    border-radius: 50%;
+                    margin: 20px 20px;
+
+                    * {
+                        width: 80px;
+                        border-radius: 50%;
+                    }
+
+                    .personIcon {
+                        font-size: 50px;
+                    }
+
+                    .editIconContainer {
+                        position: absolute;
+                        width: 80px;
+                        height: 80px;
+                        display: flex;
+                        justify-content: center;
+                        align-items: center;
+                        z-index: 2;
+                        background-color: rgba(0, 0, 0, 0.6);
+
+                        .editIcon {
+                            color: white;
+                            font-size: 30px;
+                        }
+                    }
+
+                    .avatar {
+                        width: 80px;
+                        height: 80px;
+                        border-radius: 50%;
+                    }
+                }
+            }
+
+            .center {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 80%;
+
+                .editText {
+                    font-family: HelveticaNeue, sans-serif;
+                    font-size: 2rem;
+                    margin-top: 20px;
+                    color: var(--color-primary);
+                    text-align: center;
+                }
+
+                .fields {
+                    display: flex;
+                    flex-direction: column;
+
+                    .container {
+                        display: flex;
+                        flex-direction: row;
+                        align-items: center;
+                        margin-top: 30px;
+                        margin-left: auto;
+
+                        h6 {
+                            margin: 20px;
+                            font-family: Inter, sans-serif;
+                            color: var(--color-primary);
+                        }
+
+                        .input {
+                            background-color: rgba(255, 255, 255, 0.07);
+                            border: 1px solid var(--color-primary);
+                            border-radius: 3px;
+                            color: var(--color-primary);
+
+                            .MuiOutlinedInput-root {
+                                fieldset {
+                                    border-color: rgba(255, 255, 255, 0.07);
+                                }
+                            }
+
+                            &:hover {
+                                .MuiOutlinedInput-root {
+                                    fieldset {
+                                        border-color: rgba(255, 255, 255, 0.07);
+                                    }
+                                }
+                            }
+
+                            * {
+                                font-family: Inter, sans-serif;
+                                font-size: 1rem;
+                                color: var(--color-primary);
+                            }
+                        }
+
+                        p {
+                            font-family: Inter, sans-serif;
+                            font-size: 0.8rem;
+                            margin-left: auto;
+                        }
+                    }
+                }
+
+                .submitBtn {
+                    background-color: var(--color-primary);
+                    color: var(--color-secondary);
+                    font-family: HelveticaNeue, sans-serif;
+                    font-weight: 600;
+                    font-size: 1.2rem;
+                    width: 50%;
+                    height: 60px;
+                    border-radius: 5px;
+                    margin-top: 35px;
+                    text-transform: none;
+
+                    &:hover {
+                        background-color: var(--color-primary);
+                        color: var(--color-secondary);
+                    }
+                }
+            }
+        }
+
+
+    }
+}
