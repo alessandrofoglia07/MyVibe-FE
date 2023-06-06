@@ -1,5 +1,4 @@
-/* eslint-disable @typescript-eslint/no-unused-vars */
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import '../style/ProfilePage.scss';
 import Navbar from '../components/navbar';
 import { useParams } from 'react-router-dom';
@@ -9,6 +8,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import Post from '../components/Post';
 import formatDate from '../utils/formatDate';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+import { AuthContext } from '../context/AuthContext';
 
 const LogoutIcon = LogoutRoundedIcon;
 
@@ -37,6 +37,9 @@ interface IPost {
 
 const ProfilePage: React.FC<any> = () => {
     const { username } = useParams<{ username: string }>();
+
+    const { logout } = useContext(AuthContext);
+
     const [user, setUser] = useState<IUser | null>(null);
     const [loading, setLoading] = useState<boolean>(true);
     const [posts, setPosts] = useState<IPost[]>([]);
@@ -166,11 +169,13 @@ const ProfilePage: React.FC<any> = () => {
                             <Typography component='p' className='createdAt'>
                                 Joined {formatDate(user?.createdAt as Date)}
                             </Typography>
-                            <Button disableRipple variant='contained' className='logoutButton' endIcon={<LogoutIcon />}>
-                                Log out
-                            </Button>
+                            {profile && (
+                                <Button disableRipple variant='contained' className='logoutButton' endIcon={<LogoutIcon />} onClick={logout}>
+                                    Log out
+                                </Button>
+                            )}
                         </div>
-                        <div className='limit' />
+                        {profile && <div className='limit' />}
                         <div className='posts'>
                             <Typography component='p' className='postsTitle'>
                                 Featured Posts
