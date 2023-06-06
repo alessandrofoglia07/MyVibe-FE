@@ -54,6 +54,18 @@ const SettingsPage: React.FC<any> = () => {
         }
     };
 
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+        e.preventDefault();
+        if (user === null) return;
+
+        try {
+            await authAxios.patch(`/users/profile/${username}/edit`, { user });
+            navigate(`/profile/${user?.username}`);
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
+
     return (
         <div id='SettingsPage'>
             <header>
@@ -86,7 +98,7 @@ const SettingsPage: React.FC<any> = () => {
                                 <Typography variant='h3' className='editText unselectable'>
                                     <b>Edit your profile.</b>
                                 </Typography>
-                                <div className='fields'>
+                                <form autoComplete='off' className='fields' onSubmit={handleSubmit}>
                                     <div className='container'>
                                         <Typography component='h6' className='unselectable'>
                                             <b>Username</b>
@@ -114,10 +126,10 @@ const SettingsPage: React.FC<any> = () => {
                                         </Typography>
                                         <TextField className='input' value={user?.info.lastName} id='lastName' onChange={handleInputChange} />
                                     </div>
-                                </div>
-                                <Button disableRipple variant='contained' className='submitBtn'>
-                                    Save Changes
-                                </Button>
+                                    <Button disableRipple variant='contained' className='submitBtn' type='submit'>
+                                        Save Changes
+                                    </Button>
+                                </form>
                             </Stack>
                         </Stack>
                     </>
