@@ -8,6 +8,9 @@ import { Avatar, Typography, Stack, Button, CircularProgress } from '@mui/materi
 import PersonIcon from '@mui/icons-material/Person';
 import Post from '../components/Post';
 import formatDate from '../utils/formatDate';
+import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
+
+const LogoutIcon = LogoutRoundedIcon;
 
 export interface IUser {
     _id: string;
@@ -131,33 +134,43 @@ const ProfilePage: React.FC<any> = () => {
                                 ) : null}
                             </div>
                         </div>
-                        <Stack direction='row' spacing={3} className='numericStats'>
-                            <Typography component='p' className='following'>
-                                Following <br /> {user?.followingIDs.length}
+                        <div className='limit' />
+                        <div className='middle'>
+                            <Stack direction='row' spacing={3} className='numericStats'>
+                                <Typography component='p' className='following'>
+                                    Following <br /> {user?.followingIDs.length}
+                                </Typography>
+                                <Typography component='p' className='followers'>
+                                    Followers <br /> {user?.followersIDs.length}
+                                </Typography>
+                            </Stack>
+                            {profile ? (
+                                <Button disableRipple variant='contained' className='profileButton' href='/profile/edit'>
+                                    Edit
+                                </Button>
+                            ) : following ? (
+                                <Button disableRipple variant='contained' className='profileButton' onClick={handleUnfollow}>
+                                    Unfollow
+                                </Button>
+                            ) : (
+                                <Button disableRipple variant='contained' className='profileButton' onClick={handleFollow}>
+                                    Follow
+                                </Button>
+                            )}
+                            <Typography component='p' className='bio'>
+                                {user?.info.bio || 'No bio yet.'}
                             </Typography>
-                            <Typography component='p' className='followers'>
-                                Followers <br /> {user?.followersIDs.length}
+                        </div>
+                        <div className='limit' />
+                        <div className='bottomStats'>
+                            <Typography component='p' className='createdAt'>
+                                Joined {formatDate(user?.createdAt as Date)}
                             </Typography>
-                        </Stack>
-                        {profile ? (
-                            <Button disableRipple variant='contained' className='profileButton' href='/profile/edit'>
-                                Edit
+                            <Button disableRipple variant='contained' className='logoutButton' endIcon={<LogoutIcon />}>
+                                Log out
                             </Button>
-                        ) : following ? (
-                            <Button disableRipple variant='contained' className='profileButton' onClick={handleUnfollow}>
-                                Unfollow
-                            </Button>
-                        ) : (
-                            <Button disableRipple variant='contained' className='profileButton' onClick={handleFollow}>
-                                Follow
-                            </Button>
-                        )}
-                        <Typography component='p' className='bio'>
-                            {user?.info.bio || 'No bio yet.'}
-                        </Typography>
-                        <Typography component='p' className='createdAt'>
-                            Joined {formatDate(user?.createdAt as Date)}
-                        </Typography>
+                        </div>
+                        <div className='limit' />
                         <div className='posts'>
                             <Typography component='p' className='postsTitle'>
                                 Featured Posts

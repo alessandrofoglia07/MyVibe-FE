@@ -30,18 +30,19 @@
 
         .top {
 
+            width: 90%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
             /* Smaller screen (mobile) */
             @media only screen and (max-width: 768px) {
-                display: flex;
                 flex-direction: column;
-                align-items: center;
             }
 
             /* Larger screen (desktop/tablet) */
             @media only screen and (min-width: 768px) {
-                display: flex;
                 flex-direction: row;
-                align-items: center;
             }
 
             .avatarContainer {
@@ -95,50 +96,107 @@
                 }
             }
 
+        }
+
+        .limit {
+            width: 70%;
             border-bottom: 2px solid var(--color-primary);
         }
 
-        .profileButton {
-            background-color: var(--color-primary);
-            color: var(--color-secondary);
-            font-family: v.$font;
-            font-weight: 600;
-            font-size: 1.2rem;
-            width: 50%;
-            height: 60px;
-            border-radius: 5px;
-            margin-top: 25px;
-            text-transform: none;
+        .bottomStats {
 
-            &:hover {
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .createdAt {
+                font-size: 1rem;
+                margin-top: 10px;
+                margin-bottom: 15px;
+            }
+
+            .logoutButton {
                 background-color: var(--color-primary);
                 color: var(--color-secondary);
-            }
-        }
-
-        .createdAt {
-            font-size: 1rem;
-            margin-top: 10px;
-            margin-bottom: 20px;
-        }
-
-        .numericStats {
-            text-align: center;
-            margin-top: 15px;
-
-            * {
-                font-size: 1.5rem;
+                font-family: v.$font;
                 font-weight: 600;
+                font-size: 1.1rem;
+
+                /* Smaller screen (mobile) */
+                @media only screen and (max-width: 950px) {
+                    width: 60%;
+                }
+
+                /* Larger screen (desktop/tablet) */
+                @media only screen and (min-width: 950px) {
+                    width: 30%;
+                }
+
+                height: 45px;
+                border-radius: 5px;
+                text-transform: none;
+                margin-bottom: 15px;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-secondary);
+                }
             }
         }
 
-        .bio {
-            font-size: 1.2rem;
-            margin: 30px 0 0 0;
-            padding-bottom: 10px;
-            text-align: center;
-            width: 80%;
-            border-bottom: 2px solid var(--color-primary);
+        .middle {
+
+            width: 90%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+
+            .numericStats {
+                text-align: center;
+                margin-top: 15px;
+
+                * {
+                    font-size: 1.5rem;
+                    font-weight: 600;
+                }
+            }
+
+            .bio {
+                font-size: 1.2rem;
+                margin: 30px 0 0 0;
+                padding-bottom: 10px;
+                text-align: center;
+                width: 80%;
+            }
+
+            .profileButton {
+                background-color: var(--color-primary);
+                color: var(--color-secondary);
+                font-family: v.$font;
+                font-weight: 600;
+                font-size: 1.2rem;
+
+                /* Smaller screen (mobile) */
+                @media only screen and (max-width: 950px) {
+                    width: 60%;
+                }
+
+                /* Larger screen (desktop/tablet) */
+                @media only screen and (min-width: 950px) {
+                    width: 30%;
+                }
+
+                height: 60px;
+                border-radius: 5px;
+                margin-top: 25px;
+                text-transform: none;
+
+                &:hover {
+                    background-color: var(--color-primary);
+                    color: var(--color-secondary);
+                }
+            }
         }
 
         .posts {
