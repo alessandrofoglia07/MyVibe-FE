@@ -34,6 +34,8 @@ const SignUpPage: React.FC<any> = () => {
         if (accessToken) navigate('/');
     });
 
+    const APIURL = import.meta.env.VITE_API_BASE_URL as string;
+
     useEffect(() => {
         if (usernameFocus) {
             const redBall = document.getElementsByClassName('ball-red')[0];
@@ -128,10 +130,10 @@ const SignUpPage: React.FC<any> = () => {
     const handleChange = (id: number, value: string) => {
         switch (id) {
             case 0: // username
-                setInput({ ...input, username: value });
+                setInput({ ...input, username: value.trim() });
                 break;
             case 1: // email
-                setInput({ ...input, email: value });
+                setInput({ ...input, email: value.trim() });
                 break;
             case 2: // password
                 setInput({ ...input, password: value });
@@ -142,7 +144,7 @@ const SignUpPage: React.FC<any> = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:5000/api/auth/send-code', input);
+        const res = await axios.post(`${APIURL}/auth/send-code`, input);
 
         switch (res.data.message) {
             case 'Email already registered':
@@ -164,7 +166,7 @@ const SignUpPage: React.FC<any> = () => {
     const handleVerificationCodeSubmit = async () => {
         if (!verificationCode.every((digit) => digit !== '')) return;
         const code = verificationCode.join('');
-        const res = await axios.post('http://localhost:5000/api/auth/verify-code', { ...input, code });
+        const res = await axios.post(`${APIURL}/auth/verify-code`, { ...input, code });
 
         switch (res.data?.message) {
             case 'Internal server error':

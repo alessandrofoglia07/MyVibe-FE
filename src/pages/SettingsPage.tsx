@@ -59,7 +59,7 @@ const SettingsPage: React.FC<any> = () => {
         if (user === null) return;
 
         try {
-            await authAxios.patch(`/users/profile/${username}/edit`, { user });
+            await authAxios.patch(`/users/profile/${username}`, { user });
             navigate(`/profile/${user?.username}`);
         } catch (err: any) {
             throw new Error(err);

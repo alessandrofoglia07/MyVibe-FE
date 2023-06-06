@@ -1,7 +1,7 @@
 import axios from 'axios';
 import Cookies from 'js-cookie';
 
-const url = 'http://localhost:5000/api/auth';
+const url = `${import.meta.env.VITE_API_BASE_URL}/auth`;
 
 export interface LoginResponse {
     accessToken: string;
