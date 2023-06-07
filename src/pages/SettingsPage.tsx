@@ -18,6 +18,9 @@ const SettingsPage: React.FC<any> = () => {
     const [initUsername, setInitUsername] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
     const [hoverPfp, setHoverPfp] = useState<boolean>(false);
+    const [selectedFile, setSelectedFile] = useState<File | null>(null);
+    const [previewSource, setPreviewSource] = useState<string>('');
+    const [initImageUrl, setInitImageUrl] = useState<string>('');
 
     const { username } = getUserInfo() as UserInfo;
 
@@ -40,6 +43,9 @@ const SettingsPage: React.FC<any> = () => {
             if (res.data.isProfile === false) return Promise.reject('Access denied');
             setUser(res.data.user);
             setInitUsername(res.data.user.username);
+
+            const res2 = await authAxios.get(`/users/pfp/${res.data.user.username}`, { responseType: 'blob' });
+            setInitImageUrl(URL.createObjectURL(res2.data));
         } catch (err: any) {
             throw new Error(err);
         }
@@ -59,12 +65,54 @@ const SettingsPage: React.FC<any> = () => {
         if (user === null) return;
 
         try {
+            await handleFileUpload();
             await authAxios.patch(`/users/profile/${username}`, { user });
             navigate(`/profile/${user?.username}`);
         } catch (err: any) {
             throw new Error(err);
         }
     };
+
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
+        if (!e.target.files || e.target.files.length === 0) return;
+        const file = e.target.files[0];
+        const image = new Image();
+        image.src = URL.createObjectURL(file);
+        image.onload = () => {
+            const canvas = document.createElement('canvas');
+            const ctx = canvas.getContext('2d');
+            if (!ctx) return;
+            canvas.width = 300;
+            canvas.height = 300;
+            ctx.drawImage(image, 0, 0, 300, 300);
+            const resizedDataUrl = canvas.toDataURL('image/png', 0.8);
+            setPreviewSource(resizedDataUrl);
+        };
+        setSelectedFile(file);
+        previewFile(file);
+    };
+
+    const previewFile = (file: File): void => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onloadend = () => {
+            setPreviewSource(reader.result as string);
+        };
+    };
+
+    const handleFileUpload = async (): Promise<void> => {
+        if (!selectedFile) return;
+
+        const formData = new FormData();
+        formData.append('pfp', selectedFile);
+        try {
+            await authAxios.patch(`/users/profile/${username}/uploadPfp`, formData);
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
+
+    const pfpSrc = previewSource ? previewSource : initImageUrl;
 
     return (
         <div id='SettingsPage'>
@@ -78,8 +126,9 @@ const SettingsPage: React.FC<any> = () => {
                     <>
                         <Stack className='mainContainer'>
                             <Stack className='top'>
-                                <Button className='avatarContainer' disableRipple onMouseEnter={() => setHoverPfp(true)} onMouseLeave={() => setHoverPfp(false)}>
-                                    <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                <Button component='label' className='avatarContainer' disableRipple onMouseEnter={() => setHoverPfp(true)} onMouseLeave={() => setHoverPfp(false)}>
+                                    <input type='file' style={{ display: 'none' }} name='pfp' accept='image/*' onChange={handleFileChange} />
+                                    <Avatar className='avatar' src={pfpSrc} alt='pfp'>
                                         <PersonIcon className='personIcon' />
                                         {hoverPfp && (
                                             <div className='editIconContainer'>
