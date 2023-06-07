@@ -8,6 +8,7 @@ import useTheme from '../hooks/useTheme';
 import WbSunnyOutlinedIcon from '@mui/icons-material/WbSunnyOutlined';
 import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { AuthContext } from '../context/AuthContext';
+import authAxios from '../api/authAxiosApi';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
@@ -17,10 +18,20 @@ const Navbar: React.FC<any> = () => {
     const [width, setWidth] = useState(window.innerWidth);
     const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
+    const [pfpUrl, setPfpUrl] = useState<string>('');
 
     const { toggleTheme } = useTheme();
 
     const { userInfo } = useContext(AuthContext);
+
+    useEffect(() => {
+        (async () => {
+            if (userInfo) {
+                const res = await authAxios(`/users/pfp/${userInfo.username}`, { responseType: 'blob' });
+                setPfpUrl(URL.createObjectURL(res.data));
+            }
+        })();
+    }, []);
 
     const handleThemeChange = () => {
         toggleTheme();
@@ -138,7 +149,7 @@ const Navbar: React.FC<any> = () => {
                                     </Badge>
                                 </IconButton>
                                 <Button className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
-                                    <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                    <Avatar className='avatar' src={pfpUrl} alt='pfp'>
                                         <PersonIcon />
                                     </Avatar>
                                 </Button>
@@ -168,7 +179,7 @@ const Navbar: React.FC<any> = () => {
                                         </Badge>
                                     </IconButton>
                                     <Button className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
-                                        <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                        <Avatar className='avatar' src={pfpUrl} alt='pfp'>
                                             <PersonIcon />
                                         </Avatar>
                                     </Button>

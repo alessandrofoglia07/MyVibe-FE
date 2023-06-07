@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import '../style/Comment.scss';
-import { Stack, Typography, Avatar, IconButton, Button, Link } from '@mui/material';
-import PersonIcon from '@mui/icons-material/Person';
+import { Stack, Typography, IconButton, Link } from '@mui/material';
 import LikeIconEmpty from '@mui/icons-material/FavoriteBorderRounded';
 import LikeIconFilled from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
+import Pfp from './Pfp';
 
 interface IProps {
     _id: string;
@@ -34,13 +34,7 @@ const Comment: React.FC<IProps> = (props: IProps) => {
     return (
         <div id='Comment'>
             <Stack spacing={2} className='commentContainer'>
-                {window.innerWidth > 768 && (
-                    <Button className='avatarContainer' disableRipple href={`/profile/${props.authorUsername}`}>
-                        <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
-                            <PersonIcon />
-                        </Avatar>
-                    </Button>
-                )}
+                {window.innerWidth > 768 && <Pfp type='Comment' username={props.authorUsername} />}
                 <div className='commentMain'>
                     <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
                         {props.authorUsername}

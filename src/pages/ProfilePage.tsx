@@ -45,12 +45,12 @@ const ProfilePage: React.FC<any> = () => {
     const [posts, setPosts] = useState<IPost[]>([]);
     const [following, setFollowing] = useState<boolean>(false);
     const [profile, setProfile] = useState<boolean>(false);
+    const [imageUrl, setImageUrl] = useState<string>('');
 
     useEffect(() => {
         (async () => {
             try {
-                await getUserData();
-                await getPosts();
+                await getData();
             } catch (err) {
                 console.log(err);
             } finally {
@@ -59,21 +59,20 @@ const ProfilePage: React.FC<any> = () => {
         })();
     }, []);
 
-    const getUserData = async (): Promise<void> => {
+    const getData = async (): Promise<void> => {
         try {
-            const res = await authAxios.get(`/users/profile/${username}`);
-            setUser(res.data.user);
-            setFollowing(res.data.isFollowing);
-            setProfile(res.data.isProfile);
-        } catch (err) {
-            console.log(err);
-        }
-    };
+            const resProfile = await authAxios.get(`/users/profile/${username}`);
+            setUser(resProfile.data.user);
+            setFollowing(resProfile.data.isFollowing);
+            setProfile(resProfile.data.isProfile);
 
-    const getPosts = async (): Promise<void> => {
-        try {
-            const res = await authAxios.get(`/users/posts/${username}`);
-            setPosts(res.data.posts);
+            const resPosts = await authAxios.get(`/users/posts/${username}`);
+            setPosts(resPosts.data.posts);
+
+            const resPfp = await authAxios.get(`/users/pfp/${username}`, { responseType: 'blob' });
+            const imageUrl = URL.createObjectURL(resPfp.data);
+            setImageUrl(imageUrl);
+            console.log(imageUrl, resPfp.data);
         } catch (err) {
             console.log(err);
         }
@@ -107,6 +106,8 @@ const ProfilePage: React.FC<any> = () => {
         });
     };
 
+    const pfpSrc = imageUrl.length > 0 ? imageUrl : '/assets/pfp-placeholder.png';
+
     return (
         <div id='ProfilePage'>
             <header>
@@ -119,7 +120,7 @@ const ProfilePage: React.FC<any> = () => {
                     <>
                         <div className='top'>
                             <Button className='avatarContainer' disableRipple href={`/profile/${username}`}>
-                                <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
+                                <Avatar className='avatar' src={pfpSrc} alt='pfp'>
                                     <PersonIcon sx={{ fontSize: '80px' }} />
                                 </Avatar>
                             </Button>

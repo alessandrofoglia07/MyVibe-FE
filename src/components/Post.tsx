@@ -1,15 +1,15 @@
 import React, { useState, useContext } from 'react';
-import { Paper, Stack, Typography, Avatar, IconButton, Link, Button } from '@mui/material';
+import { Paper, Stack, Typography, IconButton, Link, Button } from '@mui/material';
 import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import ChatBubbleOutlineRoundedIcon from '@mui/icons-material/ChatBubbleOutlineRounded';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
-import PersonIcon from '@mui/icons-material/Person';
 import Comment from './Comment';
 import InputModal from './InputModal';
 import { AuthContext } from '../context/AuthContext';
+import Pfp from './Pfp';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -98,11 +98,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
             <Paper elevation={0} className='post'>
                 <Stack spacing={2}>
                     <div className='postHeader'>
-                        <Button className='avatarContainer' disableRipple href={`/profile/${props.authorUsername}`}>
-                            <Avatar className='avatar' src='/assets/pfp-placeholder.png' alt='pfp'>
-                                <PersonIcon />
-                            </Avatar>
-                        </Button>
+                        <Pfp type='Post' username={props.authorUsername} />
                         <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
                             {props.authorUsername}
                         </Link>
