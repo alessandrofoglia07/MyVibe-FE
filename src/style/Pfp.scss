@@ -1,0 +1,45 @@
+#Pfp {
+    .avatarContainerPost {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        * {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .avatarPost {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            &:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+
+    .avatarContainerComment {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        border-radius: 50%;
+
+        * {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .avatarComment {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            &:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
+}
