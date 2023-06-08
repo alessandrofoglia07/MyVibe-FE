@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
-import { Modal, Box, Typography, IconButton, Avatar, Button } from '@mui/material';
+import { Modal, Box, Typography, IconButton, Button } from '@mui/material';
 import Input from '@mui/base/Input';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import authAxios from '../api/authAxiosApi';
+import Pfp from './Pfp';
 
 const CloseIcon = CloseOutlinedIcon;
 
@@ -21,10 +22,12 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId }: IProps)
         close();
     };
 
+    const maxContentLength = type === 'post' ? 500 : 300;
+
     const handleContentChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         let newContent = e.target.value;
-        if (newContent.length >= 500) {
-            newContent = newContent.slice(0, 500);
+        if (newContent.length >= maxContentLength) {
+            newContent = newContent.slice(0, maxContentLength);
         }
         setContent(newContent);
     };
@@ -64,7 +67,7 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId }: IProps)
                 </header>
                 <main>
                     <div className='top'>
-                        <Avatar className='avatar' />
+                        <Pfp username={userInfo?.username} type='Post' unclickable />
                         <Typography variant='h6' className='username'>
                             {userInfo?.username}
                         </Typography>
@@ -72,9 +75,9 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId }: IProps)
                     <form autoComplete='off' onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
                         <Input id='input' value={content} onChange={handleContentChange} className='input' multiline placeholder='What is on your mind?' />
                         <Typography variant='body2' className='charCount'>
-                            {content.length}/500
+                            {content.length}/{maxContentLength}
                         </Typography>
-                        <Button type='submit' className='publishButton'>
+                        <Button disabled={content.length <= 10} type='submit' className='publishButton'>
                             Publish
                         </Button>
                     </form>

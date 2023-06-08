@@ -5,8 +5,9 @@ import '../style/Pfp.scss';
 import authAxios from '../api/authAxiosApi';
 
 interface IProps {
-    type: 'Post' | 'Profile' | 'Comment';
+    type: 'Post' | 'Profile' | 'Comment' | 'PostInput';
     username: string | undefined;
+    unclickable?: boolean;
 }
 
 const Pfp: React.FC<IProps> = (props: IProps) => {
@@ -26,7 +27,7 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div id='Pfp'>
-            <Button className={`avatarContainer${props.type}`} disableRipple href={`/profile/${props.username}`}>
+            <Button className={`avatarContainer${props.type}`} disableRipple disabled={props.unclickable} href={`/profile/${props.username}`}>
                 <Avatar className={`avatar${props.type}`} src={imageUrl} alt='pfp'>
                     <PersonIcon />
                 </Avatar>

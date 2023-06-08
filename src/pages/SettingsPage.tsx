@@ -54,9 +54,11 @@ const SettingsPage: React.FC<any> = () => {
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>): void => {
         const { id, value } = e.target;
         if (id === 'username') {
-            setUser((prev: any) => ({ ...prev, username: value }));
+            setUser((prev: any) => ({ ...prev, username: value.replaceAll(' ', '') }));
+        } else if (id === 'bio') {
+            setUser((prev: any) => ({ ...prev, info: { ...prev.info, bio: value.slice(0, 150) } }));
         } else {
-            setUser((prev: any) => ({ ...prev, info: { ...prev.info, [id]: value } }));
+            setUser((prev: any) => ({ ...prev, info: { ...prev.info, [id]: value.replaceAll(' ', '') } }));
         }
     };
 
@@ -130,12 +132,12 @@ const SettingsPage: React.FC<any> = () => {
                                     <input type='file' style={{ display: 'none' }} name='pfp' accept='image/*' onChange={handleFileChange} />
                                     <Avatar className='avatar' src={pfpSrc} alt='pfp'>
                                         <PersonIcon className='personIcon' />
-                                        {hoverPfp && (
-                                            <div className='editIconContainer'>
-                                                <EditIcon className='editIcon' />
-                                            </div>
-                                        )}
                                     </Avatar>
+                                    {hoverPfp && (
+                                        <div className='editIconContainer'>
+                                            <EditIcon className='editIcon' />
+                                        </div>
+                                    )}
                                 </Button>
                                 <Typography variant='h3' className='unselectable'>
                                     <b>

@@ -245,6 +245,12 @@
                     background-color: var(--color-primary);
                     color: var(--color-secondary);
                 }
+
+                &:disabled {
+                    background-color: var(--color-primary);
+                    color: var(--color-secondary);
+                    opacity: 0.65;
+                }
             }
         }
 
