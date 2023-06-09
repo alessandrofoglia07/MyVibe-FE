@@ -61,6 +61,9 @@ const renderTextWithLinks = (text: string) => {
             );
         } else if (urlRegex.test(text)) {
             splitText.splice(idx + 1, 1);
+            if (text.endsWith('/')) {
+                text = text.substring(0, text.length - 1);
+            }
             return (
                 <Link key={idx} className='url' href={text}>
                     {text}

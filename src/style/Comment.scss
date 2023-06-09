@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 #Comment {
 
     .commentContainer {
@@ -50,6 +52,23 @@
                 color: var(--color-primary);
                 font-family: Inter, sans-serif;
                 font-size: 1rem;
+
+                a {
+                    text-decoration: none;
+                }
+
+                .url {
+                    color: v.$color-lightblue;
+                    text-decoration: underline;
+                }
+
+                .hashtag {
+                    color: v.$color-purple;
+                }
+
+                .mention {
+                    color: v.$color-red;
+                }
             }
 
             .commentFooter {
