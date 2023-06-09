@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 #Post {
     .post {
         margin: 10px;
@@ -35,6 +37,22 @@
             color: var(--color-primary);
             font-family: Inter, sans-serif;
             font-size: 1.2rem;
+
+            a {
+                text-decoration: none;
+            }
+
+            .url {
+                color: v.$color-lightblue;
+            }
+
+            .hashtag {
+                color: v.$color-purple;
+            }
+
+            .mention {
+                color: v.$color-red;
+            }
         }
     }
 

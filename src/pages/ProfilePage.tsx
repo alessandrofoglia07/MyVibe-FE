@@ -72,7 +72,6 @@ const ProfilePage: React.FC<any> = () => {
             const resPfp = await authAxios.get(`/users/pfp/${username}`, { responseType: 'blob' });
             const imageUrl = URL.createObjectURL(resPfp.data);
             setImageUrl(imageUrl);
-            console.log(imageUrl, resPfp.data);
         } catch (err) {
             console.log(err);
         }
