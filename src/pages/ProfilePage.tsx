@@ -3,12 +3,13 @@ import '../style/ProfilePage.scss';
 import Navbar from '../components/navbar';
 import { useParams } from 'react-router-dom';
 import authAxios from '../api/authAxiosApi';
-import { Avatar, Typography, Stack, Button, CircularProgress } from '@mui/material';
+import { Avatar, Typography, Stack, Button } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import Post from '../components/Post';
 import formatDate from '../utils/formatDate';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { AuthContext } from '../context/AuthContext';
+import Loading from '../components/Loading';
 
 const LogoutIcon = LogoutRoundedIcon;
 
@@ -114,7 +115,7 @@ const ProfilePage: React.FC<any> = () => {
             </header>
             <main>
                 {loading ? (
-                    <CircularProgress className='loading' />
+                    <Loading />
                 ) : (
                     <>
                         <div className='top'>

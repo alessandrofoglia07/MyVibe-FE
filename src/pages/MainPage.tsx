@@ -8,7 +8,7 @@ import authAxios from '../api/authAxiosApi';
 import Post from '../components/Post';
 import PostInput from '../components/PostInput';
 import InputModal from '../components/InputModal';
-import CircularProgress from '@mui/material/CircularProgress';
+import Loading from '../components/Loading';
 
 export interface IPost {
     _id: string;
@@ -102,7 +102,7 @@ const MainPage: React.FC<any> = () => {
                             )}
                         </>
                     ) : (
-                        <CircularProgress className='circularProgress' />
+                        <Loading />
                     )}
                 </div>
                 {width > 768 && (

@@ -5,9 +5,10 @@ import authAxios from '../api/authAxiosApi';
 import '../style/SettingsPage.scss';
 import { UserInfo, getUserInfo } from '../api/authApi';
 import Navbar from '../components/navbar';
-import { CircularProgress, Typography, Button, TextField, Stack, Avatar } from '@mui/material';
+import { Typography, Button, TextField, Stack, Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
+import Loading from '../components/Loading';
 
 const EditIcon = AutoAwesomeRoundedIcon;
 
@@ -123,7 +124,7 @@ const SettingsPage: React.FC<any> = () => {
             </header>
             <main>
                 {loading ? (
-                    <CircularProgress className='loading' />
+                    <Loading />
                 ) : (
                     <>
                         <Stack className='mainContainer'>
