@@ -21,4 +21,8 @@
             -webkit-text-fill-color: #fff;
         }
     }
+
+    .title::selection {
+        -webkit-text-fill-color: #fff;
+    }
 }

@@ -10,7 +10,7 @@ import PostInput from '../components/PostInput';
 import InputModal from '../components/InputModal';
 import CircularProgress from '@mui/material/CircularProgress';
 
-interface IPost {
+export interface IPost {
     _id: string;
     author: string;
     authorUsername: string;

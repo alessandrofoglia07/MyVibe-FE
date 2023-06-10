@@ -1,16 +1,16 @@
 [data-theme='light'] {
     --color-primary: #080710;
     --color-secondary: #fff;
-    --color-bg: #F5F5F5;
-    --color-searchbar: #fff;
+    --color-bg: #f5f5f5;
+    --color-searchbar: #f5f5f5;
     --color-hover: #eeeeee;
     --color-outline: #DCDCDC;
 }
 
 [data-theme='dark'] {
-    --color-primary: #fff;
-    --color-secondary: #080710;
-    --color-bg: #121212;
+    --color-primary: #f7f7f7;
+    --color-secondary: #27262c;
+    --color-bg: #1a1c22;
     --color-searchbar: #303134;
     --color-hover: #303134;
     --color-outline: #434446;
