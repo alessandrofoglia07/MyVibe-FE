@@ -6,6 +6,7 @@ import LikeIconFilled from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
 import Pfp from './Pfp';
+import { renderTextWithLinks } from './Post';
 
 interface IProps {
     _id: string;
@@ -15,46 +16,6 @@ interface IProps {
     likes: number;
     liked: boolean;
 }
-
-const renderTextWithLinks = (text: string) => {
-    const usernameRegex = /@(\w+)/g;
-    const hashtagRegex = /#(\w+)/g;
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
-
-    const combinedRegex = /(@(\w+)|#(\w+)|(https?:\/\/[^\s]+))/g;
-
-    const splitText = text.split(combinedRegex).filter(Boolean); // Remove empty strings
-
-    return splitText.map((text, idx) => {
-        if (usernameRegex.test(text)) {
-            splitText.splice(idx + 1, 1);
-            return (
-                <Link key={idx} className='mention' href={`/profile/${text.substring(1)}`}>
-                    {text}
-                </Link>
-            );
-        } else if (hashtagRegex.test(text)) {
-            splitText.splice(idx + 1, 1);
-            return (
-                <Link key={idx} className='hashtag' href={`/hashtag/${text.substring(1)}`}>
-                    {text}
-                </Link>
-            );
-        } else if (urlRegex.test(text)) {
-            splitText.splice(idx + 1, 1);
-            if (text.endsWith('/')) {
-                text = text.substring(0, text.length - 1);
-            }
-            return (
-                <Link key={idx} className='url' href={text}>
-                    {text}
-                </Link>
-            );
-        } else {
-            return <span key={idx}>{text}</span>;
-        }
-    });
-};
 
 const Comment: React.FC<IProps> = (props: IProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);

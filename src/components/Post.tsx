@@ -35,7 +35,8 @@ interface IComment {
     liked: boolean;
 }
 
-const renderTextWithLinks = (text: string) => {
+// TODO: fix this
+export const renderTextWithLinks = (text: string) => {
     const usernameRegex = /@(\w+)/g;
     const hashtagRegex = /#(\w+)/g;
     const urlRegex = /(https?:\/\/[^\s]+)/g;
@@ -173,7 +174,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
                                 {comments.map(({ _id, author, authorUsername, content, likes, liked }) => {
                                     return <Comment key={_id} _id={_id} author={author} authorUsername={authorUsername} content={content} likes={likes.length} liked={liked} />;
                                 })}
-                                {comments.length !== props.comments.length && (
+                                {comments.length < props.comments.length && (
                                     <Link className='showMoreComments' onClick={getComments}>
                                         Show more comments
                                     </Link>
@@ -183,7 +184,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
                     </div>
                 </Stack>
             </Paper>
-            {writingComment && <InputModal type='comment' postId={props._id} close={handleCommentInputClose} userInfo={userInfo} />}
+            {writingComment && <InputModal type='comment' postId={props._id} close={handleCommentInputClose} userInfo={userInfo} postAuthor={props.authorUsername} />}
         </div>
     );
 };

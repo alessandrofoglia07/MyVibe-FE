@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Modal, Box, Typography, IconButton, Button } from '@mui/material';
 import Input from '@mui/base/Input';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
@@ -12,11 +12,18 @@ interface IProps {
     close: (commentInfo?: { content: string; id: string; author: string; authorUsername: string }) => void;
     userInfo: any;
     postId?: string;
+    postAuthor?: string;
 }
 
-const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId }: IProps) => {
+const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAuthor }: IProps) => {
     const [content, setContent] = useState('');
     const url = type === 'post' ? '/posts/create' : `/posts/comments/create/${postId}`;
+
+    useEffect(() => {
+        if (postAuthor) {
+            setContent((content) => `@${postAuthor} ${content}`);
+        }
+    }, []);
 
     const handleClose = () => {
         close();
