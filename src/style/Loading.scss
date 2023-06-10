@@ -1,0 +1,20 @@
+@use 'variables' as v;
+
+.loading {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+
+    .circularProgress[data-color='1'] {
+        color: v.$color-purple;
+    }
+
+    .circularProgress[data-color='2'] {
+        color: v.$color-red;
+    }
+
+    .circularProgress[data-color='3'] {
+        color: v.$color-lightblue;
+    }
+}
