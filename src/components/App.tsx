@@ -11,6 +11,7 @@ import PasswordForgottenPage from '../pages/PasswordForgottenPage';
 import ResetPasswordPage from '../pages/ResetPasswordPage';
 import ProfilePage from '../pages/ProfilePage';
 import SettingsPage from '../pages/SettingsPage';
+import HashtagPage from '../pages/HashtagPage';
 
 const App: React.FC<any> = () => {
     return (
@@ -21,6 +22,7 @@ const App: React.FC<any> = () => {
                         <Route path='/' element={<MainPage />} />
                         <Route path='/profile/:username' element={<ProfilePage />} />
                         <Route path='/profile/edit' element={<SettingsPage />} />
+                        <Route path='/hashtag/:hashtag' element={<HashtagPage />} />
                     </Route>
                     <Route path='/login' element={<LoginPage />} />
                     <Route path='/sign-up' element={<SignUpPage />} />
