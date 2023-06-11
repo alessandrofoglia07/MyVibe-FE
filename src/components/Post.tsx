@@ -100,6 +100,9 @@ const Post: React.FC<postProps> = (props: postProps) => {
     const getComments = async () => {
         const res = await authAxios.get(`/posts/comments/${props._id}?page=${page}`);
         setComments((prev) => prev.concat(res.data.comments));
+        if (res.data.comments.length === 0) {
+            setWritingComment(true);
+        }
         setPage((prev) => prev + 1);
     };
 
@@ -110,7 +113,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
 
     const handleShowComments = () => {
         setCommentsOpen((prev) => !prev);
-        if (comments.length === 0) {
+        if (!commentsOpen) {
             getComments();
         } else {
             closeComments();

@@ -126,7 +126,7 @@ const ProfilePage: React.FC<any> = () => {
                             </Button>
                             <div>
                                 <Typography component='p' className='username'>
-                                    {username}
+                                    <b>{username}</b>
                                 </Typography>
                                 <Typography component='p' className='email'>
                                     {user?.email}

@@ -80,7 +80,7 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
                         </Typography>
                     </div>
                     <form autoComplete='off' onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
-                        <Input id='input' value={content} onChange={handleContentChange} className='input' multiline placeholder='What is on your mind?' />
+                        <Input id='input' value={content} onChange={handleContentChange} className='input' autoFocus multiline placeholder='What is on your mind?' />
                         <Typography variant='body2' className='charCount'>
                             {content.length}/{maxContentLength}
                         </Typography>

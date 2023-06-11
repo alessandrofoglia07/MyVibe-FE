@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/MainPage.scss';
-import { Typography, Stack, Paper, Link } from '@mui/material';
+import { Typography, Stack, Paper } from '@mui/material';
 import useTheme from '../hooks/useTheme';
 import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
@@ -9,6 +9,7 @@ import Post from '../components/Post';
 import PostInput from '../components/PostInput';
 import InputModal from '../components/InputModal';
 import Loading from '../components/Loading';
+import FollowingLink from '../components/followingLink';
 
 export interface IPost {
     _id: string;
@@ -116,11 +117,7 @@ const MainPage: React.FC<any> = () => {
                                                 Following
                                             </Typography>
                                             {followingList.map((following) => (
-                                                <Typography key={following} variant='h6' className='following'>
-                                                    <Link href={`/profile/${following}`} className='followingLinks'>
-                                                        {following}
-                                                    </Link>
-                                                </Typography>
+                                                <FollowingLink key={following} username={following} />
                                             ))}
                                         </Stack>
                                     ) : (

@@ -50,7 +50,6 @@
         margin-top: 30px;
         border: 2px solid var(--color-outline);
         border-radius: 20px;
-        height: auto;
         min-height: 300px;
         overflow-y: auto;
         background-color: var(--color-secondary);
@@ -71,22 +70,6 @@
             margin-top: 20px;
             font-family: Inter, sans-serif;
             color: var(--color-primary);
-        }
-
-        .following {
-            padding-bottom: 20px;
-            padding-left: 20px;
-            font-family: Inter, sans-serif;
-            color: var(--color-primary);
-            border-bottom: 2px solid var(--color-outline);
-            text-overflow: ellipsis;
-            overflow: hidden;
-            white-space: nowrap;
-
-            .followingLinks {
-                color: var(--color-primary);
-                text-decoration: none;
-            }
         }
     }
 
