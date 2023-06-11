@@ -38,6 +38,10 @@
             font-family: Inter, sans-serif;
             font-size: 1.2rem;
             word-wrap: break-word;
+            white-space: pre-wrap;
+            white-space: -moz-pre-wrap;
+            white-space: -pre-wrap;
+            white-space: -o-pre-wrap;
 
             a {
                 text-decoration: none;

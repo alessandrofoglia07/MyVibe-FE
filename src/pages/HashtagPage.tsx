@@ -11,7 +11,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 
 const HashtagPage: React.FC<any> = () => {
-    const { hashtag } = useParams();
+    const hashtag = useParams().hashtag?.toLocaleLowerCase();
     const [searchParams] = useSearchParams();
 
     const [posts, setPosts] = useState<IPost[]>([]);

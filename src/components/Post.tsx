@@ -145,7 +145,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
                         </Link>
                     </div>
                     <div className='postContent'>
-                        <Typography variant='body1' className='content'>
+                        <Typography variant='body1' component='pre' className='content'>
                             {renderTextWithLinks(props.content)}
                         </Typography>
                     </div>
