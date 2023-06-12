@@ -11,6 +11,7 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { AuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
 import useTheme from '../hooks/useTheme';
+import NotFoundPage from './404Page';
 
 const LogoutIcon = LogoutRoundedIcon;
 
@@ -50,6 +51,7 @@ const ProfilePage: React.FC<any> = () => {
     const [following, setFollowing] = useState<boolean>(false);
     const [profile, setProfile] = useState<boolean>(false);
     const [imageUrl, setImageUrl] = useState<string>('');
+    const [userNotFound, setUserNotFound] = useState<boolean>(false);
 
     useEffect(() => {
         (async () => {
@@ -66,6 +68,12 @@ const ProfilePage: React.FC<any> = () => {
     const getData = async (): Promise<void> => {
         try {
             const resProfile = await authAxios.get(`/users/profile/${username}`);
+
+            if (!resProfile.data.user) {
+                setUserNotFound(true);
+                return;
+            }
+
             setUser(resProfile.data.user);
             setFollowing(resProfile.data.isFollowing);
             setProfile(resProfile.data.isProfile);
@@ -78,6 +86,7 @@ const ProfilePage: React.FC<any> = () => {
             setImageUrl(imageUrl);
         } catch (err) {
             console.log(err);
+            setUserNotFound(true);
         }
     };
 
@@ -109,106 +118,112 @@ const ProfilePage: React.FC<any> = () => {
         });
     };
 
-    const pfpSrc = imageUrl.length > 0 ? imageUrl : '/assets/pfp-placeholder.png';
+    const pfpSrc = imageUrl?.length > 0 ? imageUrl : '/assets/pfp-placeholder.png';
 
     return (
         <div id='ProfilePage'>
-            <header>
-                <Navbar />
-            </header>
-            <main>
-                {loading ? (
-                    <Loading />
-                ) : (
-                    <>
-                        <div className='top'>
-                            <Button className='avatarContainer' disableRipple href={`/profile/${username}`}>
-                                <Avatar className='avatar' src={pfpSrc} alt='pfp'>
-                                    <PersonIcon sx={{ fontSize: '80px' }} />
-                                </Avatar>
-                            </Button>
-                            <div>
-                                <Typography component='p' className='username'>
-                                    <b>{username}</b>
-                                </Typography>
-                                <Typography component='p' className='email'>
-                                    {user?.email}
-                                </Typography>
-                                {user?.info.firstName && user?.info.lastName ? (
-                                    <Typography component='p' className='fullName'>
-                                        {user?.info.firstName + ' ' + user?.info.lastName}
+            {userNotFound ? (
+                <NotFoundPage />
+            ) : (
+                <>
+                    <header>
+                        <Navbar />
+                    </header>
+                    <main>
+                        {loading ? (
+                            <Loading />
+                        ) : (
+                            <>
+                                <div className='top'>
+                                    <Button className='avatarContainer' disableRipple href={`/profile/${username}`}>
+                                        <Avatar className='avatar' src={pfpSrc} alt='pfp'>
+                                            <PersonIcon sx={{ fontSize: '80px' }} />
+                                        </Avatar>
+                                    </Button>
+                                    <div>
+                                        <Typography component='p' className='username'>
+                                            <b>{username}</b>
+                                        </Typography>
+                                        <Typography component='p' className='email'>
+                                            {user?.email}
+                                        </Typography>
+                                        {user?.info.firstName && user?.info.lastName ? (
+                                            <Typography component='p' className='fullName'>
+                                                {user?.info.firstName + ' ' + user?.info.lastName}
+                                            </Typography>
+                                        ) : null}
+                                    </div>
+                                </div>
+                                <div className='limit' />
+                                <div className='middle'>
+                                    <Stack direction='row' spacing={3} className='numericStats'>
+                                        <Typography component='p' className='following'>
+                                            Following <br /> {user?.followingIDs.length}
+                                        </Typography>
+                                        <Typography component='p' className='followers'>
+                                            Followers <br /> {user?.followersIDs.length}
+                                        </Typography>
+                                    </Stack>
+                                    {profile ? (
+                                        <Button disableRipple variant='contained' className='profileButton' href='/profile/edit'>
+                                            Edit
+                                        </Button>
+                                    ) : following ? (
+                                        <Button disableRipple variant='contained' className='profileButton' onClick={handleUnfollow}>
+                                            Unfollow
+                                        </Button>
+                                    ) : (
+                                        <Button disableRipple variant='contained' className='profileButton' onClick={handleFollow}>
+                                            Follow
+                                        </Button>
+                                    )}
+                                    <Typography component='p' className='bio'>
+                                        {user?.info.bio || 'No bio yet.'}
                                     </Typography>
-                                ) : null}
-                            </div>
-                        </div>
-                        <div className='limit' />
-                        <div className='middle'>
-                            <Stack direction='row' spacing={3} className='numericStats'>
-                                <Typography component='p' className='following'>
-                                    Following <br /> {user?.followingIDs.length}
-                                </Typography>
-                                <Typography component='p' className='followers'>
-                                    Followers <br /> {user?.followersIDs.length}
-                                </Typography>
-                            </Stack>
-                            {profile ? (
-                                <Button disableRipple variant='contained' className='profileButton' href='/profile/edit'>
-                                    Edit
-                                </Button>
-                            ) : following ? (
-                                <Button disableRipple variant='contained' className='profileButton' onClick={handleUnfollow}>
-                                    Unfollow
-                                </Button>
-                            ) : (
-                                <Button disableRipple variant='contained' className='profileButton' onClick={handleFollow}>
-                                    Follow
-                                </Button>
-                            )}
-                            <Typography component='p' className='bio'>
-                                {user?.info.bio || 'No bio yet.'}
-                            </Typography>
-                        </div>
-                        <div className='limit' />
-                        <div className='bottomStats'>
-                            <Typography component='p' className='createdAt'>
-                                Joined {formatDate(user?.createdAt as Date)}
-                            </Typography>
-                            {profile && (
-                                <Button disableRipple variant='contained' className='logoutButton' endIcon={<LogoutIcon />} onClick={logout}>
-                                    Log out
-                                </Button>
-                            )}
-                        </div>
-                        {profile && <div className='limit' />}
-                        <div className='posts'>
-                            <Typography component='p' className='postsTitle'>
-                                Featured Posts
-                            </Typography>
-                            {posts.length > 0 ? (
-                                <Stack spacing={2} width='80%'>
-                                    {posts.map((post) => (
-                                        <Post
-                                            key={post._id}
-                                            _id={post._id}
-                                            author={post.author}
-                                            authorUsername={post.authorUsername}
-                                            content={post.content}
-                                            date={post.createdAt}
-                                            likes={post.likes.length}
-                                            liked={post.liked}
-                                            comments={post.comments}
-                                        />
-                                    ))}
-                                </Stack>
-                            ) : (
-                                <Typography variant='h6' className='noPostsText'>
-                                    No posts here...
-                                </Typography>
-                            )}
-                        </div>
-                    </>
-                )}
-            </main>
+                                </div>
+                                <div className='limit' />
+                                <div className='bottomStats'>
+                                    <Typography component='p' className='createdAt'>
+                                        Joined {formatDate(user?.createdAt as Date)}
+                                    </Typography>
+                                    {profile && (
+                                        <Button disableRipple variant='contained' className='logoutButton' endIcon={<LogoutIcon />} onClick={logout}>
+                                            Log out
+                                        </Button>
+                                    )}
+                                </div>
+                                {profile && <div className='limit' />}
+                                <div className='posts'>
+                                    <Typography component='p' className='postsTitle'>
+                                        Featured Posts
+                                    </Typography>
+                                    {posts.length > 0 ? (
+                                        <Stack spacing={2} width='80%'>
+                                            {posts.map((post) => (
+                                                <Post
+                                                    key={post._id}
+                                                    _id={post._id}
+                                                    author={post.author}
+                                                    authorUsername={post.authorUsername}
+                                                    content={post.content}
+                                                    date={post.createdAt}
+                                                    likes={post.likes.length}
+                                                    liked={post.liked}
+                                                    comments={post.comments}
+                                                />
+                                            ))}
+                                        </Stack>
+                                    ) : (
+                                        <Typography variant='h6' className='noPostsText'>
+                                            No posts here...
+                                        </Typography>
+                                    )}
+                                </div>
+                            </>
+                        )}
+                    </main>
+                </>
+            )}
         </div>
     );
 };
