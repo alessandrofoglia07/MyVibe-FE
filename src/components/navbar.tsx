@@ -67,12 +67,14 @@ const Navbar: React.FC<any> = () => {
         };
 
         const handleFocusOut = () => {
-            setSearchResultsPreviewOpen(false);
-            searchBar?.classList.remove('searchBarFocused');
-            searchBar?.classList.add('searchBarUnfocused');
             setTimeout(() => {
-                searchBar?.classList.remove('searchBarUnfocused');
-            }, 500);
+                setSearchResultsPreviewOpen(false);
+                searchBar?.classList.remove('searchBarFocused');
+                searchBar?.classList.add('searchBarUnfocused');
+                setTimeout(() => {
+                    searchBar?.classList.remove('searchBarUnfocused');
+                }, 500);
+            }, 100);
         };
 
         const removeFocusClass = () => {
