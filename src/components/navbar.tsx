@@ -11,10 +11,12 @@ import { AuthContext } from '../context/AuthContext';
 import authAxios from '../api/authAxiosApi';
 import FollowingLink from './followingLink';
 import { IUser } from '../pages/ProfilePage';
+import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
 const DarkModeIcon = DarkModeOutlinedIcon;
+const EnterIcon = KeyboardReturnRoundedIcon;
 
 const Navbar: React.FC<any> = () => {
     const [width, setWidth] = useState(window.innerWidth);
@@ -59,7 +61,7 @@ const Navbar: React.FC<any> = () => {
     }, [width]);
 
     const handleFocus = () => {
-        const searchBar = document.getElementsByClassName('searchBar')[0];
+        const searchBar = document.getElementById('searchBarContainer');
 
         const addFocusClass = () => {
             searchBar?.classList.add('searchBarFocused');
@@ -100,28 +102,36 @@ const Navbar: React.FC<any> = () => {
         };
     };
 
-    const handleSearchbarOpen = () => {
+    const handleMobileSearchbarOpen = () => {
         setMobileSearchbarOpen(true);
 
         setTimeout(() => {
-            const searchBar = document.getElementById('searchBar');
+            const searchBar = document.getElementById('searchBarInput');
+            const searchBarContainer = document.getElementById('searchBarContainer');
 
-            if (searchBar) {
+            if (searchBar && searchBarContainer) {
                 searchBar.focus();
-                searchBar.addEventListener('focusout', handleSearchbarClose);
+                searchBarContainer.addEventListener('focusout', handleMobileSearchbarClose);
             }
         }, 50);
     };
 
-    const handleSearchbarClose = () => {
-        const searchBar = document.getElementById('searchBar');
-        setSearchResultsPreviewOpen(false);
+    const handleMobileSearchbarClose = () => {
+        const searchBarContainer = document.getElementById('searchBarContainer');
+        setTimeout(() => {
+            setSearchResultsPreviewOpen(false);
+            setSearchValue('');
 
-        if (searchBar) {
-            searchBar.removeEventListener('focusout', handleSearchbarClose);
-            searchBar.classList.remove('searchBarMobileShow');
-            setMobileSearchbarOpen(false);
-        }
+            if (searchBarContainer) {
+                searchBarContainer.removeEventListener('focusout', handleMobileSearchbarClose);
+                searchBarContainer.classList.remove('searchBarMobileShow');
+                searchBarContainer.classList.add('searchBarMobileHide');
+                setTimeout(() => {
+                    searchBarContainer.classList.remove('searchBarMobileHide');
+                    setMobileSearchbarOpen(false);
+                }, 300);
+            }
+        }, 100);
     };
 
     const logoClassnames = width > 768 ? 'myVibe' : 'myVibe smallerMyVibe';
@@ -169,20 +179,27 @@ const Navbar: React.FC<any> = () => {
                     {width > 768 ? (
                         // Desktop navbar
                         <>
-                            <TextField
-                                InputProps={{
-                                    startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />
-                                }}
-                                id='searchBar'
-                                value={searchValue}
-                                onChange={handleChange}
-                                onFocus={handleFocus}
-                                placeholder='Search'
-                                autoComplete='off'
-                                onKeyDown={handleKeyDown}
-                                variant='outlined'
-                                className='searchBar'
-                            />
+                            <div id='searchBarContainer' className='searchBarContainer'>
+                                <TextField
+                                    InputProps={{
+                                        startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />,
+                                        endAdornment: searchResultsPreviewOpen && !searchResultsOpen && (
+                                            <IconButton onClick={() => handleKeyDown({ key: 'Enter' } as any)}>
+                                                <EnterIcon />
+                                            </IconButton>
+                                        )
+                                    }}
+                                    value={searchValue}
+                                    id='searchBarInput'
+                                    onChange={handleChange}
+                                    onFocus={handleFocus}
+                                    placeholder='Search'
+                                    autoComplete='off'
+                                    onKeyDown={handleKeyDown}
+                                    variant='outlined'
+                                    className='searchBar'
+                                />
+                            </div>
                             <div id='buttons' className='buttonsContainer'>
                                 <IconButton className='themeBtn' onClick={handleThemeChange}>
                                     {theme === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
@@ -203,22 +220,29 @@ const Navbar: React.FC<any> = () => {
                         // Mobile navbar
                         <>
                             {mobileSearchbarOpen ? (
-                                <TextField
-                                    id='searchBar'
-                                    placeholder='Search'
-                                    variant='outlined'
-                                    value={searchValue}
-                                    onChange={handleChange}
-                                    onKeyDown={handleKeyDown}
-                                    className='searchBarMobile searchBarMobileShow'
-                                    autoComplete='off'
-                                    InputProps={{
-                                        startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />
-                                    }}
-                                />
+                                <div id='searchBarContainer' className='searchBarContainer'>
+                                    <TextField
+                                        placeholder='Search'
+                                        variant='outlined'
+                                        id='searchBarInput'
+                                        value={searchValue}
+                                        onChange={handleChange}
+                                        onKeyDown={handleKeyDown}
+                                        className='searchBarMobile searchBarMobileShow'
+                                        autoComplete='off'
+                                        InputProps={{
+                                            startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />,
+                                            endAdornment: searchResultsPreviewOpen && !searchResultsOpen && (
+                                                <IconButton onClick={() => handleKeyDown({ key: 'Enter' } as any)}>
+                                                    <EnterIcon />
+                                                </IconButton>
+                                            )
+                                        }}
+                                    />
+                                </div>
                             ) : (
                                 <div id='buttons' className='buttonsContainer'>
-                                    <IconButton className='searchBtn' onClick={handleSearchbarOpen}>
+                                    <IconButton className='searchBtn' onClick={handleMobileSearchbarOpen}>
                                         <SearchRoundedIcon />
                                     </IconButton>
                                     <IconButton className='notificationBtn'>

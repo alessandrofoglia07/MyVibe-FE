@@ -24,14 +24,29 @@
         left: -10px;
     }
 
+    .searchBarContainer {
+        height: 70px;
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            width: 100%;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            width: 40%;
+        }
+
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
     .searchBar {
-        width: 30%;
+        width: 100%;
         background-color: var(--color-searchbar);
         border-radius: 20px;
         border: 2px solid var(--color-outline);
-
-        position: relative;
-        left: -10px;
 
         fieldset {
             outline: none;
@@ -52,11 +67,11 @@
 
         @keyframes big {
             0% {
-                width: 30%;
+                width: 40%;
             }
 
             100% {
-                width: 40%;
+                width: 50%;
             }
         }
 
@@ -65,28 +80,16 @@
 
     .searchBarUnfocused {
 
-        /* Smaller screen (mobile) */
-        @media only screen and (max-width: 768px) {
-            @keyframes small {
-                0% {
-                    width: 70%;
-                }
-
-                100% {
-                    width: 100%;
-                }
-            }
-        }
 
         /* Larger screen (desktop/tablet) */
         @media only screen and (min-width: 768px) {
             @keyframes small {
                 0% {
-                    width: 40%;
+                    width: 50%;
                 }
 
                 100% {
-                    width: 30%;
+                    width: 40%;
                 }
             }
         }
@@ -124,19 +127,35 @@
     }
 
     .searchBarMobileShow {
-        @keyframes show {
+        @keyframes fadein {
             0% {
-                width: 0%;
                 opacity: 0;
             }
 
             100% {
-                width: 90%;
                 opacity: 1;
             }
         }
 
-        animation: show 0.2s ease-in-out forwards;
+        animation: fadein 0.3s ease-in-out forwards;
+    }
+
+    .searchBarMobileHide {
+        @keyframes fadeout {
+            0% {
+                opacity: 1;
+            }
+
+            100% {
+                opacity: 0;
+            }
+        }
+
+        * {
+            animation: fadeout 0.3s ease-in-out forwards;
+        }
+
+        animation: fadeout 0.3s ease-in-out forwards;
     }
 
     .avatarContainer {
