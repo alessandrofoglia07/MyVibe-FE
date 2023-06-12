@@ -52,6 +52,7 @@ const Navbar: React.FC<any> = () => {
         window.addEventListener('resize', () => {
             setWidth(window.innerWidth);
         });
+        setPage(1);
     }, []);
 
     useEffect(() => {

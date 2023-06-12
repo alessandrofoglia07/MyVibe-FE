@@ -218,6 +218,7 @@ const ProfilePage: React.FC<any> = () => {
                                             No posts here...
                                         </Typography>
                                     )}
+                                    <div className='spacer' />
                                 </div>
                             </>
                         )}

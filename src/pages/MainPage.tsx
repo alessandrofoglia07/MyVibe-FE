@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/MainPage.scss';
-import { Typography, Stack, Paper } from '@mui/material';
+import { Typography, Stack, Paper, Link } from '@mui/material';
 import useTheme from '../hooks/useTheme';
 import Navbar from '../components/navbar';
 import { AuthContext } from '../context/AuthContext';
@@ -31,11 +31,14 @@ const MainPage: React.FC<any> = () => {
     const [posts, setPosts] = useState<IPost[]>([]);
     const [writingPost, setWritingPost] = useState(false);
     const [loading, setLoading] = useState(false);
+    const [page, setPage] = useState(1);
+    const [postCount, setPostCount] = useState(0);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
             setWidth(window.innerWidth);
         });
+        setPage(1);
     }, []);
 
     const handleInputStart = () => {
@@ -64,8 +67,17 @@ const MainPage: React.FC<any> = () => {
     };
 
     const getPosts = async () => {
-        const res = await authAxios.get('/posts');
+        const res = await authAxios.get(`/posts`);
         setPosts(res.data.posts);
+        setPage((prev) => prev + 1);
+        setPostCount(res.data.numPosts);
+    };
+
+    const getMorePosts = async () => {
+        const res = await authAxios.get(`/posts?page=${page}`);
+        setPosts((prev) => [...prev, ...res.data.posts]);
+        setPage((prev) => prev + 1);
+        setPostCount(res.data.numPosts);
     };
 
     return (
@@ -101,6 +113,16 @@ const MainPage: React.FC<any> = () => {
                                     No posts here... try following someone first...
                                 </Typography>
                             )}
+                            {posts.length < postCount ? (
+                                <Link onClick={getMorePosts} className='loadMoreText'>
+                                    Load more
+                                </Link>
+                            ) : (
+                                <Typography className='noMorePostsText'>
+                                    No more posts to load. <br /> You should really take a break now...
+                                </Typography>
+                            )}
+                            <div className='spacer' />
                         </>
                     ) : (
                         <Loading />

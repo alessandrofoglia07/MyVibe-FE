@@ -1,4 +1,4 @@
-import React, { useState, useContext } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Paper, Stack, Typography, IconButton, Link, Button } from '@mui/material';
 import '../style/Post.scss';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
@@ -83,6 +83,10 @@ const Post: React.FC<postProps> = (props: postProps) => {
     const [page, setPage] = useState<number>(1);
     const [commentsOpen, setCommentsOpen] = useState<boolean>(false);
     const [writingComment, setWritingComment] = useState<boolean>(false);
+
+    useEffect(() => {
+        setPage(1);
+    }, []);
 
     const handleLike = async () => {
         const res = await authAxios.post(`/posts/like/${props._id}`);
