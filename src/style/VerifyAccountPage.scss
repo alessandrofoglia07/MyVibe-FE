@@ -1,0 +1,23 @@
+@use 'variables' as v;
+
+#VerifyAccountPage {
+    .message {
+        font-size: 2.5rem;
+        font-family: v.$font;
+        font-weight: 700;
+        background: v.$gradient;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        text-align: center;
+        margin-bottom: 20px;
+        position: absolute;
+        top: 45%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
+    .message::selection {
+        -webkit-text-fill-color: #fff;
+    }
+}
