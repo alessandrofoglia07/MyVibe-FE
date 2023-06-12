@@ -25,6 +25,8 @@ const Navbar: React.FC<any> = () => {
     const [searchResults, setSearchResults] = useState<IUser[]>([]);
     const [searchResultsOpen, setSearchResultsOpen] = useState<boolean>(false);
     const [searchResultsPreviewOpen, setSearchResultsPreviewOpen] = useState<boolean>(false);
+    const [usersCount, setUsersCount] = useState<number>(0);
+    const [page, setPage] = useState<number>(1);
 
     const { toggleTheme } = useTheme();
 
@@ -126,8 +128,15 @@ const Navbar: React.FC<any> = () => {
         const value = e.target.value;
         setSearchValue(value);
         const res = await authAxios(`/users/search?search=${value}&limit=10`);
-        setSearchResults(res.data);
+        setSearchResults(res.data.users);
         setSearchResultsPreviewOpen(true);
+        setUsersCount(res.data.usersCount);
+    };
+
+    const handleSearchMore = async () => {
+        const res = await authAxios(`/users/search?search=${searchValue}&limit=10&page=${page + 1}`);
+        setSearchResults([...searchResults, ...res.data.users]);
+        setPage(page + 1);
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -136,6 +145,11 @@ const Navbar: React.FC<any> = () => {
             setSearchResultsPreviewOpen(false);
             setSearchValue('');
         }
+    };
+
+    const handleModalClose = () => {
+        setSearchResultsOpen(false);
+        setPage(1);
     };
 
     return (
@@ -223,11 +237,21 @@ const Navbar: React.FC<any> = () => {
             </AppBar>
             <div className='navbarSpacer' />
             {/* TODO: Finish this */}
-            <Modal open={searchResultsOpen} onClose={() => setSearchResultsOpen(false)}>
+            <Modal open={searchResultsOpen} onClose={handleModalClose}>
                 <Box className='searchResultsContainer'>
+                    <Typography className='searchResultsTitle'>
+                        <SearchRoundedIcon className='icon' />
+                        <strong>Search Result</strong>
+                    </Typography>
+                    {searchResults.length === 0 && <Typography className='noMatchesText'>No matches</Typography>}
                     {searchResults.map((user) => (
                         <FollowingLink key={user._id} username={user.username} />
                     ))}
+                    {usersCount > searchResults.length && (
+                        <Link onClick={handleSearchMore} className='searchMoreLink'>
+                            Search more
+                        </Link>
+                    )}
                 </Box>
             </Modal>
             {searchResultsPreviewOpen && (
