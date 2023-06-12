@@ -10,7 +10,7 @@ interface IProps {
 const FollowingLink: React.FC<IProps> = ({ username }: IProps) => {
     return (
         <div id='FollowingLink'>
-            <Pfp username={username} type='Profile' />
+            <Pfp username={username} type='Link' />
             <Typography variant='h6' className='following'>
                 <Link href={`/profile/${username}`} className='followingLinks'>
                     {username}

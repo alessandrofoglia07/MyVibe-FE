@@ -57,4 +57,27 @@
             border-radius: 50%;
         }
     }
+
+    .avatarContainerLink {
+        width: 40px;
+        min-width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        margin: 0 15px;
+
+        * {
+            width: 40px;
+            border-radius: 50%;
+        }
+
+        .avatarLink {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+
+            &:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+    }
 }

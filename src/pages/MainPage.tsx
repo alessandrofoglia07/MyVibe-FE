@@ -118,7 +118,7 @@ const MainPage: React.FC<any> = () => {
                                     Load more
                                 </Link>
                             ) : (
-                                <Typography className='noMorePostsText'>
+                                <Typography className='noMorePostsText unselectable'>
                                     No more posts to load. <br /> You should really take a break now...
                                 </Typography>
                             )}
@@ -135,7 +135,7 @@ const MainPage: React.FC<any> = () => {
                                 <>
                                     {followingList?.length > 0 ? (
                                         <Stack spacing={2}>
-                                            <Typography variant='h6' className='followingListTitle'>
+                                            <Typography variant='h6' className='followingListTitle unselectable'>
                                                 Following
                                             </Typography>
                                             {followingList.map((following) => (
