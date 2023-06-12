@@ -9,11 +9,13 @@ import { Typography, Button, TextField, Stack, Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Loading from '../components/Loading';
+import useTheme from '../hooks/useTheme';
 
 const EditIcon = AutoAwesomeRoundedIcon;
 
 const SettingsPage: React.FC<any> = () => {
     const navigate = useNavigate();
+    useTheme();
 
     const [user, setUser] = useState<IUser | null>(null);
     const [initUsername, setInitUsername] = useState<string>('');

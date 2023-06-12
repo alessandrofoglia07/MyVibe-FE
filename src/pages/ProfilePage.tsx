@@ -10,6 +10,7 @@ import formatDate from '../utils/formatDate';
 import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded';
 import { AuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
+import useTheme from '../hooks/useTheme';
 
 const LogoutIcon = LogoutRoundedIcon;
 
@@ -37,6 +38,8 @@ interface IPost {
 }
 
 const ProfilePage: React.FC<any> = () => {
+    useTheme();
+
     const { username } = useParams<{ username: string }>();
 
     const { logout } = useContext(AuthContext);

@@ -9,8 +9,11 @@ import Navbar from '../components/navbar';
 import Loading from '../components/Loading';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
+import useTheme from '../hooks/useTheme';
 
 const HashtagPage: React.FC<any> = () => {
+    useTheme();
+
     const hashtag = useParams().hashtag?.toLocaleLowerCase();
     const [searchParams] = useSearchParams();
 
