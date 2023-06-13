@@ -54,8 +54,8 @@ const MainPage: React.FC<any> = () => {
                 setLoading(true);
                 await getPosts();
                 await getFollowingList();
-            } catch (err) {
-                console.log(err);
+            } catch (err: any) {
+                throw new Error(err);
             } finally {
                 setLoading(false);
             }
@@ -63,22 +63,34 @@ const MainPage: React.FC<any> = () => {
     }, []);
 
     const getFollowingList = async () => {
-        const res = await authAxios.get('/users/following');
-        setFollowingList(res.data.usernames);
+        try {
+            const res = await authAxios.get('/users/following');
+            setFollowingList(res.data.usernames);
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     const getPosts = async () => {
-        const res = await authAxios.get(`/posts`);
-        setPosts(res.data.posts);
-        setPage((prev) => prev + 1);
-        setPostCount(res.data.numPosts);
+        try {
+            const res = await authAxios.get(`/posts`);
+            setPosts(res.data.posts);
+            setPage((prev) => prev + 1);
+            setPostCount(res.data.numPosts);
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     const getMorePosts = async () => {
-        const res = await authAxios.get(`/posts?page=${page}`);
-        setPosts((prev) => [...prev, ...res.data.posts]);
-        setPage((prev) => prev + 1);
-        setPostCount(res.data.numPosts);
+        try {
+            const res = await authAxios.get(`/posts?page=${page}`);
+            setPosts((prev) => [...prev, ...res.data.posts]);
+            setPage((prev) => prev + 1);
+            setPostCount(res.data.numPosts);
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     return (

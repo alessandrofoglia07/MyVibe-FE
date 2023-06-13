@@ -37,8 +37,12 @@ const Navbar: React.FC<any> = () => {
     useEffect(() => {
         (async () => {
             if (userInfo) {
-                const res = await authAxios(`/users/pfp/${userInfo.username}`, { responseType: 'blob' });
-                setPfpUrl(URL.createObjectURL(res.data));
+                try {
+                    const res = await authAxios(`/users/pfp/${userInfo.username}`, { responseType: 'blob' });
+                    setPfpUrl(URL.createObjectURL(res.data));
+                } catch (err: any) {
+                    throw new Error(err);
+                }
             }
         })();
     }, []);
@@ -140,16 +144,24 @@ const Navbar: React.FC<any> = () => {
     const handleChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;
         setSearchValue(value);
-        const res = await authAxios(`/users/search?search=${value}&limit=10`);
-        setSearchResults(res.data.users);
-        setSearchResultsPreviewOpen(true);
-        setUsersCount(res.data.usersCount);
+        try {
+            const res = await authAxios(`/users/search?search=${value}&limit=10`);
+            setSearchResults(res.data.users);
+            setSearchResultsPreviewOpen(true);
+            setUsersCount(res.data.usersCount);
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     const handleSearchMore = async () => {
-        const res = await authAxios(`/users/search?search=${searchValue}&limit=10&page=${page + 1}`);
-        setSearchResults([...searchResults, ...res.data.users]);
-        setPage(page + 1);
+        try {
+            const res = await authAxios(`/users/search?search=${searchValue}&limit=10&page=${page + 1}`);
+            setSearchResults([...searchResults, ...res.data.users]);
+            setPage(page + 1);
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {

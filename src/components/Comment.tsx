@@ -24,13 +24,17 @@ const Comment: React.FC<IProps> = (props: IProps) => {
     const [likes, setLikes] = useState<number>(props.likes);
 
     const handleLike = async () => {
-        const res = await authAxios.post(`/posts/comments/like/${props._id}`);
-        if (res.data.message === 'Comment liked') {
-            setLiked(true);
-            setLikes(likes + 1);
-        } else if (res.data.message === 'Comment unliked') {
-            setLiked(false);
-            setLikes(likes - 1);
+        try {
+            const res = await authAxios.post(`/posts/comments/like/${props._id}`);
+            if (res.data.message === 'Comment liked') {
+                setLiked(true);
+                setLikes(likes + 1);
+            } else if (res.data.message === 'Comment unliked') {
+                setLiked(false);
+                setLikes(likes - 1);
+            }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 

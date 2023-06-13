@@ -15,14 +15,23 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
 
     useEffect(() => {
         (async () => {
-            await getPfp();
+            try {
+                await getPfp();
+            } catch (err: any) {
+                throw new Error(err);
+            }
         })();
     }, []);
 
     const getPfp = async () => {
         if (props.username === undefined) return;
-        const res = await authAxios.get(`/users/pfp/${props.username}`, { responseType: 'blob' });
-        setImageUrl(URL.createObjectURL(res.data));
+
+        try {
+            const res = await authAxios.get(`/users/pfp/${props.username}`, { responseType: 'blob' });
+            setImageUrl(URL.createObjectURL(res.data));
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     return (

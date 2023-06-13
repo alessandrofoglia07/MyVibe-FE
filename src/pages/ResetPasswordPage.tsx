@@ -18,22 +18,33 @@ const ResetPasswordPage: React.FC<any> = () => {
 
     useEffect(() => {
         (async () => {
-            const res = await axios.get(`http://localhost:5000/auth/checkResetPassword/${id}`);
-            setForgotPassword(res.data.forgotPassword);
+            try {
+                const res = await axios.get(`http://localhost:5000/auth/checkResetPassword/${id}`);
+                setForgotPassword(res.data.forgotPassword);
+            } catch (err: any) {
+                throw new Error(err);
+            }
         })();
     }, [id]);
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        if (newPassword !== newPasswordCopy) {
-            setNewPasswordError(true);
-        } else {
-            const res = await axios.post('http://localhost:5000/auth/changePassword', { id, newPassword });
-            if (res.data.message === 'All fields required' || res.data.message === 'Invalid user') {
+        try {
+            if (newPassword !== newPasswordCopy) {
                 setNewPasswordError(true);
+                throw new Error('Passwords do not match');
             } else {
-                navigate('/login');
+                const res = await axios.post('http://localhost:5000/auth/changePassword', { id, newPassword });
+
+                if (res.data.message === 'All fields required' || res.data.message === 'Invalid user') {
+                    setNewPasswordError(true);
+                    throw new Error(res.data.message);
+                } else {
+                    navigate('/login');
+                }
             }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 

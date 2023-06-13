@@ -84,25 +84,33 @@ const Post: React.FC<postProps> = (props: postProps) => {
     }, []);
 
     const handleLike = async () => {
-        const res = await authAxios.post(`/posts/like/${props._id}`);
-        if (res.data.message === 'Post liked') {
-            setLiked(true);
-            setLikes(likes + 1);
-        } else if (res.data.message === 'Post unliked') {
-            setLiked(false);
-            setLikes(likes - 1);
+        try {
+            const res = await authAxios.post(`/posts/like/${props._id}`);
+            if (res.data.message === 'Post liked') {
+                setLiked(true);
+                setLikes(likes + 1);
+            } else if (res.data.message === 'Post unliked') {
+                setLiked(false);
+                setLikes(likes - 1);
+            }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 
     const { userInfo } = useContext(AuthContext);
 
     const getComments = async () => {
-        const res = await authAxios.get(`/posts/comments/${props._id}?page=${page}`);
-        setComments((prev) => prev.concat(res.data.comments));
-        if (res.data.comments.length === 0) {
-            setWritingComment(true);
+        try {
+            const res = await authAxios.get(`/posts/comments/${props._id}?page=${page}`);
+            setComments((prev) => prev.concat(res.data.comments));
+            if (res.data.comments.length === 0) {
+                setWritingComment(true);
+            }
+            setPage((prev) => prev + 1);
+        } catch (err: any) {
+            throw new Error(err);
         }
-        setPage((prev) => prev + 1);
     };
 
     const closeComments = () => {

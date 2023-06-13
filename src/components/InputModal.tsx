@@ -41,16 +41,20 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const res = await authAxios.post(url, { content });
-        if (res.data.message === 'Post created') {
-            setContent('');
-            close();
-        } else if (res.data.message === 'Comment created') {
-            setContent('');
-            const comment = res.data.comment;
-            close({ content: comment.content, id: comment._id, author: comment.author, authorUsername: comment.authorUsername, authorVerified: comment.authorVerified });
-        } else {
-            throw new Error(res.data.message);
+        try {
+            const res = await authAxios.post(url, { content });
+            if (res.data.message === 'Post created') {
+                setContent('');
+                close();
+            } else if (res.data.message === 'Comment created') {
+                setContent('');
+                const comment = res.data.comment;
+                close({ content: comment.content, id: comment._id, author: comment.author, authorUsername: comment.authorUsername, authorVerified: comment.authorVerified });
+            } else {
+                throw new Error(res.data.message);
+            }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 

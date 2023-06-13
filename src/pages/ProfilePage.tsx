@@ -60,8 +60,8 @@ const ProfilePage: React.FC<any> = () => {
         (async () => {
             try {
                 await getData();
-            } catch (err) {
-                console.log(err);
+            } catch (err: any) {
+                throw new Error(err);
             } finally {
                 setLoading(false);
             }
@@ -87,38 +87,46 @@ const ProfilePage: React.FC<any> = () => {
             const resPfp = await authAxios.get(`/users/pfp/${username}`, { responseType: 'blob' });
             const imageUrl = URL.createObjectURL(resPfp.data);
             setImageUrl(imageUrl);
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
             setUserNotFound(true);
+            throw new Error(err);
         }
     };
 
     const handleFollow = async (): Promise<void> => {
-        const res = await authAxios.post(`/users/follow/${user?._id}`);
-        setFollowing(true);
-        setUser((prev) => {
-            if (prev) {
-                return {
-                    ...prev,
-                    followersIDs: [...prev.followersIDs, res.data.followerID]
-                };
-            }
-            return prev;
-        });
+        try {
+            const res = await authAxios.post(`/users/follow/${user?._id}`);
+            setFollowing(true);
+            setUser((prev) => {
+                if (prev) {
+                    return {
+                        ...prev,
+                        followersIDs: [...prev.followersIDs, res.data.followerID]
+                    };
+                }
+                return prev;
+            });
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     const handleUnfollow = async (): Promise<void> => {
-        const res = await authAxios.post(`/users/unfollow/${user?._id}`);
-        setFollowing(false);
-        setUser((prev) => {
-            if (prev) {
-                return {
-                    ...prev,
-                    followersIDs: prev.followersIDs.filter((id) => id !== res.data.followerID)
-                };
-            }
-            return prev;
-        });
+        try {
+            const res = await authAxios.post(`/users/unfollow/${user?._id}`);
+            setFollowing(false);
+            setUser((prev) => {
+                if (prev) {
+                    return {
+                        ...prev,
+                        followersIDs: prev.followersIDs.filter((id) => id !== res.data.followerID)
+                    };
+                }
+                return prev;
+            });
+        } catch (err: any) {
+            throw new Error(err);
+        }
     };
 
     const pfpSrc = imageUrl?.length > 0 ? imageUrl : '/assets/pfp-placeholder.png';

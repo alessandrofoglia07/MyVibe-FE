@@ -93,10 +93,10 @@ const LoginPage: React.FC<any> = () => {
         try {
             await login(input.email, input.password);
             navigate('/');
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
             setErrorCount(errorCount + 1);
             setOpen({ bool: true, message: 'Invalid username or password' });
+            throw new Error(err);
         }
     };
 

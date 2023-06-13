@@ -22,6 +22,7 @@ const VerifyAccountPage: React.FC<any> = () => {
                 setMessage(res.data.message || 'Unknown error');
             } catch (err: any) {
                 setError(err.response.data.message || 'Unknown error');
+                throw new Error(err);
             }
         })();
         setDone(true);

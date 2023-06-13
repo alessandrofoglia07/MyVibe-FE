@@ -39,8 +39,8 @@ const HashtagPage: React.FC<any> = () => {
             const res = await authAxios.get(`/posts/hashtag/${hashtag}?page=${page}`);
             setPosts((prev: any) => prev.concat(res.data.posts));
             setPostsNum(res.data.postsNum);
-        } catch (err) {
-            console.log(err);
+        } catch (err: any) {
+            throw new Error(err);
         } finally {
             setLoading(false);
         }

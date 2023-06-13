@@ -144,43 +144,52 @@ const SignUpPage: React.FC<any> = () => {
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
 
-        const res = await axios.post(`${APIURL}/auth/send-code`, input);
+        try {
+            const res = await axios.post(`${APIURL}/auth/send-code`, input);
 
-        switch (res.data.message) {
-            case 'Email already registered':
-            case 'Username already taken':
-            case 'Internal server error':
-            case 'All fields required':
-            case 'Password must be 6-16 characters long, and contain at least a letter and a number':
-                setOpen({ bool: true, message: res.data.message });
-                break;
-            case 'Verification code sent':
-                setVerifying(true);
-                break;
-            default:
-                setOpen({ bool: true, message: 'Something went wrong...' });
-                break;
+            switch (res.data.message) {
+                case 'Email already registered':
+                case 'Username already taken':
+                case 'Internal server error':
+                case 'All fields required':
+                case 'Password must be 6-16 characters long, and contain at least a letter and a number':
+                    setOpen({ bool: true, message: res.data.message });
+                    throw new Error(res.data.message);
+                case 'Verification code sent':
+                    setVerifying(true);
+                    break;
+                default:
+                    setOpen({ bool: true, message: 'Something went wrong...' });
+                    throw new Error('Something went wrong...');
+            }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 
     const handleVerificationCodeSubmit = async () => {
         if (!verificationCode.every((digit) => digit !== '')) return;
         const code = verificationCode.join('');
-        const res = await axios.post(`${APIURL}/auth/verify-code`, { ...input, code });
 
-        switch (res.data?.message) {
-            case 'Internal server error':
-            case 'Invalid verification code':
-                setOpen({ bool: true, message: res.data.message });
-                break;
-            case 'User created':
-                setVerifying(false);
-                setSignedUp(true);
-                setInput({ username: '', email: '', password: '' });
-                break;
-            default:
-                setOpen({ bool: true, message: 'Something went wrong...' });
-                break;
+        try {
+            const res = await axios.post(`${APIURL}/auth/verify-code`, { ...input, code });
+
+            switch (res.data?.message) {
+                case 'Internal server error':
+                case 'Invalid verification code':
+                    setOpen({ bool: true, message: res.data.message });
+                    break;
+                case 'User created':
+                    setVerifying(false);
+                    setSignedUp(true);
+                    setInput({ username: '', email: '', password: '' });
+                    break;
+                default:
+                    setOpen({ bool: true, message: 'Something went wrong...' });
+                    break;
+            }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 

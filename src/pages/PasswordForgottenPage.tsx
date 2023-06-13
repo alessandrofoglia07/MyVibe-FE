@@ -13,18 +13,22 @@ const PasswordForgottenPage: React.FC<any> = () => {
     const handleSendEmail = async (e: React.FormEvent<any>) => {
         e.preventDefault();
 
-        const res = await axios.post('http://localhost:5000/auth/forgotPassword', { email });
+        try {
+            const res = await axios.post('http://localhost:5000/auth/forgotPassword', { email });
 
-        switch (res.data.message) {
-            case 'Email sent':
-                setMessage("We've sent you an email with a link to reset your password.");
-                break;
-            case 'Email not found':
-                setMessage('No email was found. Try to sign up.');
-                break;
-            default:
-                setMessage('Something went wrong...');
-                break;
+            switch (res.data.message) {
+                case 'Email sent':
+                    setMessage("We've sent you an email with a link to reset your password.");
+                    break;
+                case 'Email not found':
+                    setMessage('No email was found. Try to sign up.');
+                    break;
+                default:
+                    setMessage('Something went wrong...');
+                    break;
+            }
+        } catch (err: any) {
+            throw new Error(err);
         }
     };
 
