@@ -12,6 +12,7 @@ import { AuthContext } from '../context/AuthContext';
 import Loading from '../components/Loading';
 import useTheme from '../hooks/useTheme';
 import NotFoundPage from './404Page';
+import VerifiedIcon from '../components/VerifiedIcon';
 
 const LogoutIcon = LogoutRoundedIcon;
 
@@ -24,6 +25,7 @@ export interface IUser {
     followingIDs: string[];
     followersIDs: string[];
     createdAt: Date;
+    verified: boolean;
 }
 
 interface IPost {
@@ -36,6 +38,7 @@ interface IPost {
     createdAt: string;
     updatedAt: string;
     liked: boolean;
+    authorVerified: boolean;
 }
 
 const ProfilePage: React.FC<any> = () => {
@@ -142,7 +145,7 @@ const ProfilePage: React.FC<any> = () => {
                                     </Button>
                                     <div>
                                         <Typography component='p' className='username'>
-                                            <b>{username}</b>
+                                            <b>{username}</b> {user?.verified && <VerifiedIcon className='verified' />}
                                         </Typography>
                                         <Typography component='p' className='email'>
                                             {user?.email}
@@ -210,6 +213,7 @@ const ProfilePage: React.FC<any> = () => {
                                                     likes={post.likes.length}
                                                     liked={post.liked}
                                                     comments={post.comments}
+                                                    authorVerified={post.authorVerified}
                                                 />
                                             ))}
                                         </Stack>

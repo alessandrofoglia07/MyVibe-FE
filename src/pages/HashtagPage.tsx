@@ -85,6 +85,7 @@ const HashtagPage: React.FC<any> = () => {
                                 likes={post.likes.length}
                                 liked={post.liked}
                                 comments={post.comments}
+                                authorVerified={post.authorVerified}
                             />
                         ))}
                     </Stack>

@@ -46,6 +46,15 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+
+                display: flex;
+                align-items: center;
+
+                .verifiedIcon {
+                    margin-left: 5px;
+                    font-size: 1.2rem;
+                    margin-bottom: 3px;
+                }
             }
 
             .content {

@@ -10,6 +10,7 @@ import Comment from './Comment';
 import InputModal from './InputModal';
 import { AuthContext } from '../context/AuthContext';
 import Pfp from './Pfp';
+import VerifiedIcon from './VerifiedIcon';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -24,6 +25,7 @@ export interface postProps {
     likes: number;
     comments: string[];
     liked: boolean;
+    authorVerified: boolean;
 }
 
 interface IComment {
@@ -33,45 +35,38 @@ interface IComment {
     content: string;
     likes: string[];
     liked: boolean;
+    authorVerified: boolean;
 }
 
-// TODO: fix this
-export const renderTextWithLinks = (text: string) => {
+export const renderTextWithLinks = (text: string): React.ReactNode => {
     const usernameRegex = /@(\w+)/g;
     const hashtagRegex = /#(\w+)/g;
     const urlRegex = /(https?:\/\/[^\s]+)/g;
 
-    const combinedRegex = /(@(\w+)|#(\w+)|(https?:\/\/[^\s]+))/g;
+    const combinedRegex = /(@\w+|#\w+|https?:\/\/[^\s]+)/g;
 
-    const splitText = text.split(combinedRegex).filter(Boolean); // Remove empty strings
+    const splitText = text.split(combinedRegex).filter(Boolean);
 
-    return splitText.map((text, idx) => {
-        if (usernameRegex.test(text)) {
-            splitText.splice(idx + 1, 1);
+    return splitText.map((segment: string, idx: number) => {
+        if (usernameRegex.test(segment)) {
             return (
-                <Link key={idx} className='mention' href={`/profile/${text.substring(1)}`}>
-                    {text}
+                <Link key={idx} className='mention' href={`/profile/${segment.substring(1)}`}>
+                    {segment}
                 </Link>
             );
-        } else if (hashtagRegex.test(text)) {
-            splitText.splice(idx + 1, 1);
+        } else if (hashtagRegex.test(segment)) {
             return (
-                <Link key={idx} className='hashtag' href={`/hashtag/${text.substring(1)}`}>
-                    {text}
+                <Link key={idx} className='hashtag' href={`/hashtag/${segment.substring(1)}`}>
+                    {segment}
                 </Link>
             );
-        } else if (urlRegex.test(text)) {
-            splitText.splice(idx + 1, 1);
-            if (text.endsWith('/')) {
-                text = text.substring(0, text.length - 1);
+        } else if (urlRegex.test(segment)) {
+            if (segment.endsWith('/')) {
+                segment = segment.substring(0, segment.length - 1);
             }
-            return (
-                <Link key={idx} className='url' href={text}>
-                    {text}
-                </Link>
-            );
+            return <Link key={idx} className='url' href={segment}></Link>;
         } else {
-            return <span key={idx}>{text}</span>;
+            return <span key={idx}>{segment}</span>;
         }
     });
 };
@@ -134,7 +129,9 @@ const Post: React.FC<postProps> = (props: postProps) => {
                     authorUsername: comment.authorUsername,
                     content: comment.content,
                     likes: [],
-                    liked: false
+                    liked: false,
+                    // todo: fix this
+                    authorVerified: false
                 },
                 ...prev
             ]);
@@ -148,7 +145,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
                     <div className='postHeader'>
                         <Pfp type='Post' username={props.authorUsername} />
                         <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
-                            {props.authorUsername}
+                            {props.authorUsername} {props.authorVerified && <VerifiedIcon className='verifiedIcon' />}
                         </Link>
                     </div>
                     <div className='postContent'>
@@ -178,8 +175,19 @@ const Post: React.FC<postProps> = (props: postProps) => {
                                         Something to say?
                                     </Button>
                                 </Stack>
-                                {comments.map(({ _id, author, authorUsername, content, likes, liked }) => {
-                                    return <Comment key={_id} _id={_id} author={author} authorUsername={authorUsername} content={content} likes={likes.length} liked={liked} />;
+                                {comments.map(({ _id, author, authorUsername, content, likes, liked, authorVerified }) => {
+                                    return (
+                                        <Comment
+                                            key={_id}
+                                            _id={_id}
+                                            author={author}
+                                            authorUsername={authorUsername}
+                                            content={content}
+                                            likes={likes.length}
+                                            liked={liked}
+                                            authorVerified={authorVerified}
+                                        />
+                                    );
                                 })}
                                 {comments.length < props.comments.length && (
                                     <Link className='showMoreComments' onClick={getComments}>

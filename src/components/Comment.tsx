@@ -7,6 +7,7 @@ import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
 import Pfp from './Pfp';
 import { renderTextWithLinks } from './Post';
+import VerifiedIcon from './VerifiedIcon';
 
 interface IProps {
     _id: string;
@@ -15,6 +16,7 @@ interface IProps {
     content: string;
     likes: number;
     liked: boolean;
+    authorVerified: boolean;
 }
 
 const Comment: React.FC<IProps> = (props: IProps) => {
@@ -38,7 +40,7 @@ const Comment: React.FC<IProps> = (props: IProps) => {
                 {window.innerWidth > 768 && <Pfp type='Comment' username={props.authorUsername} />}
                 <div className='commentMain'>
                     <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
-                        {props.authorUsername}
+                        {props.authorUsername} {props.authorVerified && <VerifiedIcon className='verifiedIcon' />}
                     </Link>
                     <Typography variant='body1' className='content'>
                         {renderTextWithLinks(props.content)}

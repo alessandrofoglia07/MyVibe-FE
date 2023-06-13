@@ -22,6 +22,7 @@ export interface IPost {
     updatedAt: string;
     __v: number;
     liked: boolean;
+    authorVerified: boolean;
 }
 
 const MainPage: React.FC<any> = () => {
@@ -104,6 +105,7 @@ const MainPage: React.FC<any> = () => {
                                             likes={post.likes.length}
                                             liked={post.liked}
                                             comments={post.comments}
+                                            authorVerified={post.authorVerified}
                                         />
                                     ))}
                                 </Stack>
