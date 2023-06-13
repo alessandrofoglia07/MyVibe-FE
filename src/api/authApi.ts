@@ -9,6 +9,7 @@ export interface LoginResponse {
     userId: string;
     email: string;
     username: string;
+    verified: boolean;
     message: string;
 }
 

@@ -49,6 +49,10 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
         if (!storedAccessToken && getRefreshToken()) {
             handleTokenRefresh();
         }
+
+        if (!getUserInfo()) {
+            handleLogout();
+        }
     }, []);
 
     onstorage = () => {
@@ -64,7 +68,7 @@ export const AuthProvider: React.FC<AuthProviderProps> = ({ children }) => {
             setAccessTokenState(res.accessToken);
             setAccessToken(res.accessToken);
             setRefreshToken(res.refreshToken);
-            const user = { userId: res.userId, email: res.email, username: res.username };
+            const user = { userId: res.userId, email: res.email, username: res.username, verified: res.verified };
             setUserInfoState(user);
             setUserInfo(user);
         } catch (err) {

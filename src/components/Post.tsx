@@ -119,7 +119,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
         }
     };
 
-    const handleCommentInputClose = (comment?: { content: string; id: string; author: string; authorUsername: string }) => {
+    const handleCommentInputClose = (comment?: { content: string; id: string; author: string; authorUsername: string; authorVerified: boolean }) => {
         setWritingComment(false);
         if (comment?.content && comment?.id) {
             setComments((prev) => [
@@ -130,8 +130,7 @@ const Post: React.FC<postProps> = (props: postProps) => {
                     content: comment.content,
                     likes: [],
                     liked: false,
-                    // todo: fix this
-                    authorVerified: false
+                    authorVerified: comment.authorVerified
                 },
                 ...prev
             ]);

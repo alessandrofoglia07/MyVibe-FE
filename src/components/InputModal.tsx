@@ -9,7 +9,7 @@ const CloseIcon = CloseOutlinedIcon;
 
 interface IProps {
     type: 'post' | 'comment';
-    close: (commentInfo?: { content: string; id: string; author: string; authorUsername: string }) => void;
+    close: (commentInfo?: { content: string; id: string; author: string; authorUsername: string; authorVerified: boolean }) => void;
     userInfo: any;
     postId?: string;
     postAuthor?: string;
@@ -48,7 +48,7 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
         } else if (res.data.message === 'Comment created') {
             setContent('');
             const comment = res.data.comment;
-            close({ content: comment.content, id: comment._id, author: comment.author, authorUsername: comment.authorUsername });
+            close({ content: comment.content, id: comment._id, author: comment.author, authorUsername: comment.authorUsername, authorVerified: comment.authorVerified });
         } else {
             throw new Error(res.data.message);
         }
