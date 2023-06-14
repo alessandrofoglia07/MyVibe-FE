@@ -10,20 +10,8 @@ import PostInput from '../components/PostInput';
 import InputModal from '../components/InputModal';
 import Loading from '../components/Loading';
 import FollowingLink from '../components/followingLink';
-
-export interface IPost {
-    _id: string;
-    author: string;
-    authorUsername: string;
-    content: string;
-    likes: string[];
-    comments: string[];
-    createdAt: string;
-    updatedAt: string;
-    __v: number;
-    liked: boolean;
-    authorVerified: boolean;
-}
+import { IPost, IUser } from '../types';
+import SuggestedUser from '../components/SuggestedUser';
 
 const MainPage: React.FC<any> = () => {
     useTheme();
@@ -34,6 +22,10 @@ const MainPage: React.FC<any> = () => {
     const [loading, setLoading] = useState(false);
     const [page, setPage] = useState(1);
     const [postCount, setPostCount] = useState(0);
+    const [suggestedUsers, setSuggestedUsers] = useState<IUser[]>([]);
+    const [suggestedUsersCount, setSuggestedUsersCount] = useState(0);
+    const [suggestedUsersPage, setSuggestedUsersPage] = useState(1);
+    const [showRefresh, setShowRefresh] = useState(false);
 
     useEffect(() => {
         window.addEventListener('resize', () => {
@@ -61,6 +53,43 @@ const MainPage: React.FC<any> = () => {
             }
         })();
     }, []);
+
+    useEffect(() => {
+        if (posts.length === 0) {
+            (async () => {
+                try {
+                    await getSuggestedUsers();
+                } catch (err: any) {
+                    throw new Error(err);
+                }
+            })();
+        } else {
+            setSuggestedUsers([]);
+            setSuggestedUsersCount(0);
+            setSuggestedUsersPage(1);
+        }
+
+        return () => {
+            setSuggestedUsers([]);
+            setSuggestedUsersCount(0);
+            setSuggestedUsersPage(1);
+        };
+    }, []);
+
+    useEffect(() => {
+        setShowRefresh(false);
+    }, []);
+
+    const getSuggestedUsers = async (): Promise<void> => {
+        try {
+            const res = await authAxios.get(`/users/suggestions?page=${suggestedUsersPage}&limit=5`);
+            setSuggestedUsers(res.data.users);
+            setSuggestedUsersCount(res.data.usersCount);
+            setSuggestedUsersPage((prev) => prev + 1);
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
 
     const getFollowingList = async () => {
         try {
@@ -122,20 +151,28 @@ const MainPage: React.FC<any> = () => {
                                     ))}
                                 </Stack>
                             ) : (
-                                // TODO change this to a better looking component
-                                <Typography variant='h6' className='noPostsText'>
-                                    No posts here... try following someone first...
-                                </Typography>
+                                <>
+                                    <div className='suggestedUsersContainer'>
+                                        {suggestedUsers.map(({ _id, username, verified }) => (
+                                            <SuggestedUser refresh={() => setShowRefresh(true)} _id={_id} username={username} verified={verified} key={_id} />
+                                        ))}
+                                    </div>
+                                    {showRefresh && (
+                                        <Link onClick={() => window.location.reload()} className='refreshText'>
+                                            Refresh
+                                        </Link>
+                                    )}
+                                </>
                             )}
                             {posts.length < postCount ? (
                                 <Link onClick={getMorePosts} className='loadMoreText'>
                                     Load more
                                 </Link>
-                            ) : (
+                            ) : posts.length !== 0 ? (
                                 <Typography className='noMorePostsText unselectable'>
                                     No more posts to load. <br /> You should really take a break now...
                                 </Typography>
-                            )}
+                            ) : null}
                             <div className='spacer' />
                         </>
                     ) : (

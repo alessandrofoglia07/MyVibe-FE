@@ -1,0 +1,65 @@
+.suggestedUserCard {
+    height: 100%;
+    width: 250px;
+    border-radius: 15px;
+    background-color: var(--color-secondary);
+    border: 2px solid var(--color-outline);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    .username {
+        font-family: Inter, sans-serif;
+        font-size: 1.3rem;
+        color: var(--color-primary);
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        word-break: keep-all;
+        text-align: center;
+        cursor: pointer;
+        text-decoration: none;
+
+        .verified {
+            margin-left: 4px;
+            font-size: 1.3rem;
+        }
+    }
+
+    .followButton {
+        background-color: var(--color-primary);
+        color: var(--color-secondary);
+        font-family: Inter, sans-serif;
+        font-weight: 600;
+        font-size: 1.2rem;
+        width: 80%;
+        height: 45px;
+        border-radius: 10px;
+        margin-top: 25px;
+        text-transform: none;
+
+        &:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
+    }
+
+    .unfollowButton {
+        background-color: var(--color-secondary);
+        border: 2px solid var(--color-outline);
+        color: var(--color-primary);
+        font-family: Inter, sans-serif;
+        font-weight: 600;
+        font-size: 1.2rem;
+        width: 80%;
+        height: 45px;
+        border-radius: 10px;
+        margin-top: 25px;
+        text-transform: none;
+
+        &:hover {
+            background-color: var(--color-secondary);
+            color: var(--color-primary);
+        }
+    }
+}

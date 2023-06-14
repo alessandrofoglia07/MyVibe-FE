@@ -95,6 +95,27 @@
         margin-top: 50px;
         width: 90%;
     }
+
+    .suggestedUsersContainer {
+        width: 80%;
+        height: 300px;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        margin-top: 40px;
+        gap: 15px;
+        overflow-x: auto;
+        overflow-y: hidden;
+        padding: 5px 0;
+    }
+
+    .refreshText {
+        font-family: Inter, sans-serif;
+        font-size: 1.5rem;
+        margin-top: 40px;
+        color: var(--color-primary);
+        cursor: pointer;
+    }
 }
 
 .postModal {

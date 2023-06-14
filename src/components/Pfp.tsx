@@ -5,7 +5,7 @@ import '../style/Pfp.scss';
 import authAxios from '../api/authAxiosApi';
 
 interface IProps {
-    type: 'Post' | 'Profile' | 'Comment' | 'PostInput' | 'Link';
+    type: 'Post' | 'Profile' | 'Comment' | 'PostInput' | 'Link' | 'Card';
     username: string | undefined;
     unclickable?: boolean;
 }

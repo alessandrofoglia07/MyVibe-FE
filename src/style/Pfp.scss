@@ -80,4 +80,32 @@
             }
         }
     }
+
+    .avatarContainerCard {
+        width: 130px;
+        min-width: 130px;
+        height: 130px;
+        margin: 20px 15px;
+        border-radius: 50%;
+
+        * {
+            width: 130px;
+            border-radius: 50%;
+        }
+
+        .avatarCard {
+            width: 130px;
+            height: 130px;
+            border-radius: 50%;
+
+            &:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            }
+        }
+
+        svg {
+            width: 80px;
+            height: 80px;
+        }
+    }
 }
