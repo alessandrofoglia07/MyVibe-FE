@@ -15,6 +15,7 @@ import SuggestedUser from '../components/SuggestedUser';
 
 const MainPage: React.FC<any> = () => {
     useTheme();
+
     const [width, setWidth] = useState(window.innerWidth);
     const [followingList, setFollowingList] = useState<string[]>([]);
     const [posts, setPosts] = useState<IPost[]>([]);
@@ -54,6 +55,12 @@ const MainPage: React.FC<any> = () => {
         })();
     }, []);
 
+    const resetSuggestedUsers = (): void => {
+        setSuggestedUsers([]);
+        setSuggestedUsersCount(0);
+        setSuggestedUsersPage(1);
+    };
+
     useEffect(() => {
         if (posts.length === 0) {
             (async () => {
@@ -64,26 +71,34 @@ const MainPage: React.FC<any> = () => {
                 }
             })();
         } else {
-            setSuggestedUsers([]);
-            setSuggestedUsersCount(0);
-            setSuggestedUsersPage(1);
+            resetSuggestedUsers();
         }
 
         return () => {
-            setSuggestedUsers([]);
-            setSuggestedUsersCount(0);
-            setSuggestedUsersPage(1);
+            resetSuggestedUsers();
         };
     }, []);
 
     useEffect(() => {
         setShowRefresh(false);
+        resetSuggestedUsers();
     }, []);
 
     const getSuggestedUsers = async (): Promise<void> => {
         try {
-            const res = await authAxios.get(`/users/suggestions?page=${suggestedUsersPage}&limit=5`);
+            const res = await authAxios.get(`/users/suggestions?page=1&limit=5`);
             setSuggestedUsers(res.data.users);
+            setSuggestedUsersCount(res.data.usersCount);
+            setSuggestedUsersPage(2);
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
+
+    const getMoreSuggestedUsers = async (): Promise<void> => {
+        try {
+            const res = await authAxios.get(`/users/suggestions?page=${suggestedUsersPage}&limit=5`);
+            setSuggestedUsers((prev) => [...prev, ...res.data.users]);
             setSuggestedUsersCount(res.data.usersCount);
             setSuggestedUsersPage((prev) => prev + 1);
         } catch (err: any) {
@@ -152,10 +167,18 @@ const MainPage: React.FC<any> = () => {
                                 </Stack>
                             ) : (
                                 <>
+                                    <Typography className='noPostsText unselectable'>
+                                        <strong>People you could know</strong>
+                                    </Typography>
                                     <div className='suggestedUsersContainer'>
                                         {suggestedUsers.map(({ _id, username, verified }) => (
                                             <SuggestedUser refresh={() => setShowRefresh(true)} _id={_id} username={username} verified={verified} key={_id} />
                                         ))}
+                                        {suggestedUsers.length < suggestedUsersCount && (
+                                            <Link onClick={getMoreSuggestedUsers} className='loadMoreSuggestedUsers'>
+                                                Load more
+                                            </Link>
+                                        )}
                                     </div>
                                     {showRefresh && (
                                         <Link onClick={() => window.location.reload()} className='refreshText'>

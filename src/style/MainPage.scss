@@ -107,6 +107,16 @@
         overflow-x: auto;
         overflow-y: hidden;
         padding: 5px 0;
+
+        .loadMoreSuggestedUsers {
+            font-family: Inter, sans-serif;
+            font-size: 1.3rem;
+            margin: 0 20px;
+            color: var(--color-primary);
+            cursor: pointer;
+            text-decoration-color: var(--color-primary);
+            text-decoration-thickness: 1px;
+        }
     }
 
     .refreshText {
@@ -115,6 +125,15 @@
         margin-top: 40px;
         color: var(--color-primary);
         cursor: pointer;
+    }
+
+    .noPostsText {
+        font-family: v.$font;
+        color: var(--color-primary);
+        font-size: 3rem;
+        text-align: center;
+        margin-top: 50px;
+        width: 90%;
     }
 }
 
