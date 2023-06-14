@@ -13,33 +13,9 @@ import Loading from '../components/Loading';
 import useTheme from '../hooks/useTheme';
 import NotFoundPage from './404Page';
 import VerifiedIcon from '../components/VerifiedIcon';
+import { IUser, IPost } from '../types';
 
 const LogoutIcon = LogoutRoundedIcon;
-
-export interface IUser {
-    _id: string;
-    username: string;
-    email: string;
-    info: any;
-    postsIDs: string[];
-    followingIDs: string[];
-    followersIDs: string[];
-    createdAt: Date;
-    verified: boolean;
-}
-
-interface IPost {
-    _id: string;
-    author: string;
-    authorUsername: string;
-    content: string;
-    likes: string[];
-    comments: string[];
-    createdAt: string;
-    updatedAt: string;
-    liked: boolean;
-    authorVerified: boolean;
-}
 
 const ProfilePage: React.FC<any> = () => {
     useTheme();

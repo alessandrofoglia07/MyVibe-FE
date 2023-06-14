@@ -10,7 +10,7 @@ import DarkModeOutlinedIcon from '@mui/icons-material/DarkModeOutlined';
 import { AuthContext } from '../context/AuthContext';
 import authAxios from '../api/authAxiosApi';
 import FollowingLink from './followingLink';
-import { IUser } from '../pages/ProfilePage';
+import { IUser } from '../types';
 import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;

@@ -11,32 +11,12 @@ import InputModal from './InputModal';
 import { AuthContext } from '../context/AuthContext';
 import Pfp from './Pfp';
 import VerifiedIcon from './VerifiedIcon';
+import { PostProps } from '../types';
+import { IComment } from '../types';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
 const CommentIcon = ChatBubbleOutlineRoundedIcon;
-
-export interface postProps {
-    _id: string;
-    author: string;
-    authorUsername: string;
-    content: string;
-    date: string;
-    likes: number;
-    comments: string[];
-    liked: boolean;
-    authorVerified: boolean;
-}
-
-interface IComment {
-    _id: string;
-    author: string;
-    authorUsername: string;
-    content: string;
-    likes: string[];
-    liked: boolean;
-    authorVerified: boolean;
-}
 
 export const renderTextWithLinks = (text: string): React.ReactNode => {
     const usernameRegex = /@(\w+)/g;
@@ -71,7 +51,7 @@ export const renderTextWithLinks = (text: string): React.ReactNode => {
     });
 };
 
-const Post: React.FC<postProps> = (props: postProps) => {
+const Post: React.FC<PostProps> = (props: PostProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
     const [comments, setComments] = useState<IComment[]>([]);
