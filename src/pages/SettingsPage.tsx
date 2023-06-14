@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { IUser } from './ProfilePage';
+import { IUser } from '../types';
 import authAxios from '../api/authAxiosApi';
 import '../style/SettingsPage.scss';
 import { UserInfo, getUserInfo } from '../api/authApi';
@@ -38,6 +38,10 @@ const SettingsPage: React.FC<any> = () => {
                 setLoading(false);
             }
         })();
+    }, []);
+
+    useEffect(() => {
+        document.title = 'Edit profile - MyVibe.';
     }, []);
 
     const getUserData = async (): Promise<void> => {

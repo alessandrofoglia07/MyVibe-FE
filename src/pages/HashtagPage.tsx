@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import '../style/HashtagPage.scss';
 import { useParams, useSearchParams } from 'react-router-dom';
 import authAxios from '../api/authAxiosApi';
-import { IPost } from './MainPage';
+import { IPost } from '../types';
 import Post from '../components/Post';
 import { Typography, Stack, Link } from '@mui/material';
 import Navbar from '../components/navbar';
@@ -28,6 +28,8 @@ const HashtagPage: React.FC<any> = () => {
         window.addEventListener('resize', () => {
             setWidth(window.innerWidth);
         });
+
+        document.title = `#${hashtag} - MyVibe.`;
 
         if (posts.length !== 0) return;
         getPosts();

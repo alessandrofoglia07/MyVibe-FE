@@ -32,7 +32,8 @@ const SignUpPage: React.FC<any> = () => {
 
     useEffect(() => {
         if (accessToken) navigate('/');
-    });
+        document.title = 'Sign Up - MyVibe.';
+    }, [accessToken]);
 
     const APIURL = import.meta.env.VITE_API_BASE_URL as string;
 

@@ -193,7 +193,7 @@ const MainPage: React.FC<any> = () => {
                                 </Link>
                             ) : posts.length !== 0 ? (
                                 <Typography className='noMorePostsText unselectable'>
-                                    No more posts to load. <br /> You should really take a break now...
+                                    No more posts to load. <br /> <i>You should really take a break now...</i>
                                 </Typography>
                             ) : null}
                             <div className='spacer' />

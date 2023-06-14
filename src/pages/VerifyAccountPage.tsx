@@ -15,6 +15,10 @@ const VerifyAccountPage: React.FC<any> = () => {
     const [done, setDone] = useState<boolean>(false);
 
     useEffect(() => {
+        document.title = 'Verify Account - MyVibe.';
+    }, []);
+
+    useEffect(() => {
         if (done) return;
         (async () => {
             try {

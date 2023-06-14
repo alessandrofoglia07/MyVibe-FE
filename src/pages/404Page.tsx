@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import '../style/404Page.scss';
 import { Typography, Link, Stack } from '@mui/material';
 import useTheme from '../hooks/useTheme';
 
 const NotFoundPage: React.FC<any> = () => {
     useTheme();
+
+    useEffect(() => {
+        document.title = '404 - MyVibe.';
+    }, []);
 
     return (
         <div id='NotFoundPage' className='page notFoundPage'>

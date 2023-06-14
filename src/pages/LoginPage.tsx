@@ -27,7 +27,11 @@ const LoginPage: React.FC<any> = () => {
 
     useEffect(() => {
         if (accessToken) navigate('/');
-    });
+    }, [accessToken]);
+
+    useEffect(() => {
+        document.title = 'Login - MyVibe.';
+    }, []);
 
     useEffect(() => {
         if (emailFocus) {

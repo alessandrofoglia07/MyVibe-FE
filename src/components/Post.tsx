@@ -98,13 +98,13 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
         setPage(1);
     };
 
-    const handleShowComments = () => {
-        setCommentsOpen((prev) => !prev);
+    const handleShowComments = async () => {
         if (!commentsOpen) {
-            getComments();
+            await getComments();
         } else {
             closeComments();
         }
+        setCommentsOpen((prev) => !prev);
     };
 
     const handleCommentInputClose = (comment?: { content: string; id: string; author: string; authorUsername: string; authorVerified: boolean }) => {

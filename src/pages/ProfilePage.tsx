@@ -44,6 +44,10 @@ const ProfilePage: React.FC<any> = () => {
         })();
     }, []);
 
+    useEffect(() => {
+        document.title = `${username} - MyVibe.`;
+    }, []);
+
     const getData = async (): Promise<void> => {
         try {
             const resProfile = await authAxios.get(`/users/profile/${username}`);
