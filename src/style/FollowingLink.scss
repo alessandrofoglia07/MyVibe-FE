@@ -17,6 +17,14 @@
         .followingLinks {
             color: var(--color-primary);
             text-decoration: none;
+            display: flex;
+            align-items: center;
+
+            .verified {
+                margin-left: 5px;
+                margin-bottom: 5px;
+                width: 1.4rem;
+            }
         }
     }
 }

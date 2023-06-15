@@ -17,7 +17,7 @@ const MainPage: React.FC<any> = () => {
     useTheme();
 
     const [width, setWidth] = useState(window.innerWidth);
-    const [followingList, setFollowingList] = useState<string[]>([]);
+    const [followingList, setFollowingList] = useState<IUser[]>([]);
     const [posts, setPosts] = useState<IPost[]>([]);
     const [writingPost, setWritingPost] = useState(false);
     const [loading, setLoading] = useState(false);
@@ -108,8 +108,8 @@ const MainPage: React.FC<any> = () => {
 
     const getFollowingList = async () => {
         try {
-            const res = await authAxios.get('/users/following');
-            setFollowingList(res.data.usernames);
+            const res = await authAxios.get(`/users/following/${userInfo?.username}`);
+            setFollowingList(res.data.users);
         } catch (err: any) {
             throw new Error(err);
         }
@@ -212,8 +212,8 @@ const MainPage: React.FC<any> = () => {
                                             <Typography variant='h6' className='followingListTitle unselectable'>
                                                 Following
                                             </Typography>
-                                            {followingList.map((following) => (
-                                                <FollowingLink key={following} username={following} />
+                                            {followingList.map(({ username, _id, verified }) => (
+                                                <FollowingLink key={_id} username={username} verified={verified} />
                                             ))}
                                         </Stack>
                                     ) : (

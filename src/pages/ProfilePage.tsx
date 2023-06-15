@@ -3,7 +3,7 @@ import '../style/ProfilePage.scss';
 import Navbar from '../components/navbar';
 import { useParams } from 'react-router-dom';
 import authAxios from '../api/authAxiosApi';
-import { Avatar, Typography, Stack, Button } from '@mui/material';
+import { Avatar, Typography, Stack, Button, Link } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import Post from '../components/Post';
 import formatDate from '../utils/formatDate';
@@ -148,12 +148,12 @@ const ProfilePage: React.FC<any> = () => {
                                 <div className='limit' />
                                 <div className='middle'>
                                     <Stack direction='row' spacing={3} className='numericStats'>
-                                        <Typography component='p' className='following'>
+                                        <Link className='following' href={(user?.followingIDs.length as number) > 0 ? `/profile/${username}/following` : undefined}>
                                             Following <br /> {user?.followingIDs.length}
-                                        </Typography>
-                                        <Typography component='p' className='followers'>
+                                        </Link>
+                                        <Link className='followers' href={(user?.followersIDs.length as number) > 0 ? `/profile/${username}/followers` : undefined}>
                                             Followers <br /> {user?.followersIDs.length}
-                                        </Typography>
+                                        </Link>
                                     </Stack>
                                     {profile ? (
                                         <Button disableRipple variant='contained' className='profileButton' href='/profile/edit'>
@@ -179,7 +179,7 @@ const ProfilePage: React.FC<any> = () => {
                                     </Typography>
                                     {profile && (
                                         <Button disableRipple variant='contained' className='logoutButton' endIcon={<LogoutIcon />} onClick={logout}>
-                                            Log out
+                                            <b>Log out</b>
                                         </Button>
                                     )}
                                 </div>

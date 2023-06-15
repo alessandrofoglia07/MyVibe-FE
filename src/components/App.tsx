@@ -13,6 +13,8 @@ import ProfilePage from '../pages/ProfilePage';
 import SettingsPage from '../pages/SettingsPage';
 import HashtagPage from '../pages/HashtagPage';
 import VerifyAccountPage from '../pages/VerifyAccountPage';
+import FollowersPage from '../pages/FollowersPage';
+import FollowingPage from '../pages/FollowingPage';
 
 const App: React.FC<any> = () => {
     return (
@@ -22,6 +24,8 @@ const App: React.FC<any> = () => {
                     <Route element={<PrivateRoutes />}>
                         <Route path='/' element={<MainPage />} />
                         <Route path='/profile/:username' element={<ProfilePage />} />
+                        <Route path='/profile/:username/followers' element={<FollowersPage />} />
+                        <Route path='/profile/:username/following' element={<FollowingPage />} />
                         <Route path='/profile/edit' element={<SettingsPage />} />
                         <Route path='/hashtag/:hashtag' element={<HashtagPage />} />
                     </Route>

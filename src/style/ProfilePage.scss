@@ -85,6 +85,11 @@
                     font-weight: 600;
                     display: flex;
                     align-items: center;
+
+                    /* Smaller screen (mobile) */
+                    @media only screen and (max-width: 768px) {
+                        justify-content: center;
+                    }
                 }
 
                 .email {
@@ -164,8 +169,12 @@
                 margin-top: 15px;
 
                 * {
-                    font-size: 1.5rem;
+                    font-size: 1.6rem;
+                    font-family: Inter, sans-serif;
                     font-weight: 600;
+                    text-decoration: none;
+                    line-height: 1.4;
+                    color: var(--color-primary);
                 }
             }
 
