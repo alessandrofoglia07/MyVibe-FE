@@ -12,6 +12,7 @@ import authAxios from '../api/authAxiosApi';
 import FollowingLink from './followingLink';
 import { IUser } from '../types';
 import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
+import NotificationMenu from './NotificationMenu';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
@@ -20,7 +21,7 @@ const EnterIcon = KeyboardReturnRoundedIcon;
 
 const Navbar: React.FC<any> = () => {
     const [width, setWidth] = useState(window.innerWidth);
-    const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState(false);
+    const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState<boolean>(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const [pfpUrl, setPfpUrl] = useState<string>('');
     const [searchValue, setSearchValue] = useState<string>('');
@@ -29,6 +30,21 @@ const Navbar: React.FC<any> = () => {
     const [searchResultsPreviewOpen, setSearchResultsPreviewOpen] = useState<boolean>(false);
     const [usersCount, setUsersCount] = useState<number>(0);
     const [page, setPage] = useState<number>(1);
+    const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
+    const [notifications, setNotifications] = useState<any[]>([
+        {
+            author: 'AlessandroFoglia',
+            get content() {
+                return this.author + ' liked your post.';
+            }
+        },
+        {
+            author: 'AlessandroFoglia',
+            get content() {
+                return this.author + ' liked your post.';
+            }
+        }
+    ]);
 
     const { toggleTheme } = useTheme();
 
@@ -177,6 +193,15 @@ const Navbar: React.FC<any> = () => {
         setPage(1);
     };
 
+    const handleNotificationClick = () => {
+        if (notificationOpen) {
+            setNotifications([]);
+            setNotificationOpen(false);
+        } else {
+            setNotificationOpen(true);
+        }
+    };
+
     return (
         <>
             <AppBar position='static' id='navbar' className='navbar'>
@@ -217,7 +242,7 @@ const Navbar: React.FC<any> = () => {
                                 <IconButton className='themeBtn' onClick={handleThemeChange}>
                                     {theme === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
                                 </IconButton>
-                                <IconButton className='notificationBtn'>
+                                <IconButton className='notificationBtn' onClick={handleNotificationClick}>
                                     <Badge badgeContent={1} color='error' variant='dot'>
                                         <NotificationIcon />
                                     </Badge>
@@ -258,7 +283,7 @@ const Navbar: React.FC<any> = () => {
                                     <IconButton className='searchBtn' onClick={handleMobileSearchbarOpen}>
                                         <SearchRoundedIcon />
                                     </IconButton>
-                                    <IconButton className='notificationBtn'>
+                                    <IconButton className='notificationBtn' onClick={handleNotificationClick}>
                                         <Badge badgeContent={1} color='error' variant='dot'>
                                             <NotificationIcon />
                                         </Badge>
@@ -275,7 +300,6 @@ const Navbar: React.FC<any> = () => {
                 </Toolbar>
             </AppBar>
             <div className='navbarSpacer' />
-            {/* TODO: Finish this */}
             <Modal open={searchResultsOpen} onClose={handleModalClose}>
                 <Box className='searchResultsContainer'>
                     <Typography className='searchResultsTitle'>
@@ -301,6 +325,7 @@ const Navbar: React.FC<any> = () => {
                     ))}
                 </Box>
             )}
+            {notificationOpen && <NotificationMenu notifications={notifications} />}
         </>
     );
 };
