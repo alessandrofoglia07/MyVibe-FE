@@ -2,6 +2,7 @@ import React from 'react';
 import '../style/App.scss';
 import '../style/theme.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import io from 'socket.io-client';
 import PrivateRoutes from './ProtectedRoute';
 import MainPage from '../pages/MainPage';
 import SignUpPage from '../pages/SignUpPage';
@@ -15,6 +16,13 @@ import HashtagPage from '../pages/HashtagPage';
 import VerifyAccountPage from '../pages/VerifyAccountPage';
 import FollowersPage from '../pages/FollowersPage';
 import FollowingPage from '../pages/FollowingPage';
+
+export const socket = io('ws://localhost:5000', {
+    transports: ['websocket'],
+    query: {
+        userID: JSON.parse(localStorage.getItem('user_info') as string)?.userId
+    }
+});
 
 const App: React.FC<any> = () => {
     return (

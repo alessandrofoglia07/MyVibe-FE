@@ -168,8 +168,16 @@ const SettingsPage: React.FC<any> = () => {
                                             <b>Bio</b>
                                         </Typography>
                                         <Stack>
-                                            <TextField className='input' value={user?.info.bio} id='bio' multiline rows={4} onChange={handleInputChange} />
-                                            <Typography component='p'>{user?.info.bio.length}/150</Typography>
+                                            <TextField
+                                                className='input'
+                                                value={user?.info.bio || ''}
+                                                placeholder={!user?.info.bio ? 'I really like...' : undefined}
+                                                id='bio'
+                                                multiline
+                                                rows={4}
+                                                onChange={handleInputChange}
+                                            />
+                                            <Typography component='p'>{(user?.info.bio || '').length}/150</Typography>
                                         </Stack>
                                     </div>
                                     <div className='container'>

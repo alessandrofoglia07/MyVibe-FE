@@ -13,6 +13,7 @@ import FollowingLink from './followingLink';
 import { IUser } from '../types';
 import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
 import NotificationMenu from './NotificationMenu';
+import { socket } from './App';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
@@ -62,6 +63,12 @@ const Navbar: React.FC<any> = () => {
             }
         })();
     }, []);
+
+    useEffect(() => {
+        socket.on('notification', (content: string) => {
+            alert(content);
+        });
+    }, [socket]);
 
     const handleThemeChange = () => {
         toggleTheme();
