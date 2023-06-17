@@ -32,20 +32,7 @@ const Navbar: React.FC<any> = () => {
     const [usersCount, setUsersCount] = useState<number>(0);
     const [page, setPage] = useState<number>(1);
     const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
-    const [notifications, setNotifications] = useState<any[]>([
-        {
-            author: 'AlessandroFoglia',
-            get content() {
-                return this.author + ' liked your post.';
-            }
-        },
-        {
-            author: 'AlessandroFoglia',
-            get content() {
-                return this.author + ' liked your post.';
-            }
-        }
-    ]);
+    const [notifications, setNotifications] = useState<string[]>([]);
 
     const { toggleTheme } = useTheme();
 
@@ -55,8 +42,11 @@ const Navbar: React.FC<any> = () => {
         (async () => {
             if (userInfo) {
                 try {
-                    const res = await authAxios(`/users/pfp/${userInfo.username}`, { responseType: 'blob' });
+                    const res = await authAxios.get(`/users/pfp/${userInfo.username}`, { responseType: 'blob' });
                     setPfpUrl(URL.createObjectURL(res.data));
+
+                    const res2 = await authAxios.get(`/users/unreadNotifications/${userInfo.username}`);
+                    setNotifications(res2.data.notifications);
                 } catch (err: any) {
                     throw new Error(err);
                 }
@@ -65,8 +55,8 @@ const Navbar: React.FC<any> = () => {
     }, []);
 
     useEffect(() => {
-        socket.on('notification', (content: string) => {
-            alert(content);
+        socket.on('newNotification', (content: string) => {
+            setNotifications((prev) => [...prev, content]);
         });
     }, [socket]);
 
@@ -200,10 +190,20 @@ const Navbar: React.FC<any> = () => {
         setPage(1);
     };
 
-    const handleNotificationClick = () => {
+    const closeNotifications = async () => {
+        setNotificationOpen(false);
+        setNotifications([]);
+
+        try {
+            await authAxios.patch(`/users/notifications/${userInfo?.username}`);
+        } catch (err: any) {
+            throw new Error(err);
+        }
+    };
+
+    const handleNotificationClick = async () => {
         if (notificationOpen) {
-            setNotifications([]);
-            setNotificationOpen(false);
+            await closeNotifications();
         } else {
             setNotificationOpen(true);
         }
@@ -250,7 +250,7 @@ const Navbar: React.FC<any> = () => {
                                     {theme === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
                                 </IconButton>
                                 <IconButton className='notificationBtn' onClick={handleNotificationClick}>
-                                    <Badge badgeContent={1} color='error' variant='dot'>
+                                    <Badge badgeContent={notifications.length} color='error'>
                                         <NotificationIcon />
                                     </Badge>
                                 </IconButton>
@@ -291,7 +291,7 @@ const Navbar: React.FC<any> = () => {
                                         <SearchRoundedIcon />
                                     </IconButton>
                                     <IconButton className='notificationBtn' onClick={handleNotificationClick}>
-                                        <Badge badgeContent={1} color='error' variant='dot'>
+                                        <Badge badgeContent={notifications.length} color='error'>
                                             <NotificationIcon />
                                         </Badge>
                                     </IconButton>
