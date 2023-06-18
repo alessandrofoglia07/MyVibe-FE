@@ -6,7 +6,7 @@ import LikeIconFilled from '@mui/icons-material/FavoriteRounded';
 import abbreviate from '../utils/abbreviateNumber';
 import authAxios from '../api/authAxiosApi';
 import Pfp from './Pfp';
-import { renderTextWithLinks } from './Post';
+import renderTextWithLinks from '../utils/textWithLinks';
 import VerifiedIcon from './VerifiedIcon';
 
 interface IProps {

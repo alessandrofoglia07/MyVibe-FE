@@ -160,7 +160,7 @@ const ProfilePage: React.FC<any> = () => {
                                             Edit
                                         </Button>
                                     ) : following ? (
-                                        <Button disableRipple variant='contained' className='profileButton' onClick={handleUnfollow}>
+                                        <Button disableRipple variant='contained' className='unfollowButton' onClick={handleUnfollow}>
                                             Unfollow
                                         </Button>
                                     ) : (

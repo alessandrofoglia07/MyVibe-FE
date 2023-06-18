@@ -51,6 +51,8 @@
         border-radius: 20px;
         overflow-y: auto;
         background-color: var(--color-secondary);
+        display: flex;
+        flex-direction: column;
 
         .followingListTitle {
             font-family: Inter, sans-serif;
@@ -64,9 +66,12 @@
         }
 
         .noFollowingsText {
-            margin-left: 20px;
-            margin-top: 20px;
-            font-family: Inter, sans-serif;
+            align-self: center;
+            margin-top: 40px;
+            width: 90%;
+            font-family: v.$font;
+            font-size: 1.5rem;
+            text-align: center;
             color: var(--color-primary);
         }
     }
@@ -120,11 +125,27 @@
     }
 
     .refreshText {
-        font-family: Inter, sans-serif;
+
+        @keyframes refreshTextFadeIn {
+            0% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        opacity: 0;
+        font-family: HelveticaNeue,
+        sans-serif;
         font-size: 1.5rem;
         margin-top: 40px;
         color: var(--color-primary);
         cursor: pointer;
+        text-decoration-color: var(--color-primary);
+        text-decoration-thickness: 1px;
+        animation: refreshTextFadeIn 0.2s ease-in forwards;
     }
 
     .noPostsText {

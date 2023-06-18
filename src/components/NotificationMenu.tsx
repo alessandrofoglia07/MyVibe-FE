@@ -1,6 +1,7 @@
 import React from 'react';
 import '../style/NotificationMenu.scss';
 import { Paper, Typography } from '@mui/material';
+import renderTextWithLinks from '../utils/textWithLinks';
 
 interface IProps {
     notifications: string[];
@@ -14,7 +15,7 @@ const NotificationMenu: React.FC<IProps> = ({ notifications }: IProps) => {
                 <div className='notificationsContainer'>
                     {notifications.map((notification: string) => (
                         <div className='notification' key={Math.random() * 10000 + Math.random() * Math.random() * 100}>
-                            <Typography className='notificationContent'>{notification}</Typography>
+                            <Typography className='notificationContent'>{renderTextWithLinks(notification)}</Typography>
                             <div className='notificationDivider' />
                         </div>
                     ))}

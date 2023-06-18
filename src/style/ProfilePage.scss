@@ -213,6 +213,34 @@
                     color: var(--color-secondary);
                 }
             }
+
+            .unfollowButton {
+                background-color: var(--color-secondary);
+                border: 2px solid var(--color-outline);
+                color: var(--color-primary);
+                font-weight: 600;
+                font-size: 1.2rem;
+
+                /* Smaller screen (mobile) */
+                @media only screen and (max-width: 950px) {
+                    width: 60%;
+                }
+
+                /* Larger screen (desktop/tablet) */
+                @media only screen and (min-width: 950px) {
+                    width: 30%;
+                }
+
+                height: 60px;
+                border-radius: 5px;
+                margin-top: 25px;
+                text-transform: none;
+
+                &:hover {
+                    background-color: var(--color-secondary);
+                    color: var(--color-primary);
+                }
+            }
         }
 
         .posts {

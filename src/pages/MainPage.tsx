@@ -209,9 +209,7 @@ const MainPage: React.FC<any> = () => {
                                 <>
                                     {followingList?.length > 0 ? (
                                         <Stack spacing={2}>
-                                            <Typography variant='h6' className='followingListTitle unselectable'>
-                                                Following
-                                            </Typography>
+                                            <Typography className='followingListTitle unselectable'>Following</Typography>
                                             {followingList.map(({ username, _id, verified }) => (
                                                 <FollowingLink key={_id} username={username} verified={verified} />
                                             ))}

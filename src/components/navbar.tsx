@@ -1,6 +1,7 @@
 import React, { useState, useEffect, useContext } from 'react';
 import '../style/Navbar.scss';
 import { AppBar, Toolbar, Typography, TextField, Avatar, Button, IconButton, Badge, Link, Modal, Box } from '@mui/material';
+import { ClickAwayListener } from '@mui/material';
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded';
 import PersonIcon from '@mui/icons-material/Person';
 import NotificationsNoneRoundedIcon from '@mui/icons-material/NotificationsNoneRounded';
@@ -332,7 +333,13 @@ const Navbar: React.FC<any> = () => {
                     ))}
                 </Box>
             )}
-            {notificationOpen && <NotificationMenu notifications={notifications} />}
+            {notificationOpen && (
+                <ClickAwayListener onClickAway={closeNotifications}>
+                    <div>
+                        <NotificationMenu notifications={notifications} />
+                    </div>
+                </ClickAwayListener>
+            )}
         </>
     );
 };

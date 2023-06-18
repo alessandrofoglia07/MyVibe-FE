@@ -18,7 +18,6 @@ import FollowersPage from '../pages/FollowersPage';
 import FollowingPage from '../pages/FollowingPage';
 
 export const socket = io('ws://localhost:5000', {
-    transports: ['websocket'],
     query: {
         userID: JSON.parse(localStorage.getItem('user_info') as string)?.userId
     }
