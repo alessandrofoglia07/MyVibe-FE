@@ -7,7 +7,7 @@ import { useParams, useNavigate } from 'react-router-dom';
 import Navbar from '../components/navbar';
 import { Typography, Link, IconButton } from '@mui/material';
 import Loading from '../components/Loading';
-import { BackIcon } from './FollowersPage';
+import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 
 const FollowingPage: React.FC<any> = () => {
     const username = useParams<any>().username;
@@ -51,28 +51,30 @@ const FollowingPage: React.FC<any> = () => {
             </header>
             <main>
                 <IconButton className='backButton' onClick={() => navigate(`/profile/${username}`)}>
-                    <BackIcon />
+                    <NavigateBeforeIcon />
                 </IconButton>
-                <Typography className='title'>
-                    <strong>
-                        <span className='unselectable'>People that</span> <br /> {username} <span className='unselectable'>follows</span>
-                    </strong>
-                </Typography>
-                <div className='usersContainer'>
-                    {loading ? (
-                        <Loading />
-                    ) : (
-                        <>
-                            {users.map(({ _id, username, verified }) => (
-                                <FollowingLink username={username} verified={verified} key={_id} />
-                            ))}
-                            {usersCount > users.length && (
-                                <Link className='loadMore' onClick={getMoreUsers}>
-                                    Load more
-                                </Link>
-                            )}
-                        </>
-                    )}
+                <div className='center'>
+                    <Typography className='title'>
+                        <strong>
+                            <span className='unselectable'>People that</span> <br /> {username} <span className='unselectable'>follows</span>
+                        </strong>
+                    </Typography>
+                    <div className='usersContainer'>
+                        {loading ? (
+                            <Loading />
+                        ) : (
+                            <>
+                                {users.map(({ _id, username, verified }) => (
+                                    <FollowingLink username={username} verified={verified} key={_id} />
+                                ))}
+                                {usersCount > users.length && (
+                                    <Link className='loadMore' onClick={getMoreUsers}>
+                                        Load more
+                                    </Link>
+                                )}
+                            </>
+                        )}
+                    </div>
                 </div>
             </main>
         </div>

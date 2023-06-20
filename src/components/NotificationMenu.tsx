@@ -13,10 +13,10 @@ const NotificationMenu: React.FC<IProps> = ({ notifications }: IProps) => {
             <Paper elevation={8} className='paper'>
                 <Typography className='title'>Notifications.</Typography>
                 <div className='notificationsContainer'>
-                    {notifications.map((notification: string) => (
+                    {notifications.reverse().map((notification: string) => (
                         <div className='notification' key={Math.random() * 10000 + Math.random() * Math.random() * 100}>
                             <Typography className='notificationContent'>
-                                <b>{renderTextWithLinks(notification)}</b>
+                                <b>{renderTextWithLinks(notification, 'Notification')}</b>
                             </Typography>
                             <div className='notificationDivider' />
                         </div>
