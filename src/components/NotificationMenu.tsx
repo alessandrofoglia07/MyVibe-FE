@@ -15,7 +15,9 @@ const NotificationMenu: React.FC<IProps> = ({ notifications }: IProps) => {
                 <div className='notificationsContainer'>
                     {notifications.map((notification: string) => (
                         <div className='notification' key={Math.random() * 10000 + Math.random() * Math.random() * 100}>
-                            <Typography className='notificationContent'>{renderTextWithLinks(notification)}</Typography>
+                            <Typography className='notificationContent'>
+                                <b>{renderTextWithLinks(notification)}</b>
+                            </Typography>
                             <div className='notificationDivider' />
                         </div>
                     ))}

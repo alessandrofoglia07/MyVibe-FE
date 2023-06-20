@@ -16,6 +16,7 @@ import HashtagPage from '../pages/HashtagPage';
 import VerifyAccountPage from '../pages/VerifyAccountPage';
 import FollowersPage from '../pages/FollowersPage';
 import FollowingPage from '../pages/FollowingPage';
+import PostPage from '../pages/PostPage';
 
 export const socket = io('ws://localhost:5000', {
     query: {
@@ -35,6 +36,7 @@ const App: React.FC<any> = () => {
                         <Route path='/profile/:username/following' element={<FollowingPage />} />
                         <Route path='/profile/edit' element={<SettingsPage />} />
                         <Route path='/hashtag/:hashtag' element={<HashtagPage />} />
+                        <Route path='/post/:id' element={<PostPage />} />
                     </Route>
                     <Route path='/verifyAccount/:verificationCode' element={<VerifyAccountPage />} />
                     <Route path='/login' element={<LoginPage />} />

@@ -1,0 +1,64 @@
+#PostPage {
+    main {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%);
+        height: 100%;
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+
+        .back {
+            position: absolute;
+            margin-top: 100px;
+            border: 1px solid var(--color-outline);
+
+            /* Smaller screen (mobile) */
+            @media only screen and (max-width: 768px) {
+                margin-left: 10px;
+            }
+
+            /* Larger screen (desktop/tablet) */
+            @media only screen and (min-width: 768px) {
+                margin-left: 50px;
+            }
+
+            width: 60px;
+            height: 60px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+
+            &:hover {
+                background-color: var(--color-hover);
+            }
+
+            svg {
+                color: var(--color-primary);
+                font-size: 3rem;
+            }
+        }
+
+        .postContainer {
+
+            /* Smaller screen (mobile) */
+            @media only screen and (max-width: 768px) {
+                width: 100%;
+                transform: translateY(50px);
+            }
+
+            /* Larger screen (desktop/tablet) */
+            @media only screen and (min-width: 768px) {
+                width: 50%;
+            }
+
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-self: center;
+        }
+    }
+}
