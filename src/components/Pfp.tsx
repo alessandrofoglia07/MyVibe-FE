@@ -3,6 +3,7 @@ import { Button, Avatar } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import '../style/Pfp.scss';
 import authAxios from '../api/authAxiosApi';
+import LazyLoad from 'react-lazyload';
 
 interface IProps {
     type: 'Post' | 'Profile' | 'Comment' | 'PostInput' | 'Link' | 'Card' | 'Notification';
@@ -12,6 +13,7 @@ interface IProps {
 
 const Pfp: React.FC<IProps> = (props: IProps) => {
     const [imageUrl, setImageUrl] = useState<string>('');
+    const [loading, setLoading] = useState<boolean>(true);
 
     useEffect(() => {
         (async () => {
@@ -19,6 +21,8 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
                 await getPfp();
             } catch (err: any) {
                 throw new Error(err);
+            } finally {
+                setLoading(false);
             }
         })();
     }, []);
@@ -36,11 +40,17 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div id='Pfp'>
-            <Button aria-label='pfpBtn' className={`avatarContainer${props.type}`} disableRipple disabled={props.unclickable} href={`/profile/${props.username}`}>
-                <Avatar className={`avatar${props.type}`} src={imageUrl} alt='pfp'>
-                    <PersonIcon />
-                </Avatar>
-            </Button>
+            {loading ? (
+                <div className={`avatarContainer${props.type}`} />
+            ) : (
+                <LazyLoad>
+                    <Button aria-label='pfpBtn' className={`avatarContainer${props.type}`} disableRipple disabled={props.unclickable} href={`/profile/${props.username}`}>
+                        <Avatar className={`avatar${props.type}`} src={imageUrl} alt='pfp'>
+                            <PersonIcon />
+                        </Avatar>
+                    </Button>
+                </LazyLoad>
+            )}
         </div>
     );
 };

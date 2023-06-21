@@ -34,6 +34,7 @@ const Navbar: React.FC<any> = () => {
     const [page, setPage] = useState<number>(1);
     const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
     const [notifications, setNotifications] = useState<string[]>([]);
+    const [pfpLoading, setPfpLoading] = useState<boolean>(true);
 
     const { toggleTheme } = useTheme();
 
@@ -45,6 +46,7 @@ const Navbar: React.FC<any> = () => {
                 try {
                     const res = await authAxios.get(`/users/pfp/${userInfo.username}`, { responseType: 'blob' });
                     setPfpUrl(URL.createObjectURL(res.data));
+                    setPfpLoading(false);
 
                     const res2 = await authAxios.get(`/users/unreadNotifications/${userInfo.username}`);
                     setNotifications(res2.data.notifications);
@@ -257,7 +259,7 @@ const Navbar: React.FC<any> = () => {
                                     </Badge>
                                 </IconButton>
                                 <Button aria-label='btnToProfilePage' className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
-                                    <Avatar className='avatar' src={pfpUrl} alt='pfp'>
+                                    <Avatar className='avatar' src={pfpUrl} alt='pfp' sx={{ opacity: pfpLoading ? '0' : '1' }}>
                                         <PersonIcon />
                                     </Avatar>
                                 </Button>
