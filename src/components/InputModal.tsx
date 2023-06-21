@@ -72,7 +72,7 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
                     <Typography variant='h6' className='title'>
                         Write a {type}.
                     </Typography>
-                    <IconButton className='closeButton' onClick={handleClose} disableRipple>
+                    <IconButton aria-label='closeBtn' className='closeButton' onClick={handleClose} disableRipple>
                         <CloseIcon />
                     </IconButton>
                 </header>
@@ -84,11 +84,11 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
                         </Typography>
                     </div>
                     <form autoComplete='off' onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
-                        <Input id='input' value={content} onChange={handleContentChange} className='input' autoFocus multiline placeholder='What is on your mind?' />
+                        <Input aria-label='input' id='input' value={content} onChange={handleContentChange} className='input' autoFocus multiline placeholder='What is on your mind?' />
                         <Typography variant='body2' className='charCount'>
                             {content.length}/{maxContentLength}
                         </Typography>
-                        <Button disabled={content.length <= 10} type='submit' className='publishButton'>
+                        <Button aria-label='publishPostBtn' disabled={content.length <= 10} type='submit' className='publishButton'>
                             Publish
                         </Button>
                     </form>

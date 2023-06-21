@@ -5,18 +5,15 @@ import useTheme from '../hooks/useTheme';
 import { Typography } from '@mui/material';
 import { useParams } from 'react-router-dom';
 import NotFoundPage from './404Page';
+import { Helmet } from 'react-helmet';
 
 const VerifyAccountPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
     const { verificationCode } = useParams<string>();
 
     const [message, setMessage] = useState<string>('');
     const [error, setError] = useState<string>('');
     const [done, setDone] = useState<boolean>(false);
-
-    useEffect(() => {
-        document.title = 'Verify Account - MyVibe.';
-    }, []);
 
     useEffect(() => {
         if (done) return;
@@ -34,6 +31,11 @@ const VerifyAccountPage: React.FC<any> = () => {
 
     return (
         <div id='VerifyAccountPage'>
+            <Helmet>
+                <title>Verify account - MyVibe.</title>
+                <meta name='description' content='Verify account page.' />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             {error.length > 0 ? (
                 <NotFoundPage />
             ) : (

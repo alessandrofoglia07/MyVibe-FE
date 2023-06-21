@@ -10,9 +10,10 @@ import Loading from '../components/Loading';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const HashtagPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
 
     const hashtag = useParams().hashtag?.toLocaleLowerCase();
     const [searchParams] = useSearchParams();
@@ -28,8 +29,6 @@ const HashtagPage: React.FC<any> = () => {
         window.addEventListener('resize', () => {
             setWidth(window.innerWidth);
         });
-
-        document.title = `#${hashtag} - MyVibe.`;
 
         if (posts.length !== 0) return;
         getPosts();
@@ -63,6 +62,11 @@ const HashtagPage: React.FC<any> = () => {
 
     return (
         <div id='HashtagPage'>
+            <Helmet>
+                <title>#{hashtag} - MyVibe.</title>
+                <meta name='description' content={`Posts tagged #${hashtag}`} />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             <Navbar />
             <div id='title'>
                 <Typography className={`hashtagTitle ${titleColor()}`}>

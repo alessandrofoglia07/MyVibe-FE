@@ -19,6 +19,7 @@ The frontend is built with React (Typescript) using:
 -   [scss](https://sass-lang.com/)
 -   [js-cookie](https://www.npmjs.com/package/js-cookie)
 -   [jwt-decode](https://www.npmjs.com/package/jwt-decode)
+-   [react-helmet](https://www.npmjs.com/package/react-helmet)
 
 ## Vite scripts ⚡
 

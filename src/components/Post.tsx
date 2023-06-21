@@ -99,7 +99,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
                 <Stack spacing={2}>
                     <div className='postHeader'>
                         <Pfp type='Post' username={props.authorUsername} />
-                        <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
+                        <Link aria-label='linkToProfilePage' variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
                             {props.authorUsername} {props.authorVerified && <VerifiedIcon className='verifiedIcon' />}
                         </Link>
                     </div>
@@ -110,13 +110,13 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
                     </div>
                     <div className='postFooter'>
                         <div className='buttonsContainer'>
-                            <IconButton className='likeButton' onClick={handleLike}>
+                            <IconButton aria-label='likeBtn' className='likeButton' onClick={handleLike}>
                                 {liked ? <LikeIconFilled className='likeIconFilled' /> : <LikeIconEmpty className='likeIcon' />}
                             </IconButton>
                             <Typography variant='body1' className='likes'>
                                 {abbreviate(likes, 2, false, false)}
                             </Typography>
-                            <IconButton className='commentButton' onClick={handleShowComments}>
+                            <IconButton aria-label='commentBtn' className='commentButton' onClick={handleShowComments}>
                                 <CommentIcon className='commentIcon' />
                             </IconButton>
                             <Typography variant='body1' className='comments'>
@@ -145,7 +145,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
                                     );
                                 })}
                                 {comments.length < props.comments.length && (
-                                    <Link className='showMoreComments' onClick={getComments}>
+                                    <Link aria-label='showMoreCommentsLink' className='showMoreComments' onClick={getComments}>
                                         Show more comments
                                     </Link>
                                 )}

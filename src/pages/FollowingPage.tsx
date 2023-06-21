@@ -8,10 +8,13 @@ import Navbar from '../components/navbar';
 import { Typography, Link, IconButton } from '@mui/material';
 import Loading from '../components/Loading';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
+import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const FollowingPage: React.FC<any> = () => {
     const username = useParams<any>().username;
     const navigate = useNavigate();
+    const { themeColor } = useTheme();
 
     const [users, setUsers] = useState<IUser[]>([]);
     const [loading, setLoading] = useState<boolean>(false);
@@ -46,6 +49,11 @@ const FollowingPage: React.FC<any> = () => {
 
     return (
         <div className='followersPage'>
+            <Helmet>
+                <title>{username}'s following - MyVibe.</title>
+                <meta name='description' content={`People that ${username} follows`} />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             <header>
                 <Navbar />
             </header>

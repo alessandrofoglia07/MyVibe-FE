@@ -20,5 +20,6 @@ module.exports = {
                 patterns: ['@mui/*/*/*']
             }
         ]
-    }
+    },
+    ignorePatterns: ['node_modules', 'dist', 'public']
 };

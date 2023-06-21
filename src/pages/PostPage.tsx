@@ -10,9 +10,10 @@ import { IPost } from '../types';
 import { Link } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const PostPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
     const { id } = useParams<any>();
 
     const [post, setPost] = useState<IPost>();
@@ -29,7 +30,6 @@ const PostPage: React.FC<any> = () => {
         try {
             const res = await authAxios.get(`/posts/post/${id}`);
             setPost(res.data);
-            document.title = `${res.data.authorUsername}'s post - MyVibe.`;
         } catch (err: any) {
             throw new Error(err);
         } finally {
@@ -39,6 +39,11 @@ const PostPage: React.FC<any> = () => {
 
     return (
         <div id='PostPage'>
+            <Helmet>
+                <title>{post ? `${post.authorUsername}'s post - MyVibe.` : 'MyVibe.'}</title>
+                <meta name='description' content={post ? `${post.authorUsername}'s post info` : 'MyVibe post page.'} />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             {loading ? (
                 <Loading />
             ) : post ? (

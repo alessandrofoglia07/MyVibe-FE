@@ -7,12 +7,13 @@ import '../style/AuthPages.scss';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const SignUpPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
     const navigate = useNavigate();
     const { accessToken } = useContext(AuthContext);
 
@@ -32,7 +33,6 @@ const SignUpPage: React.FC<any> = () => {
 
     useEffect(() => {
         if (accessToken) navigate('/');
-        document.title = 'Sign Up - MyVibe.';
     }, [accessToken]);
 
     const APIURL = import.meta.env.VITE_API_BASE_URL as string;
@@ -207,6 +207,11 @@ const SignUpPage: React.FC<any> = () => {
 
     return (
         <div id='SignUpPage' className='page signupPage authpage'>
+            <Helmet>
+                <title>Sign Up - MyVibe.</title>
+                <meta name='description' content='Sign up for a MyVibe account.' />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             <div id='bg'>
                 <div className='ball unselectable ball-blue' />
                 <div className='ball unselectable ball-red' />

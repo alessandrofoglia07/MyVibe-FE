@@ -10,12 +10,13 @@ import PersonIcon from '@mui/icons-material/Person';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Loading from '../components/Loading';
 import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const EditIcon = AutoAwesomeRoundedIcon;
 
 const SettingsPage: React.FC<any> = () => {
     const navigate = useNavigate();
-    useTheme();
+    const { themeColor } = useTheme();
 
     const [user, setUser] = useState<IUser | null>(null);
     const [initUsername, setInitUsername] = useState<string>('');
@@ -38,10 +39,6 @@ const SettingsPage: React.FC<any> = () => {
                 setLoading(false);
             }
         })();
-    }, []);
-
-    useEffect(() => {
-        document.title = 'Edit profile - MyVibe.';
     }, []);
 
     const getUserData = async (): Promise<void> => {
@@ -125,6 +122,11 @@ const SettingsPage: React.FC<any> = () => {
 
     return (
         <div id='SettingsPage'>
+            <Helmet>
+                <title>Edit settings - MyVibe.</title>
+                <meta name='theme-color' content={themeColor} />
+                <meta name='description' content='Edit your profile settings' />
+            </Helmet>
             <header>
                 <Navbar />
             </header>

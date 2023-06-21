@@ -36,7 +36,7 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
 
     return (
         <div id='Pfp'>
-            <Button className={`avatarContainer${props.type}`} disableRipple disabled={props.unclickable} href={`/profile/${props.username}`}>
+            <Button aria-label='pfpBtn' className={`avatarContainer${props.type}`} disableRipple disabled={props.unclickable} href={`/profile/${props.username}`}>
                 <Avatar className={`avatar${props.type}`} src={imageUrl} alt='pfp'>
                     <PersonIcon />
                 </Avatar>

@@ -4,9 +4,10 @@ import '../style/AuthPages.scss';
 import { Typography, TextField, Paper, Button, Snackbar, Alert } from '@mui/material';
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const ResetPasswordPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
 
     const { id } = useParams<{ id: string }>();
     const navigate = useNavigate();
@@ -50,6 +51,11 @@ const ResetPasswordPage: React.FC<any> = () => {
 
     return (
         <div id='ResetPasswordPage' className='page authpage resetPage'>
+            <Helmet>
+                <title>Reset Password - MyVibe.</title>
+                <meta name='description' content='Reset password page' />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             <Paper className='form' sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h4' className='title'>
                     Reset Password

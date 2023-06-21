@@ -6,12 +6,13 @@ import '../style/AuthPages.scss';
 import { useNavigate } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
 import { AuthContext } from '../context/AuthContext';
+import { Helmet } from 'react-helmet';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
 
 const LoginPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
     const navigate = useNavigate();
     const { login, accessToken } = useContext(AuthContext);
 
@@ -28,10 +29,6 @@ const LoginPage: React.FC<any> = () => {
     useEffect(() => {
         if (accessToken) navigate('/');
     }, [accessToken]);
-
-    useEffect(() => {
-        document.title = 'Login - MyVibe.';
-    }, []);
 
     useEffect(() => {
         if (emailFocus) {
@@ -106,6 +103,12 @@ const LoginPage: React.FC<any> = () => {
 
     return (
         <div id='LoginPage' className='page loginPage authpage'>
+            <Helmet>
+                <title>Log In - MyVibe.</title>
+                <meta name='theme-color' content={themeColor} />
+                <meta name='description' content='Log in to MyVibe.' />
+            </Helmet>
+
             <div id='bg'>
                 <div className='ball unselectable ball-purple1' />
                 <div className='ball unselectable ball-red1' />

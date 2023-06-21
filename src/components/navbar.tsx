@@ -216,7 +216,7 @@ const Navbar: React.FC<any> = () => {
                 <Toolbar className='toolbar' sx={{ justifyContent: mobileSearchbarOpen ? 'center' : 'space-between' }}>
                     {!mobileSearchbarOpen && (
                         <div id='logo'>
-                            <Link underline='none' href='/'>
+                            <Link aria-label='logoLinkToMainpage' underline='none' href='/'>
                                 <Typography className={logoClassnames}>myvibe.</Typography>
                             </Link>
                         </div>
@@ -230,7 +230,7 @@ const Navbar: React.FC<any> = () => {
                                     InputProps={{
                                         startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />,
                                         endAdornment: searchResultsPreviewOpen && !searchResultsOpen && (
-                                            <IconButton onClick={() => handleKeyDown({ key: 'Enter' } as any)}>
+                                            <IconButton aria-label='enterBtn' onClick={() => handleKeyDown({ key: 'Enter' } as any)}>
                                                 <EnterIcon />
                                             </IconButton>
                                         )
@@ -244,18 +244,19 @@ const Navbar: React.FC<any> = () => {
                                     onKeyDown={handleKeyDown}
                                     variant='outlined'
                                     className='searchBar'
+                                    aria-label='searchBar'
                                 />
                             </div>
                             <div id='buttons' className='buttonsContainer'>
-                                <IconButton className='themeBtn' onClick={handleThemeChange}>
+                                <IconButton aria-label='themeBtn' className='themeBtn' onClick={handleThemeChange}>
                                     {theme === 'light' ? <LightModeIcon /> : <DarkModeIcon />}
                                 </IconButton>
-                                <IconButton className='notificationBtn' onClick={handleNotificationClick}>
+                                <IconButton aria-label='notificationBtn' className='notificationBtn' onClick={handleNotificationClick}>
                                     <Badge badgeContent={notifications.length} color='error'>
                                         <NotificationIcon />
                                     </Badge>
                                 </IconButton>
-                                <Button className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
+                                <Button aria-label='btnToProfilePage' className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
                                     <Avatar className='avatar' src={pfpUrl} alt='pfp'>
                                         <PersonIcon />
                                     </Avatar>
@@ -279,24 +280,25 @@ const Navbar: React.FC<any> = () => {
                                         InputProps={{
                                             startAdornment: <SearchRoundedIcon fontSize='small' sx={{ mr: '5px' }} />,
                                             endAdornment: searchResultsPreviewOpen && !searchResultsOpen && (
-                                                <IconButton onClick={() => handleKeyDown({ key: 'Enter' } as any)}>
+                                                <IconButton aria-label='enterBtn' onClick={() => handleKeyDown({ key: 'Enter' } as any)}>
                                                     <EnterIcon />
                                                 </IconButton>
                                             )
                                         }}
+                                        aria-label='searchBar'
                                     />
                                 </div>
                             ) : (
                                 <div id='buttons' className='buttonsContainer'>
-                                    <IconButton className='searchBtn' onClick={handleMobileSearchbarOpen}>
+                                    <IconButton aria-label='searchBtn' className='searchBtn' onClick={handleMobileSearchbarOpen}>
                                         <SearchRoundedIcon />
                                     </IconButton>
-                                    <IconButton className='notificationBtn' onClick={handleNotificationClick}>
+                                    <IconButton aria-label='notificationBtn' className='notificationBtn' onClick={handleNotificationClick}>
                                         <Badge badgeContent={notifications.length} color='error'>
                                             <NotificationIcon />
                                         </Badge>
                                     </IconButton>
-                                    <Button className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
+                                    <Button aria-label='btnToProfilePage' className='avatarContainer' disableRipple href={`/profile/${userInfo?.username}`}>
                                         <Avatar className='avatar' src={pfpUrl} alt='pfp'>
                                             <PersonIcon />
                                         </Avatar>
@@ -319,7 +321,7 @@ const Navbar: React.FC<any> = () => {
                         <FollowingLink key={user._id} username={user.username} />
                     ))}
                     {usersCount > searchResults.length && (
-                        <Link onClick={handleSearchMore} className='searchMoreLink'>
+                        <Link aria-label='searchMore' onClick={handleSearchMore} className='searchMoreLink'>
                             Search more
                         </Link>
                     )}

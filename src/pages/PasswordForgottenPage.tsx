@@ -3,9 +3,10 @@ import '../style/AuthPages.scss';
 import { Typography, TextField, Button, Paper, Stack } from '@mui/material';
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
+import { Helmet } from 'react-helmet';
 
 const PasswordForgottenPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
 
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
@@ -34,6 +35,11 @@ const PasswordForgottenPage: React.FC<any> = () => {
 
     return (
         <div id='PassForgottenPage' className='page authpage passForgottenPage'>
+            <Helmet>
+                <title>Forgot Password - MyVibe.</title>
+                <meta name='theme-color' content={themeColor} />
+                <meta name='description' content='Forgot your password? No worries, we got you.' />
+            </Helmet>
             <Paper className='form' sx={{ display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h4' className='title'>
                     Password Reset

@@ -14,11 +14,12 @@ import useTheme from '../hooks/useTheme';
 import NotFoundPage from './404Page';
 import VerifiedIcon from '../components/VerifiedIcon';
 import { IUser, IPost } from '../types';
+import { Helmet } from 'react-helmet';
 
 const LogoutIcon = LogoutRoundedIcon;
 
 const ProfilePage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
 
     const { username } = useParams<{ username: string }>();
 
@@ -42,10 +43,6 @@ const ProfilePage: React.FC<any> = () => {
                 setLoading(false);
             }
         })();
-    }, []);
-
-    useEffect(() => {
-        document.title = `${username} - MyVibe.`;
     }, []);
 
     const getData = async (): Promise<void> => {
@@ -113,6 +110,11 @@ const ProfilePage: React.FC<any> = () => {
 
     return (
         <div id='ProfilePage'>
+            <Helmet>
+                <title id='title'>{`${username} - MyVibe.`}</title>
+                <meta name='description' content={`${username}'s profile page`} />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             {userNotFound ? (
                 <NotFoundPage />
             ) : (

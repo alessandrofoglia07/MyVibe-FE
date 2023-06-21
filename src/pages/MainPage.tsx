@@ -12,9 +12,10 @@ import Loading from '../components/Loading';
 import FollowingLink from '../components/followingLink';
 import { IPost, IUser } from '../types';
 import SuggestedUser from '../components/SuggestedUser';
+import { Helmet } from 'react-helmet';
 
 const MainPage: React.FC<any> = () => {
-    useTheme();
+    const { themeColor } = useTheme();
 
     const [width, setWidth] = useState(window.innerWidth);
     const [followingList, setFollowingList] = useState<IUser[]>([]);
@@ -139,6 +140,10 @@ const MainPage: React.FC<any> = () => {
 
     return (
         <div id='MainPage' className='page' style={{ display: 'inline' }}>
+            <Helmet>
+                <meta name='description' content='Main page of MyVibe.' />
+                <meta name='theme-color' content={themeColor} />
+            </Helmet>
             <header id='top'>
                 <Navbar />
             </header>
