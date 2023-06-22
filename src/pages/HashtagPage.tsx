@@ -11,6 +11,7 @@ import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const HashtagPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
@@ -23,13 +24,10 @@ const HashtagPage: React.FC<any> = () => {
     const [loading, setLoading] = useState<boolean>(true);
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const page = searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1;
-    const [width, setWidth] = useState(window.innerWidth);
+
+    const width = useWindowWidth();
 
     useEffect(() => {
-        window.addEventListener('resize', () => {
-            setWidth(window.innerWidth);
-        });
-
         if (posts.length !== 0) return;
         getPosts();
     }, []);

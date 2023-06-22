@@ -4,7 +4,7 @@ myvibe is a social media app that allows users to share their thoughts and feeli
 
 Note that
 
--   this project is still in development (doesn't have a build yet)
+-   this project is still in development
 -   you can contribute to this project by opening a pull request or an issue
 
 ## Front-End
@@ -20,6 +20,7 @@ The frontend is built with React (Typescript) using:
 -   [js-cookie](https://www.npmjs.com/package/js-cookie)
 -   [jwt-decode](https://www.npmjs.com/package/jwt-decode)
 -   [react-helmet](https://www.npmjs.com/package/react-helmet)
+-   [react-lazyload](https://github.com/twobin/react-lazyload)
 
 ## Vite scripts ⚡
 
@@ -28,14 +29,19 @@ In the project directory, you can run:
 ### `npm start`
 
 Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+Open [http://localhost:4173](http://localhost:4173) to view it in the browser.
 
 The page will reload if you make edits.\
 You will also see any lint errors in the console.
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
+Builds the app for production to the `dist` folder.\
+It correctly bundles React in production mode and optimizes the build for the best performance.
+
+### `npm run build-serve`
+
+Builds the app for production to the `dist` folder and runs a preview of it in the browser.\
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 <br/><br/><br/>

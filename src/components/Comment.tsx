@@ -8,6 +8,7 @@ import authAxios from '../api/authAxiosApi';
 import Pfp from './Pfp';
 import renderTextWithLinks from '../utils/textWithLinks';
 import VerifiedIcon from './VerifiedIcon';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 interface IProps {
     _id: string;
@@ -22,6 +23,8 @@ interface IProps {
 const Comment: React.FC<IProps> = (props: IProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
+
+    const width = useWindowWidth();
 
     const handleLike = async () => {
         try {
@@ -41,7 +44,7 @@ const Comment: React.FC<IProps> = (props: IProps) => {
     return (
         <div id='Comment'>
             <Stack spacing={2} className='commentContainer'>
-                {window.innerWidth > 768 && <Pfp type='Comment' username={props.authorUsername} />}
+                {width > 768 && <Pfp type='Comment' username={props.authorUsername} />}
                 <div className='commentMain'>
                     <Link variant='h6' className='username' href={`/profile/${props.authorUsername}`}>
                         {props.authorUsername} {props.authorVerified && <VerifiedIcon className='verifiedIcon' />}

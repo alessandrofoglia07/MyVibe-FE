@@ -13,11 +13,13 @@ import FollowingLink from '../components/followingLink';
 import { IPost, IUser } from '../types';
 import SuggestedUser from '../components/SuggestedUser';
 import { Helmet } from 'react-helmet';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const MainPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
 
-    const [width, setWidth] = useState(window.innerWidth);
+    const width = useWindowWidth();
+
     const [followingList, setFollowingList] = useState<IUser[]>([]);
     const [posts, setPosts] = useState<IPost[]>([]);
     const [writingPost, setWritingPost] = useState(false);
@@ -30,9 +32,6 @@ const MainPage: React.FC<any> = () => {
     const [showRefresh, setShowRefresh] = useState(false);
 
     useEffect(() => {
-        window.addEventListener('resize', () => {
-            setWidth(window.innerWidth);
-        });
         setPage(1);
     }, []);
 

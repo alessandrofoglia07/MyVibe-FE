@@ -15,6 +15,7 @@ import { IUser } from '../types';
 import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded';
 import NotificationMenu from './NotificationMenu';
 import { socket } from './App';
+import useWindowWidth from '../hooks/useWindowWidth';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
@@ -22,7 +23,6 @@ const DarkModeIcon = DarkModeOutlinedIcon;
 const EnterIcon = KeyboardReturnRoundedIcon;
 
 const Navbar: React.FC<any> = () => {
-    const [width, setWidth] = useState(window.innerWidth);
     const [mobileSearchbarOpen, setMobileSearchbarOpen] = useState<boolean>(false);
     const [theme, setTheme] = useState(localStorage.getItem('theme') || 'light');
     const [pfpUrl, setPfpUrl] = useState<string>('');
@@ -35,6 +35,8 @@ const Navbar: React.FC<any> = () => {
     const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
     const [notifications, setNotifications] = useState<string[]>([]);
     const [pfpLoading, setPfpLoading] = useState<boolean>(true);
+
+    const width = useWindowWidth();
 
     const { toggleTheme } = useTheme();
 
@@ -69,9 +71,6 @@ const Navbar: React.FC<any> = () => {
     };
 
     useEffect(() => {
-        window.addEventListener('resize', () => {
-            setWidth(window.innerWidth);
-        });
         setPage(1);
     }, []);
 
@@ -106,7 +105,6 @@ const Navbar: React.FC<any> = () => {
         };
 
         const handleResize = () => {
-            const width = window.innerWidth || document.documentElement.clientWidth;
             if (width > 768) {
                 addFocusClass();
             } else {

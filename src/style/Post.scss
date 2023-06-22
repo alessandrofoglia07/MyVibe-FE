@@ -2,11 +2,20 @@
 
 #Post {
     .post {
-        margin: 10px;
         padding: 20px;
         background-color: var(--color-secondary);
         border-radius: 10px;
         border: 2px solid var(--color-outline);
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 768px) {
+            margin: 10px 0;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 768px) {
+            margin: 10px;
+        }
     }
 
     .postHeader {
