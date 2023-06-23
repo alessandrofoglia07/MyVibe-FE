@@ -43,7 +43,7 @@
         .title {
             font-size: 1.5rem;
             padding: 10px 0 5px 0;
-            font-family: HelveticaNeue, sans-serif;
+            font-family: v.$font-title;
             color: var(--color-primary);
             width: 80%;
             text-align: center;
@@ -71,7 +71,7 @@
                 .notificationContent {
                     color: var(--color-primary);
                     font-size: 1.1rem;
-                    font-family: Inter, sans-serif;
+                    font-family: v.$font-text;
 
                     a {
                         text-decoration: none;

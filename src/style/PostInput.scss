@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 #PostInput {
 
     width: 95%;
@@ -15,7 +17,7 @@
             text-transform: none;
             font-size: 1.3rem;
             background-color: var(--color-bg);
-            font-family: Inter, sans-serif;
+            font-family: v.$font-text;
             text-align: left;
             cursor: pointer;
             color: var(--color-primary);

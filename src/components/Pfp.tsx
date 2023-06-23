@@ -43,7 +43,7 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
             {loading ? (
                 <div className={`avatarContainer${props.type}`} />
             ) : (
-                <LazyLoad>
+                <LazyLoad once resize overflow={props.type === 'Comment' || props.type === 'Link' || props.type === 'Notification'}>
                     <Button aria-label='pfpBtn' className={`avatarContainer${props.type}`} disableRipple disabled={props.unclickable} href={`/profile/${props.username}`}>
                         <Avatar className={`avatar${props.type}`} src={imageUrl} alt='pfp'>
                             <PersonIcon />

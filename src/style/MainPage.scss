@@ -55,7 +55,7 @@
         flex-direction: column;
 
         .followingListTitle {
-            font-family: Inter, sans-serif;
+            font-family: v.$font-text;
             color: var(--color-primary);
             font-size: 1.5rem;
             font-weight: bold;
@@ -69,7 +69,7 @@
             align-self: center;
             margin-top: 40px;
             width: 90%;
-            font-family: v.$font;
+            font-family: v.$font-title;
             font-size: 1.5rem;
             text-align: center;
             color: var(--color-primary);
@@ -77,7 +77,7 @@
     }
 
     .loadMoreText {
-        font-family: Inter, sans-serif;
+        font-family: v.$font-text;
         font-size: 1.3rem;
         margin-top: 30px;
         color: var(--color-primary);
@@ -85,7 +85,7 @@
     }
 
     .noMorePostsText {
-        font-family: Inter, sans-serif;
+        font-family: v.$font-text;
         color: var(--color-primary);
         font-size: 1.5rem;
         margin: 60px 0;
@@ -93,7 +93,7 @@
     }
 
     .noPostsText {
-        font-family: v.$font;
+        font-family: v.$font-title;
         color: var(--color-primary);
         font-size: 3rem;
         text-align: center;
@@ -114,7 +114,7 @@
         padding: 5px 0;
 
         .loadMoreSuggestedUsers {
-            font-family: Inter, sans-serif;
+            font-family: v.$font-text;
             font-size: 1.3rem;
             margin: 0 20px;
             color: var(--color-primary);
@@ -137,7 +137,7 @@
         }
 
         opacity: 0;
-        font-family: HelveticaNeue,
+        font-family: v.$font-title,
         sans-serif;
         font-size: 1.5rem;
         margin-top: 40px;
@@ -149,7 +149,7 @@
     }
 
     .noPostsText {
-        font-family: v.$font;
+        font-family: v.$font-title;
         color: var(--color-primary);
         font-size: 3rem;
         text-align: center;
@@ -187,10 +187,9 @@
         }
 
         .title {
-            font-family: v.$font;
+            font-family: v.$font-title;
             font-size: 1.5rem;
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding: 15px 0;
         }
 
         .closeButton {
@@ -233,10 +232,10 @@
             width: 100%;
             display: flex;
             align-items: center;
-            margin-top: 10px;
+            margin-top: 20px;
 
             .username {
-                font-family: Inter, sans-serif;
+                font-family: v.$font-text;
                 color: var(--color-primary);
                 font-size: 1.4rem;
                 font-weight: bold;
@@ -245,7 +244,21 @@
                 text-overflow: ellipsis;
                 overflow: hidden;
                 white-space: nowrap;
+                display: flex;
+                align-items: center;
+
+                .verified {
+                    margin-left: 5px;
+                }
             }
+
+            padding-bottom: 15px;
+        }
+
+        .divider {
+            width: 80%;
+            height: 2px;
+            background-color: var(--color-outline);
         }
 
         form {
@@ -256,9 +269,9 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            padding-top: 15px;
 
             .input {
-                margin-top: 20px;
                 width: 100%;
                 height: 70%;
 
@@ -267,7 +280,7 @@
                     width: 100%;
                     height: 90%;
                     border: none;
-                    font-family: Inter, sans-serif;
+                    font-family: v.$font-text;
                     font-size: 1.2rem;
                     background-color: var(--color-secondary);
                     color: var(--color-primary);
@@ -279,7 +292,7 @@
             }
 
             .charCount {
-                font-family: Inter, sans-serif;
+                font-family: v.$font-text;
                 color: var(--color-primary);
                 font-size: 0.8rem;
                 margin-bottom: 5px;
@@ -290,7 +303,7 @@
             .publishButton {
                 background-color: var(--color-primary);
                 color: var(--color-secondary);
-                font-family: v.$font;
+                font-family: v.$font-title;
                 font-weight: 600;
                 font-size: 1.2rem;
                 width: 70%;

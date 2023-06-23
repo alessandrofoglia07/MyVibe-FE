@@ -128,7 +128,7 @@
     }
 
     .title {
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-weight: 700;
         font-size: 3rem;
         color: var(--color-primary);
@@ -164,7 +164,7 @@
         }
 
         * {
-            font-family: v.$font;
+            font-family: v.$font-title;
             font-weight: 600;
             font-size: 1.2rem;
             color: var(--color-primary);
@@ -173,7 +173,7 @@
 
     .subtitle {
         color: var(--color-primary);
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-weight: 600;
         font-size: 1.3rem;
         margin-bottom: 5px;
@@ -194,7 +194,7 @@
     .submitBtn {
         background-color: var(--color-primary);
         color: var(--color-secondary);
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-weight: 600;
         font-size: 1.2rem;
         width: 70%;
@@ -211,7 +211,7 @@
 
     .link {
         color: var(--color-primary);
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-weight: 600;
         font-size: 1.2rem;
         margin-top: 10px;
@@ -254,7 +254,7 @@
         border-radius: 5px;
         outline: none;
         font-size: 2.5rem;
-        font-family: v.$font;
+        font-family: v.$font-title;
         text-align: center;
         color: var(--color-primary);
 
@@ -276,7 +276,7 @@
     }
 
     .errorText {
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-weight: 700;
         font-size: 0.9rem;
         color: v.$color-red;
@@ -284,7 +284,7 @@
     }
 
     .message {
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-weight: 700;
         font-size: 1.2rem;
         color: var(--color-primary);

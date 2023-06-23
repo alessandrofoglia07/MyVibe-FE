@@ -1,6 +1,5 @@
 import React from 'react';
 import '../style/App.scss';
-import '../style/theme.css';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import io from 'socket.io-client';
 import PrivateRoutes from './ProtectedRoute';

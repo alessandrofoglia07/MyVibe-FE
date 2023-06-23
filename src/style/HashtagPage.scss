@@ -14,7 +14,7 @@
 
         .hashtagTitle {
             font-size: 2.7rem;
-            font-family: v.$font;
+            font-family: v.$font-title;
             text-align: center;
             margin-top: 1rem;
             word-wrap: break-word;
@@ -96,7 +96,7 @@
             align-items: center;
             justify-content: center;
             gap: 0.5rem;
-            font-family: v.$font;
+            font-family: v.$font-title;
             font-size: 1.5rem;
             text-decoration: none;
             color: var(--color-primary);

@@ -1,3 +1,5 @@
+@use 'variables' as v;
+
 .suggestedUserCard {
     height: 100%;
     width: 250px;
@@ -10,7 +12,7 @@
     align-items: center;
 
     .username {
-        font-family: Inter, sans-serif;
+        font-family: v.$font-text;
         font-size: 1.3rem;
         color: var(--color-primary);
         margin-top: 10px;
@@ -30,7 +32,7 @@
     .followButton {
         background-color: var(--color-primary);
         color: var(--color-secondary);
-        font-family: Inter, sans-serif;
+        font-family: v.$font-text;
         font-weight: 600;
         font-size: 1.2rem;
         width: 80%;
@@ -49,7 +51,7 @@
         background-color: var(--color-secondary);
         border: 2px solid var(--color-outline);
         color: var(--color-primary);
-        font-family: Inter, sans-serif;
+        font-family: v.$font-text;
         font-weight: 600;
         font-size: 1.2rem;
         width: 80%;

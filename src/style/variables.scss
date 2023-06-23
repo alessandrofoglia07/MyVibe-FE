@@ -2,4 +2,23 @@ $color-lightblue: #12c2e9;
 $color-purple: #c471ed;
 $color-red: #f64f59;
 $gradient: linear-gradient(to left, #12c2e9, #c471ed, #f64f59);
-$font: 'HelveticaNeue', sans-serif;
+$font-title: 'HelveticaNeue', sans-serif;
+$font-text: 'Inter', sans-serif;
+
+[data-theme='light'] {
+    --color-primary: #080710;
+    --color-secondary: #fff;
+    --color-bg: #F0F2F5;
+    --color-searchbar: #f5f5f5;
+    --color-hover: #eeeeee;
+    --color-outline: #DCDCDC;
+}
+
+[data-theme='dark'] {
+    --color-primary: #f7f7f7;
+    --color-secondary: #27262c;
+    --color-bg: #1a1c22;
+    --color-searchbar: #303134;
+    --color-hover: #303134;
+    --color-outline: #333538;
+}

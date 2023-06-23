@@ -4,6 +4,7 @@ import Input from '@mui/base/Input';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import authAxios from '../api/authAxiosApi';
 import Pfp from './Pfp';
+import VerifiedIcon from './VerifiedIcon';
 
 const CloseIcon = CloseOutlinedIcon;
 
@@ -80,9 +81,10 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
                     <div className='top'>
                         <Pfp username={userInfo?.username} type='Post' unclickable />
                         <Typography variant='h6' className='username'>
-                            {userInfo?.username}
+                            {userInfo?.username} {userInfo?.verified && <VerifiedIcon className='verified' />}
                         </Typography>
                     </div>
+                    <div className='divider' />
                     <form autoComplete='off' onSubmit={handleSubmit} onKeyDown={handleKeyDown}>
                         <Input aria-label='input' id='input' value={content} onChange={handleContentChange} className='input' autoFocus multiline placeholder='What is on your mind?' />
                         <Typography variant='body2' className='charCount'>

@@ -9,18 +9,19 @@
     width: 100%;
     position: fixed;
     height: 70px;
-    border-bottom: 2px solid #3c4043;
+    border-bottom: 1px solid var(--color-outline);
     z-index: 999;
 
     .toolbar {
         display: flex;
         align-items: center;
+        height: 100%;
     }
 
     .smallerMyVibe {
+        height: auto;
         font-size: 1.5rem;
         position: relative;
-        top: 18px;
         left: -10px;
     }
 
@@ -54,7 +55,7 @@
         }
 
         * {
-            font-family: Inter, sans-serif;
+            font-family: v.$font-text;
             color: var(--color-primary);
             user-select: none;
             -webkit-user-select: none;
@@ -117,7 +118,7 @@
         }
 
         * {
-            font-family: Inter, sans-serif;
+            font-family: v.$font-text;
             color: var(--color-primary);
             user-select: none;
             -webkit-user-select: none;
@@ -137,7 +138,7 @@
             }
         }
 
-        animation: fadein 0.3s ease-in-out forwards;
+        animation: fadein 0.2s ease-in-out forwards;
     }
 
     .searchBarMobileHide {
@@ -152,10 +153,10 @@
         }
 
         * {
-            animation: fadeout 0.3s ease-in-out forwards;
+            animation: fadeout 0.2s ease-in-out forwards;
         }
 
-        animation: fadeout 0.3s ease-in-out forwards;
+        animation: fadeout 0.2s ease-in-out forwards;
     }
 
     .avatarContainer {
@@ -290,7 +291,7 @@
     }
 
     .searchResultsTitle {
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-size: 2rem;
         padding: 20px 0;
         width: 100%;
@@ -315,7 +316,7 @@
     }
 
     .searchMoreLink {
-        font-family: v.$font;
+        font-family: v.$font-title;
         font-size: 1.3rem;
         padding: 20px 0 40px 0;
         cursor: pointer;
@@ -345,7 +346,7 @@
     overflow-y: auto;
 
     .noMatchesText {
-        font-family: Inter, sans-serif;
+        font-family: v.$font-text;
         color: var(--color-primary);
         font-size: 1.2rem;
         padding: 20px 0;

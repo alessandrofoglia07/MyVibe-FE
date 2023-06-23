@@ -24,7 +24,7 @@
         }
 
         p {
-            font-family: Inter, sans-serif;
+            font-family: v.$font-text;
             color: var(--color-primary);
         }
 
@@ -113,6 +113,7 @@
         .limit {
             width: 70%;
             border-bottom: 2px solid var(--color-primary);
+            margin: 10px 0;
         }
 
         .bottomStats {
@@ -131,7 +132,7 @@
             .logoutButton {
                 background-color: var(--color-primary);
                 color: var(--color-secondary);
-                font-family: v.$font;
+                font-family: v.$font-title;
                 font-size: 1.1rem;
 
                 /* Smaller screen (mobile) */
@@ -169,7 +170,7 @@
 
                 * {
                     font-size: 1.6rem;
-                    font-family: Inter, sans-serif;
+                    font-family: v.$font-text;
                     font-weight: 600;
                     text-decoration: none;
                     line-height: 1.4;
@@ -188,7 +189,7 @@
             .profileButton {
                 background-color: var(--color-primary);
                 color: var(--color-secondary);
-                font-family: v.$font;
+                font-family: v.$font-title;
                 font-weight: 600;
                 font-size: 1.2rem;
 
@@ -251,7 +252,7 @@
             .postsTitle {
                 font-size: 1.8rem;
                 font-weight: 600;
-                margin-top: 20px;
+                margin: 40px 0 10px 0;
             }
         }
     }
