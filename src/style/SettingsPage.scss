@@ -120,7 +120,9 @@
                         display: flex;
                         flex-direction: row;
                         align-items: center;
-                        margin-top: 30px;
+                        justify-content: space-between;
+                        width: 100%;
+                        margin-top: 20px;
                         margin-left: auto;
 
                         h6 {
@@ -161,6 +163,15 @@
                             font-size: 0.8rem;
                             margin-left: auto;
                             color: var(--color-primary);
+                        }
+
+                        .checkbox {
+                            color: var(--color-primary);
+                            margin-right: 90px;
+
+                            svg {
+                                font-size: 2rem;
+                            }
                         }
                     }
                 }

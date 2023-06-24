@@ -13,10 +13,16 @@ const useTheme = () => {
             document.documentElement.setAttribute('data-theme', 'light');
             setThemeColor('#f5f5f5');
         } else {
-            // default to light theme
-            localStorage.setItem('theme', 'light');
-            document.documentElement.setAttribute('data-theme', 'light');
-            setThemeColor('#f5f5f5');
+            // If no theme is set, check for user preference
+            if (window.matchMedia('(prefers-color-scheme: dark').matches) {
+                localStorage.setItem('theme', 'dark');
+                document.documentElement.setAttribute('data-theme', 'dark');
+                setThemeColor('#27262c');
+            } else {
+                localStorage.setItem('theme', 'light');
+                document.documentElement.setAttribute('data-theme', 'light');
+                setThemeColor('#f5f5f5');
+            }
         }
     };
 

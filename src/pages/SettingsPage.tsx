@@ -5,7 +5,7 @@ import authAxios from '../api/authAxiosApi';
 import '../style/SettingsPage.scss';
 import { UserInfo, getUserInfo } from '../api/authApi';
 import Navbar from '../components/navbar';
-import { Typography, Button, TextField, Stack, Avatar } from '@mui/material';
+import { Typography, Button, TextField, Stack, Avatar, Checkbox } from '@mui/material';
 import PersonIcon from '@mui/icons-material/Person';
 import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Loading from '../components/Loading';
@@ -61,6 +61,8 @@ const SettingsPage: React.FC<any> = () => {
             setUser((prev: any) => ({ ...prev, username: value.replaceAll(' ', '') }));
         } else if (id === 'bio') {
             setUser((prev: any) => ({ ...prev, info: { ...prev.info, bio: value.slice(0, 150) } }));
+        } else if (id === 'showEmail') {
+            setUser((prev: any) => ({ ...prev, info: { ...prev.info, showEmail: !prev.info.showEmail } }));
         } else {
             setUser((prev: any) => ({ ...prev, info: { ...prev.info, [id]: value.replaceAll(' ', '') } }));
         }
@@ -181,6 +183,12 @@ const SettingsPage: React.FC<any> = () => {
                                             />
                                             <Typography component='p'>{(user?.info.bio || '').length}/150</Typography>
                                         </Stack>
+                                    </div>
+                                    <div className='container'>
+                                        <Typography component='h6' className='unselectable'>
+                                            <b>Show email</b>
+                                        </Typography>
+                                        <Checkbox className='checkbox' disableRipple checked={user?.info.showEmail} id='showEmail' onChange={handleInputChange} />
                                     </div>
                                     <div className='container'>
                                         <Typography component='h6' className='unselectable'>
