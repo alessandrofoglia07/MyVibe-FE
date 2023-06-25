@@ -8,6 +8,7 @@ const pwaConfig: Partial<VitePWAOptions> = {
     manifest: {
         name: 'MyVibe.',
         short_name: 'MyVibe.',
+        description: 'Share your vibes with your best friends now.',
         theme_color: '#ffffff',
         start_url: '.',
         display: 'standalone',
