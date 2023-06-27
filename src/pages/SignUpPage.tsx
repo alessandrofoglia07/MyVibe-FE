@@ -8,6 +8,7 @@ import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
@@ -29,7 +30,7 @@ const SignUpPage: React.FC<any> = () => {
     const [passwordFocus, setPasswordFocus] = useState(false);
     const [verifying, setVerifying] = useState(false);
     const [signedUp, setSignedUp] = useState(false);
-    const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         if (accessToken) navigate('/');
@@ -154,16 +155,17 @@ const SignUpPage: React.FC<any> = () => {
                 case 'Internal server error':
                 case 'All fields required':
                 case 'Password must be 6-16 characters long, and contain at least a letter and a number':
-                    setOpen({ bool: true, message: res.data.message });
+                    setError(res.data.message);
                     throw new Error(res.data.message);
                 case 'Verification code sent':
                     setVerifying(true);
                     break;
                 default:
-                    setOpen({ bool: true, message: 'Something went wrong...' });
+                    setError('Something went wrong...');
                     throw new Error('Something went wrong...');
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -178,7 +180,7 @@ const SignUpPage: React.FC<any> = () => {
             switch (res.data?.message) {
                 case 'Internal server error':
                 case 'Invalid verification code':
-                    setOpen({ bool: true, message: res.data.message });
+                    setError(res.data.message);
                     break;
                 case 'User created':
                     setVerifying(false);
@@ -186,10 +188,11 @@ const SignUpPage: React.FC<any> = () => {
                     setInput({ username: '', email: '', password: '' });
                     break;
                 default:
-                    setOpen({ bool: true, message: 'Something went wrong...' });
+                    setError('Something went wrong...');
                     break;
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -334,16 +337,8 @@ const SignUpPage: React.FC<any> = () => {
                     </div>
                 )}
             </Paper>
-            <Snackbar open={open.bool} autoHideDuration={5000} onClose={() => setOpen({ bool: false, message: '' })}>
-                <Alert onClose={() => setOpen({ bool: false, message: '' })} severity='error' sx={{ width: '400px' }}>
-                    {open.message}
-                </Alert>
-            </Snackbar>
-            <Snackbar open={signedUp} autoHideDuration={5000} onClose={() => setSignedUp(false)}>
-                <Alert onClose={() => setSignedUp(false)} severity='success' sx={{ width: '400px' }}>
-                    Signed up successfully. <Link href='/login'>Log in.</Link>
-                </Alert>
-            </Snackbar>
+            {signedUp && <ErrorAlert message='Signed up successfully.' close={() => setSignedUp(false)} />}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

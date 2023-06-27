@@ -11,6 +11,7 @@ import { Link } from '@mui/material';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const PostPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
@@ -18,6 +19,7 @@ const PostPage: React.FC<any> = () => {
 
     const [post, setPost] = useState<IPost>();
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         (async () => {
@@ -31,6 +33,7 @@ const PostPage: React.FC<any> = () => {
             const res = await authAxios.get(`/posts/post/${id}`);
             setPost(res.data);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         } finally {
             setLoading(false);
@@ -73,6 +76,7 @@ const PostPage: React.FC<any> = () => {
             ) : (
                 <NotFoundPage />
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

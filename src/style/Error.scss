@@ -1,0 +1,95 @@
+@use 'variables' as v;
+
+.errorBorder {
+
+    @keyframes errorShow {
+        0% {
+            opacity: 0;
+            transform: scale(0.5);
+        }
+
+        100% {
+            opacity: 1;
+            transform: scale(1);
+        }
+    }
+
+    animation: errorShow 0.15s ease-in-out;
+
+    position: fixed;
+    z-index: 999;
+
+    /* Smaller screen (mobile) */
+    @media only screen and (max-width: 500px) {
+        left: 50%;
+        transform: translateX(-50%);
+        bottom: 20px;
+        width: 90%;
+    }
+
+    @media only screen and (width >=500px) {
+        left: 50px;
+        bottom: 80px;
+        width: 410px;
+    }
+
+    /* Larger screen (desktop/tablet) */
+    @media only screen and (min-width: 500px) {
+        left: 50px;
+        bottom: 80px;
+        width: 410px;
+    }
+
+    height: 140px;
+    background: v.$gradient;
+    border-radius: 20px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    .errorContainer {
+        height: 130px;
+        border-radius: 15px;
+        background-color: var(--color-secondary);
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 500px) {
+            width: 97%;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 500px) {
+            width: 400px;
+        }
+
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        word-wrap: break-word;
+
+        .errorMessage {
+            padding: 20px;
+            font-size: 1.2rem;
+            color: var(--color-primary);
+            font-family: v.$font-text;
+        }
+
+        .errorCloseBtn {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            margin-right: 20px;
+
+            &:hover {
+                background-color: var(--color-hover);
+            }
+
+            svg {
+                color: var(--color-primary);
+                font-size: 30px;
+            }
+        }
+    }
+}

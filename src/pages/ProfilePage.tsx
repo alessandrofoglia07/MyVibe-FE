@@ -15,6 +15,7 @@ import NotFoundPage from './404Page';
 import VerifiedIcon from '../components/VerifiedIcon';
 import { IUser, IPost } from '../types';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const LogoutIcon = LogoutRoundedIcon;
 
@@ -32,12 +33,14 @@ const ProfilePage: React.FC<any> = () => {
     const [profile, setProfile] = useState<boolean>(false);
     const [imageUrl, setImageUrl] = useState<string>('');
     const [userNotFound, setUserNotFound] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         (async () => {
             try {
                 await getData();
             } catch (err: any) {
+                setError(err.response.data.message);
                 throw new Error(err);
             } finally {
                 setLoading(false);
@@ -65,6 +68,7 @@ const ProfilePage: React.FC<any> = () => {
             const imageUrl = URL.createObjectURL(resPfp.data);
             setImageUrl(imageUrl);
         } catch (err: any) {
+            setError(err.response.data.message);
             setUserNotFound(true);
             throw new Error(err);
         }
@@ -84,6 +88,7 @@ const ProfilePage: React.FC<any> = () => {
                 return prev;
             });
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -102,6 +107,7 @@ const ProfilePage: React.FC<any> = () => {
                 return prev;
             });
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -219,6 +225,7 @@ const ProfilePage: React.FC<any> = () => {
                     </main>
                 </>
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

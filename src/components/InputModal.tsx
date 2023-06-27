@@ -5,6 +5,7 @@ import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import authAxios from '../api/authAxiosApi';
 import Pfp from './Pfp';
 import VerifiedIcon from './VerifiedIcon';
+import ErrorAlert from './Error';
 
 const CloseIcon = CloseOutlinedIcon;
 
@@ -18,6 +19,7 @@ interface IProps {
 
 const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAuthor }: IProps) => {
     const [content, setContent] = useState('');
+    const [error, setError] = useState('');
     const url = type === 'post' ? '/posts/create' : `/posts/comments/create/${postId}`;
 
     useEffect(() => {
@@ -55,6 +57,7 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
                 throw new Error(res.data.message);
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -95,6 +98,7 @@ const InputModal: React.FC<IProps> = ({ type, close, userInfo, postId, postAutho
                         </Button>
                     </form>
                 </main>
+                {error && <ErrorAlert message={error} close={() => setError('')} />}
             </Box>
         </Modal>
     );

@@ -7,6 +7,7 @@ import { useNavigate } from 'react-router-dom';
 import useTheme from '../hooks/useTheme';
 import { AuthContext } from '../context/AuthContext';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const Visibility = VisibilityOutlinedIcon;
 const VisibilityOff = VisibilityOffOutlinedIcon;
@@ -23,8 +24,8 @@ const LoginPage: React.FC<any> = () => {
     });
     const [emailFocus, setEmailFocus] = useState(false);
     const [passwordFocus, setPasswordFocus] = useState(false);
-    const [open, setOpen] = useState<{ bool: boolean; message: string }>({ bool: false, message: '' });
-    const [errorCount, setErrorCount] = useState(0);
+    const [error, setError] = useState<string>('');
+    const [errorBackup, setErrorBackup] = useState<string>('');
 
     useEffect(() => {
         if (accessToken) navigate('/');
@@ -95,8 +96,8 @@ const LoginPage: React.FC<any> = () => {
             await login(input.email, input.password);
             navigate('/');
         } catch (err: any) {
-            setErrorCount(errorCount + 1);
-            setOpen({ bool: true, message: 'Invalid username or password' });
+            setError('Invalid username or password');
+            setErrorBackup('Invalid username or password');
             throw new Error(err);
         }
     };
@@ -169,11 +170,11 @@ const LoginPage: React.FC<any> = () => {
                                     setPasswordFocus(true);
                                 }}
                             />
-                            {errorCount > 0 ? (
+                            {errorBackup && (
                                 <Link className='errorText' href='/password-forgotten'>
                                     Did you forget your password?
                                 </Link>
-                            ) : null}
+                            )}
                         </div>
                         <Button disableRipple variant='contained' className='submitBtn' type='submit'>
                             Log in
@@ -184,11 +185,7 @@ const LoginPage: React.FC<any> = () => {
                     </Stack>
                 </form>
             </Paper>
-            <Snackbar open={open.bool} autoHideDuration={6000} onClose={() => setOpen({ bool: false, message: '' })}>
-                <Alert onClose={() => setOpen({ bool: false, message: '' })} severity='error' sx={{ width: '100%' }}>
-                    {open.message}
-                </Alert>
-            </Snackbar>
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

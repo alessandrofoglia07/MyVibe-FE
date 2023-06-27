@@ -16,6 +16,7 @@ import KeyboardReturnRoundedIcon from '@mui/icons-material/KeyboardReturnRounded
 import NotificationMenu from './NotificationMenu';
 import { socket } from './App';
 import useWindowWidth from '../hooks/useWindowWidth';
+import ErrorAlert from './Error';
 
 const NotificationIcon = NotificationsNoneRoundedIcon;
 const LightModeIcon = WbSunnyOutlinedIcon;
@@ -35,6 +36,7 @@ const Navbar: React.FC<any> = () => {
     const [notificationOpen, setNotificationOpen] = useState<boolean>(false);
     const [notifications, setNotifications] = useState<string[]>([]);
     const [pfpLoading, setPfpLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>('');
 
     const width = useWindowWidth();
 
@@ -53,6 +55,7 @@ const Navbar: React.FC<any> = () => {
                     const res2 = await authAxios.get(`/users/unreadNotifications/${userInfo.username}`);
                     setNotifications(res2.data.notifications);
                 } catch (err: any) {
+                    setError(err.response.data.message);
                     throw new Error(err);
                 }
             }
@@ -164,6 +167,7 @@ const Navbar: React.FC<any> = () => {
             setSearchResultsPreviewOpen(true);
             setUsersCount(res.data.usersCount);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -174,6 +178,7 @@ const Navbar: React.FC<any> = () => {
             setSearchResults([...searchResults, ...res.data.users]);
             setPage(page + 1);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -198,6 +203,7 @@ const Navbar: React.FC<any> = () => {
         try {
             await authAxios.patch(`/users/notifications/${userInfo?.username}`);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -342,6 +348,7 @@ const Navbar: React.FC<any> = () => {
                     </div>
                 </ClickAwayListener>
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </>
     );
 };

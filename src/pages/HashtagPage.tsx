@@ -12,6 +12,7 @@ import NavigateNextIcon from '@mui/icons-material/NavigateNext';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
 import useWindowWidth from '../hooks/useWindowWidth';
+import ErrorAlert from '../components/Error';
 
 const HashtagPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
@@ -22,6 +23,7 @@ const HashtagPage: React.FC<any> = () => {
     const [posts, setPosts] = useState<IPost[]>([]);
     const [postsNum, setPostsNum] = useState<number>(0);
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>('');
     // eslint-disable-next-line @typescript-eslint/no-non-null-assertion
     const page = searchParams.get('page') ? parseInt(searchParams.get('page')!) : 1;
 
@@ -39,6 +41,7 @@ const HashtagPage: React.FC<any> = () => {
             setPosts((prev: any) => prev.concat(res.data.posts));
             setPostsNum(res.data.postsNum);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         } finally {
             setLoading(false);
@@ -108,6 +111,7 @@ const HashtagPage: React.FC<any> = () => {
                     <div className='end' />
                 </div>
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

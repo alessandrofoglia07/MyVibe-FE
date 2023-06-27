@@ -1,6 +1,19 @@
 @use 'variables' as v;
 
 #VerifyAccountPage {
+
+    .doneIcon {
+        background: v.$gradient;
+        width: 60px;
+        height: 60px;
+        border-radius: 50%;
+        padding: 10px;
+        position: absolute;
+        top: 20%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+
     .message {
         font-size: 2.5rem;
         font-family: v.$font-title;
@@ -12,12 +25,45 @@
         text-align: center;
         margin-bottom: 20px;
         position: absolute;
-        top: 45%;
+        top: 40%;
         left: 50%;
         transform: translate(-50%, -50%);
     }
 
     .message::selection {
         -webkit-text-fill-color: #fff;
+    }
+
+    .startBtn {
+        background-color: var(--color-primary);
+        color: var(--color-secondary);
+        font-family: v.$font-title;
+        font-weight: 600;
+        font-size: 1.2rem;
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+
+        /* Smaller screen (mobile) */
+        @media only screen and (max-width: 950px) {
+            width: 60%;
+        }
+
+        /* Larger screen (desktop/tablet) */
+        @media only screen and (min-width: 950px) {
+            width: 20%;
+        }
+
+        height: 60px;
+        border-radius: 5px;
+        margin-top: 25px;
+        text-transform: none;
+
+        &:hover {
+            background-color: var(--color-primary);
+            color: var(--color-secondary);
+        }
     }
 }

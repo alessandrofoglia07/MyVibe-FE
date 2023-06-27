@@ -4,6 +4,7 @@ import PersonIcon from '@mui/icons-material/Person';
 import '../style/Pfp.scss';
 import authAxios from '../api/authAxiosApi';
 import LazyLoad from 'react-lazyload';
+import ErrorAlert from './Error';
 
 interface IProps {
     type: 'Post' | 'Profile' | 'Comment' | 'PostInput' | 'Link' | 'Card' | 'Notification';
@@ -14,12 +15,14 @@ interface IProps {
 const Pfp: React.FC<IProps> = (props: IProps) => {
     const [imageUrl, setImageUrl] = useState<string>('');
     const [loading, setLoading] = useState<boolean>(true);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         (async () => {
             try {
                 await getPfp();
             } catch (err: any) {
+                setError(err.response.data.message);
                 throw new Error(err);
             } finally {
                 setLoading(false);
@@ -34,6 +37,7 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
             const res = await authAxios.get(`/users/pfp/${props.username}`, { responseType: 'blob' });
             setImageUrl(URL.createObjectURL(res.data));
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -51,6 +55,7 @@ const Pfp: React.FC<IProps> = (props: IProps) => {
                     </Button>
                 </LazyLoad>
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

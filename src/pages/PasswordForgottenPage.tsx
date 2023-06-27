@@ -4,12 +4,14 @@ import { Typography, TextField, Button, Paper, Stack } from '@mui/material';
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const PasswordForgottenPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
 
     const [email, setEmail] = useState('');
     const [message, setMessage] = useState('');
+    const [error, setError] = useState('');
 
     const handleSendEmail = async (e: React.FormEvent<any>) => {
         e.preventDefault();
@@ -29,6 +31,7 @@ const PasswordForgottenPage: React.FC<any> = () => {
                     break;
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -74,6 +77,7 @@ const PasswordForgottenPage: React.FC<any> = () => {
                     </Typography>
                 ) : null}
             </Paper>
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

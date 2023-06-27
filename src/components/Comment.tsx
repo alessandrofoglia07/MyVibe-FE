@@ -9,6 +9,7 @@ import Pfp from './Pfp';
 import renderTextWithLinks from '../utils/textWithLinks';
 import VerifiedIcon from './VerifiedIcon';
 import useWindowWidth from '../hooks/useWindowWidth';
+import ErrorAlert from './Error';
 
 interface IProps {
     _id: string;
@@ -23,6 +24,7 @@ interface IProps {
 const Comment: React.FC<IProps> = (props: IProps) => {
     const [liked, setLiked] = useState<boolean>(props.liked);
     const [likes, setLikes] = useState<number>(props.likes);
+    const [error, setError] = useState<string>('');
 
     const width = useWindowWidth();
 
@@ -37,6 +39,7 @@ const Comment: React.FC<IProps> = (props: IProps) => {
                 setLikes(likes - 1);
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -62,6 +65,7 @@ const Comment: React.FC<IProps> = (props: IProps) => {
                     </div>
                 </div>
             </Stack>
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

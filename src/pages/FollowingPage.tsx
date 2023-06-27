@@ -10,6 +10,7 @@ import Loading from '../components/Loading';
 import NavigateBeforeIcon from '@mui/icons-material/NavigateBefore';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const FollowingPage: React.FC<any> = () => {
     const username = useParams<any>().username;
@@ -20,6 +21,7 @@ const FollowingPage: React.FC<any> = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [page, setPage] = useState<number>(1);
     const [usersCount, setUsersCount] = useState<number>(0);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         (async () => {
@@ -30,6 +32,7 @@ const FollowingPage: React.FC<any> = () => {
                 setUsersCount(res.data.usersCount);
                 setPage(2);
             } catch (err: any) {
+                setError(err.response.data.message);
                 throw new Error(err);
             } finally {
                 setLoading(false);
@@ -43,6 +46,7 @@ const FollowingPage: React.FC<any> = () => {
             setUsers([...users, ...res.data.users]);
             setPage((prev) => prev + 1);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -85,6 +89,7 @@ const FollowingPage: React.FC<any> = () => {
                     </div>
                 </div>
             </main>
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

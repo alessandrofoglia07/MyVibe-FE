@@ -14,6 +14,7 @@ import { IPost, IUser } from '../types';
 import SuggestedUser from '../components/SuggestedUser';
 import { Helmet } from 'react-helmet';
 import useWindowWidth from '../hooks/useWindowWidth';
+import ErrorAlert from '../components/Error';
 
 const MainPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
@@ -30,6 +31,7 @@ const MainPage: React.FC<any> = () => {
     const [suggestedUsersCount, setSuggestedUsersCount] = useState(0);
     const [suggestedUsersPage, setSuggestedUsersPage] = useState(1);
     const [showRefresh, setShowRefresh] = useState(false);
+    const [error, setError] = useState('');
 
     useEffect(() => {
         setPage(1);
@@ -48,6 +50,7 @@ const MainPage: React.FC<any> = () => {
                 await getPosts();
                 await getFollowingList();
             } catch (err: any) {
+                setError(err.message);
                 throw new Error(err);
             } finally {
                 setLoading(false);
@@ -67,6 +70,7 @@ const MainPage: React.FC<any> = () => {
                 try {
                     await getSuggestedUsers();
                 } catch (err: any) {
+                    setError(err.message);
                     throw new Error(err);
                 }
             })();
@@ -91,6 +95,7 @@ const MainPage: React.FC<any> = () => {
             setSuggestedUsersCount(res.data.usersCount);
             setSuggestedUsersPage(2);
         } catch (err: any) {
+            setError(err.message);
             throw new Error(err);
         }
     };
@@ -102,6 +107,7 @@ const MainPage: React.FC<any> = () => {
             setSuggestedUsersCount(res.data.usersCount);
             setSuggestedUsersPage((prev) => prev + 1);
         } catch (err: any) {
+            setError(err.message);
             throw new Error(err);
         }
     };
@@ -111,6 +117,7 @@ const MainPage: React.FC<any> = () => {
             const res = await authAxios.get(`/users/following/${userInfo?.username}`);
             setFollowingList(res.data.users);
         } catch (err: any) {
+            setError(err.message);
             throw new Error(err);
         }
     };
@@ -122,6 +129,7 @@ const MainPage: React.FC<any> = () => {
             setPage((prev) => prev + 1);
             setPostCount(res.data.numPosts);
         } catch (err: any) {
+            setError(err.message);
             throw new Error(err);
         }
     };
@@ -133,6 +141,7 @@ const MainPage: React.FC<any> = () => {
             setPage((prev) => prev + 1);
             setPostCount(res.data.numPosts);
         } catch (err: any) {
+            setError(err.message);
             throw new Error(err);
         }
     };
@@ -229,6 +238,7 @@ const MainPage: React.FC<any> = () => {
                     </div>
                 )}
                 {writingPost && <InputModal type='post' close={() => setWritingPost(false)} userInfo={userInfo} />}
+                {error.length > 0 && <ErrorAlert message={error} close={() => setError('')} />}
             </main>
         </div>
     );

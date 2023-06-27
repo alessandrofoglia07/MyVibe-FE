@@ -5,6 +5,7 @@ import { Card, Button } from '@mui/material';
 import Pfp from './Pfp';
 import { Link } from '@mui/material';
 import VerifiedIcon from './VerifiedIcon';
+import ErrorAlert from './Error';
 
 interface IProps {
     refresh: () => void;
@@ -15,6 +16,7 @@ interface IProps {
 
 const SuggestedUser: React.FC<IProps> = ({ refresh, _id, username, verified }: IProps) => {
     const [following, setFollowing] = useState(false);
+    const [error, setError] = useState<string>('');
 
     const handleFollow = async (): Promise<void> => {
         try {
@@ -27,6 +29,7 @@ const SuggestedUser: React.FC<IProps> = ({ refresh, _id, username, verified }: I
                 refresh();
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -46,6 +49,7 @@ const SuggestedUser: React.FC<IProps> = ({ refresh, _id, username, verified }: I
                     Unfollow
                 </Button>
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </Card>
     );
 };

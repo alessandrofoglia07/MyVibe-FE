@@ -5,6 +5,7 @@ import { Typography, TextField, Paper, Button, Snackbar, Alert } from '@mui/mate
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const ResetPasswordPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
@@ -16,6 +17,7 @@ const ResetPasswordPage: React.FC<any> = () => {
     const [newPassword, setNewPassword] = useState('');
     const [newPasswordCopy, setNewPasswordCopy] = useState('');
     const [newPasswordError, setNewPasswordError] = useState(false);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         (async () => {
@@ -23,6 +25,7 @@ const ResetPasswordPage: React.FC<any> = () => {
                 const res = await axios.get(`http://localhost:5000/auth/checkResetPassword/${id}`);
                 setForgotPassword(res.data.forgotPassword);
             } catch (err: any) {
+                setError(err.response.data.message);
                 throw new Error(err);
             }
         })();
@@ -45,6 +48,7 @@ const ResetPasswordPage: React.FC<any> = () => {
                 }
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -99,11 +103,8 @@ const ResetPasswordPage: React.FC<any> = () => {
                     </Typography>
                 )}
             </Paper>
-            <Snackbar open={newPasswordError} autoHideDuration={6000} onClose={() => setNewPasswordError(false)}>
-                <Alert onClose={() => setNewPasswordError(false)} severity='error' sx={{ width: '100%' }}>
-                    Passwords do not match or are empty.
-                </Alert>
-            </Snackbar>
+            {newPasswordError && <ErrorAlert message={'Passwords do not match or are empty.'} close={() => setNewPasswordError(false)} />}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

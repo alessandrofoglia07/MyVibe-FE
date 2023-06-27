@@ -11,6 +11,7 @@ import AutoAwesomeRoundedIcon from '@mui/icons-material/AutoAwesomeRounded';
 import Loading from '../components/Loading';
 import useTheme from '../hooks/useTheme';
 import { Helmet } from 'react-helmet';
+import ErrorAlert from '../components/Error';
 
 const EditIcon = AutoAwesomeRoundedIcon;
 
@@ -25,6 +26,7 @@ const SettingsPage: React.FC<any> = () => {
     const [selectedFile, setSelectedFile] = useState<File | null>(null);
     const [previewSource, setPreviewSource] = useState<string>('');
     const [initImageUrl, setInitImageUrl] = useState<string>('');
+    const [error, setError] = useState<string>('');
 
     const { username } = getUserInfo() as UserInfo;
 
@@ -51,6 +53,7 @@ const SettingsPage: React.FC<any> = () => {
             const res2 = await authAxios.get(`/users/pfp/${res.data.user.username}`, { responseType: 'blob' });
             setInitImageUrl(URL.createObjectURL(res2.data));
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -77,6 +80,7 @@ const SettingsPage: React.FC<any> = () => {
             await authAxios.patch(`/users/profile/${username}`, { user });
             navigate(`/profile/${user?.username}`);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -116,6 +120,7 @@ const SettingsPage: React.FC<any> = () => {
         try {
             await authAxios.patch(`/users/profile/${username}/uploadPfp`, formData);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -211,6 +216,7 @@ const SettingsPage: React.FC<any> = () => {
                     </>
                 )}
             </main>
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };

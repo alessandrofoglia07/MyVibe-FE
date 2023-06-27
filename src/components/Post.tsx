@@ -14,6 +14,7 @@ import VerifiedIcon from './VerifiedIcon';
 import { PostProps } from '../types';
 import { IComment } from '../types';
 import renderTextWithLinks from '../utils/textWithLinks';
+import ErrorAlert from './Error';
 
 const LikeIconEmpty = FavoriteBorderRoundedIcon;
 const LikeIconFilled = FavoriteRoundedIcon;
@@ -26,6 +27,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
     const [page, setPage] = useState<number>(1);
     const [commentsOpen, setCommentsOpen] = useState<boolean>(false);
     const [writingComment, setWritingComment] = useState<boolean>(false);
+    const [error, setError] = useState<string>('');
 
     useEffect(() => {
         setPage(1);
@@ -42,6 +44,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
                 setLikes(likes - 1);
             }
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -57,6 +60,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
             }
             setPage((prev) => prev + 1);
         } catch (err: any) {
+            setError(err.response.data.message);
             throw new Error(err);
         }
     };
@@ -155,6 +159,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
                 </Stack>
             </Paper>
             {writingComment && <InputModal type='comment' postId={props._id} close={handleCommentInputClose} userInfo={userInfo} postAuthor={props.authorUsername} />}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };
