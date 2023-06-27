@@ -1,11 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import '../style/VerifyAccountPage.scss';
 import axios from 'axios';
 import useTheme from '../hooks/useTheme';
-import { Typography } from '@mui/material';
+import { Typography, Button } from '@mui/material';
 import { useParams } from 'react-router-dom';
-import NotFoundPage from './404Page';
 import { Helmet } from 'react-helmet';
+import DoneRoundedIcon from '@mui/icons-material/DoneRounded';
+import ErrorAlert from '../components/Error';
+
+const Done = DoneRoundedIcon;
 
 const VerifyAccountPage: React.FC<any> = () => {
     const { themeColor } = useTheme();
@@ -15,19 +18,17 @@ const VerifyAccountPage: React.FC<any> = () => {
     const [error, setError] = useState<string>('');
     const [done, setDone] = useState<boolean>(false);
 
-    useEffect(() => {
+    const verifyAccount = async () => {
         if (done) return;
-        (async () => {
-            try {
-                const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/completeVerification/${verificationCode}`);
-                setMessage(res.data.message || 'Unknown error');
-            } catch (err: any) {
-                setError(err.response.data.message || 'Unknown error');
-                throw new Error(err);
-            }
-        })();
-        setDone(true);
-    }, []);
+        try {
+            const res = await axios.post(`${import.meta.env.VITE_API_BASE_URL}/auth/completeVerification/${verificationCode}`);
+            setMessage(res.data.message || 'Unknown error');
+            setDone(true);
+        } catch (err: any) {
+            setError(err.response.data.message || 'Unknown error');
+            throw new Error(err);
+        }
+    };
 
     return (
         <div id='VerifyAccountPage'>
@@ -36,13 +37,24 @@ const VerifyAccountPage: React.FC<any> = () => {
                 <meta name='description' content='Verify account page.' />
                 <meta name='theme-color' content={themeColor} />
             </Helmet>
-            {error.length > 0 ? (
-                <NotFoundPage />
+            {done ? (
+                <>
+                    <Done className='doneIcon' />
+                    <Typography variant='h1' className='message'>
+                        {message}
+                    </Typography>
+                </>
             ) : (
-                <Typography variant='h1' className='message'>
-                    {message.length > 0 ? message : 'Verifying account...'}
-                </Typography>
+                <>
+                    <Typography variant='h1' className='message'>
+                        Verify your account.
+                    </Typography>
+                    <Button disableRipple variant='contained' className='startBtn' onClick={verifyAccount}>
+                        Verify
+                    </Button>
+                </>
             )}
+            {error && <ErrorAlert message={error} close={() => setError('')} />}
         </div>
     );
 };
