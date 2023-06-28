@@ -4,7 +4,7 @@
     .post {
         padding: 20px;
         background-color: var(--color-secondary);
-        border-radius: 10px;
+        border-radius: 20px;
         border: 2px solid var(--color-outline);
 
         /* Smaller screen (mobile) */
@@ -151,7 +151,7 @@
                 align-items: center;
                 justify-content: center;
                 border-radius: 10px;
-                margin: 10px 0;
+                margin-bottom: 10px;
 
                 .commentsInputButton {
                     justify-content: left;
@@ -171,12 +171,12 @@
                     text-transform: none;
                     font-size: 1.1rem;
                     background-color: var(--color-bg);
-                    font-family: Inter,
-                    sans-serif;
+                    font-family: v.$font-title;
+                    letter-spacing: 1.5px;
                     cursor: pointer;
                     color: var(--color-primary);
                     border: 2px solid var(--color-outline);
-                    border-radius: 10px;
+                    border-radius: 15px;
 
                     &:hover {
                         background-color: var(--color-hover);

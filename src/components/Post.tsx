@@ -153,6 +153,7 @@ const Post: React.FC<PostProps> = (props: PostProps) => {
                                         Show more comments
                                     </Link>
                                 )}
+                                {comments.length > 0 && <div className='spacer1' />}
                             </div>
                         )}
                     </div>
