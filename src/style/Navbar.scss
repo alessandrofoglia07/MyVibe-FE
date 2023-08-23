@@ -26,7 +26,7 @@
     }
 
     .searchBarContainer {
-        height: 70px;
+        height: 50px;
 
         /* Smaller screen (mobile) */
         @media only screen and (max-width: 768px) {
@@ -45,9 +45,12 @@
 
     .searchBar {
         width: 100%;
+        height: 100%;
         background-color: var(--color-searchbar);
         border-radius: 20px;
         border: 2px solid var(--color-outline);
+        display: flex;
+        justify-content: center;
 
         fieldset {
             outline: none;
